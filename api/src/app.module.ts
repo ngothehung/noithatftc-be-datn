@@ -26,7 +26,7 @@ import { HttpModule } from "@nestjs/axios";
                 MYSQL_HOST: Joi.string().required(),
                 MYSQL_PORT: Joi.number().required(),
                 MYSQL_USER: Joi.string().required(),
-                MYSQL_PASSWORD: Joi.string().required(),
+                // MYSQL_PASSWORD: Joi.string().required(),
                 MYSQL_DB: Joi.string().required(),
                 PORT: Joi.number(),
                 UPLOADED_FILES_DESTINATION: Joi.string().required()
