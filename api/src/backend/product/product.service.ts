@@ -22,9 +22,9 @@ export class ProductService {
 
         return await this.productRepository.findAndCount({
             where: condition,
-            // relations: {
-            //     category: true,
-            // },
+            relations: {
+                category: true,
+            },
             take: paging.page_size,
             skip: (paging.page - 1) * paging.page_size
         });
