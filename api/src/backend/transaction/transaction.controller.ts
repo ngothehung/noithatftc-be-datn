@@ -3,7 +3,7 @@ import { Request } from "express";
 import { Paging } from "../../common/response/Paging";
 import { ResponseData } from "../../common/response/ResponseData";
 import { ApiTags } from "@nestjs/swagger";
-
+import { UserService } from "../user/user.service";
 import { TransactionService } from "./transaction.service";
 
 @Controller('cms/transaction')
