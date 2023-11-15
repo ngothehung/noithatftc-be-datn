@@ -3,7 +3,8 @@ import { TransactionController } from './transaction.controller';
 import { TransactionService } from './transaction.service';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import TransactionEntity from "../../entities/transaction.entity";
-
+import { ProductModule } from "../../frontend/product/product.module";
+import { OrderModule } from "../../frontend/order/order.module";
 import { HttpModule } from "@nestjs/axios";
 
 @Module({
@@ -11,6 +12,8 @@ import { HttpModule } from "@nestjs/axios";
         TypeOrmModule.forFeature([
             TransactionEntity
         ]),
+        ProductModule,
+        OrderModule,
         HttpModule
     ],
     controllers: [TransactionController],
