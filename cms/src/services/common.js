@@ -94,7 +94,7 @@ export const buildImage = ( img ) =>
 {
 	if ( img )
 	{
-		return process.env.REACT_APP_URL_UPLOAD + "upload/" + img;
+		return process.env.REACT_APP_URL_UPLOAD + "/upload/" + img;
 
 	} 
 	else return DEFAUT_IMG

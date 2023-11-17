@@ -13,7 +13,7 @@ import Breadcrumbs from "../Breadbrumbs/Breadcrumbs";
 // @ts-ignore
 import s from "./Layout.module.scss";
 import { ROUTERS } from "../../router";
-// import IconsPage from "../../pages/uielements/icons/IconsPage";
+import IconsPage from "../../pages/uielements/icons/IconsPage";
 import { useEffect } from "react";
 import { getItem } from "../../services/common";
 import { useState } from "react";
@@ -61,7 +61,7 @@ const Layout = ( props ) =>
 							} )
 						}
 						<Route path="/product" exact render={ () => <Redirect to="/product/list" /> } />
-						{/*<Route path="/template/ui-elements/icons" component={IconsPage}/>*/}
+						<Route path="/template/ui-elements/icons" component={IconsPage}/>
 					</Switch>
 				</main>
 			</div>

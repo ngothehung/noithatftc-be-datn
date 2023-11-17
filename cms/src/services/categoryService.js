@@ -7,28 +7,28 @@ import uploadApi from "./upload";
 export const getCategories = async ( params ) =>
 {
 	let filter = buildFilter( params );
-	return await getMethod( '/cms/category/lists', filter );
+	return await getMethod( '/admin/category', filter );
 }
 
 export const showCategory = async ( id, params ) =>
 {
-	return await getMethod( `/cms/category/show/${ id }`, params );
+	return await getMethod( `/admin/category/show/${ id }`, params );
 }
 
 export const Category = {
 	async create ( data )
 	{
-		return await postMethod( `/cms/category/store`, data );
+		return await postMethod( `/admin/category/store`, data );
 	},
 
 	async update ( id, data )
 	{
-		return await putMethod( `/cms/category/update/${ id }`, data );
+		return await putMethod( `/admin/category/update/${ id }`, data );
 	},
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/cms/category/${ id }` );
+		return await deleteMethod( `/admin/category/${ id }` );
 	}
 }
 
@@ -59,7 +59,7 @@ export const getCategoriesByFilter = async ( params, dispatch ) =>
 	{
 		dispatch( toggleShowLoading( true ) )
 		const response = await getCategories( params );
-
+		
 		if ( response?.status === 'success' )
 		{
 			return response?.data;

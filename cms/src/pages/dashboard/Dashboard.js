@@ -21,6 +21,9 @@ import meal3 from "../../assets/dashboard/meal-3.svg";
 import s from "./Dashboard.module.scss";
 import { useDispatch } from "react-redux";
 import { DASHBOARD_SERVICE } from "../../services/dashboard.js";
+import Charts from "../uielements/charts/Charts.js";
+import ApexLineChart from "../uielements/charts/components/ApexLineChart.js";
+import RechartsPieChart from "../uielements/charts/components/RechartsPieChart.js";
 import { Form, Select } from "antd";
 import moment from "moment";
 
@@ -51,7 +54,7 @@ const Dashboard = () =>
 
 	useEffect( () =>
 	{
-		getDashboard( {} );
+		// getDashboard( {} );
 		getTime()
 	}, [] );
 
@@ -69,11 +72,11 @@ const Dashboard = () =>
 		setOptionMonth( arrayTime )
 	}
 
-	const getDashboard = async ( filter ) =>
-	{
-		await DASHBOARD_SERVICE.getByFilter( filter, setData, dispatch );
-	}
-
+	// const getDashboard = async ( filter ) =>
+	// {
+	// 	await DASHBOARD_SERVICE.getByFilter( filter, setData, dispatch );
+	// }
+	return null
 	return (
 		<Row>
 			<Col className="pr-grid-col" xs={ 12 } lg={ 12 }>
@@ -125,6 +128,14 @@ const Dashboard = () =>
 							/>
 						</div> */}
 						<Row className="gutter mb-4">
+							{/* <Col className="mb-4 pr-0 mb-md-0" xs={ 12 } md={ 6 }>
+								<h2 className="headline-2 mb-3">Order Sales Amount</h2>
+								<ApexLineChart className="pb-4" listDates={data?.listDate} data={data?.listOrderByStatus}/>
+							</Col> */}
+							<Col className="mb-4 px-0 mb-md-0" xs={ 12 } md={ 12}>
+								<h2 className="headline-2 mb-3">Order Status</h2>
+								<RechartsPieChart className="pb-4" data={data?.orderByStatus}/>
+							</Col>
 						</Row>
 					</Widget>
 

@@ -6,6 +6,7 @@ import
 } from "reactstrap";
 import Widget from "../../Widget/Widget.js";
 
+import s from "../../../pages/tables/Tables.js";
 import { customDate } from "../../../helpers/common/common.js";
 import { Pagination, message } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
@@ -118,7 +119,7 @@ export const Roles = ( props ) =>
 													<Link to={ `/setting/role/edit/${ item.id }` } className="d-flex justify-content-center">
 														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 													</Link>
-													{/* <DeleteOutlined onClick={ () => deleteData( item.id ) }
+													{/* <DeleteOutlined onClick={ () => deleteData( item.id ) } 
 													className="mx-2" style={ { fontSize: "16px" } } /> */}
 												</div>
 											</td>

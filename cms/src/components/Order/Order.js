@@ -11,6 +11,7 @@ import
 import Widget from "../Widget/Widget.js";
 import Icon, { SmallDashOutlined } from '@ant-design/icons';
 
+import s from "../../pages/tables/Tables.js";
 import { customNumber } from "../../helpers/common/common.js";
 import { OrderSearch } from "./OrderSearch.js";
 import { Pagination } from "antd";

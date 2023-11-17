@@ -37,13 +37,10 @@ const Login = ( props ) =>
 	const submitForm = async ( e ) =>
 	{
 		dispatch( toggleShowLoading( true ) );
-		localStorage.setItem('access_token_cms', 'token');
-		window.location.href = '/';
-		return;
 		const response = await AUTH_SERVICE.login(e, dispatch);
-
+		console.log(response);
 		if(response?.status == 'success') {
-			localStorage.setItem('access_token_cms', response?.data?.token_info?.accessToken);
+			localStorage.setItem('access_token_cms', response?.data?.token_info?.access_token);
 			localStorage.setItem('full_name', response?.data?.user?.name);
 			localStorage.setItem('email', response?.data?.user?.email);
 			localStorage.setItem('phone', response?.data?.user?.phone);
@@ -65,7 +62,7 @@ const Login = ( props ) =>
 								<p className="auth-header mb-0">Login</p>
 								<div className="logo-block">
 									<SofiaLogo />
-									<p className="mb-0">Drug Store CMS</p>
+									<p className="mb-0">Cửa hàng Nội thất ftc</p>
 								</div>
 							</div>
 							<Form
@@ -76,7 +73,7 @@ const Login = ( props ) =>
 								validateMessages={ VALIDATE_FORM }
 							>
 								<div className='mb-3 form-group'>
-									<Form.Item name="email" label="Email"
+									<Form.Item name="username" label="Email"
 										rules={ [ { required: true } ] }
 										className=' d-block'>
 										<Input className='form-control' style={ { height: '40px', borderRadius: '10px' } } placeholder='Enter Email' />

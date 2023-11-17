@@ -63,7 +63,7 @@ const Sidebar = ( props ) =>
 			} else
 			{
 				return <LinksGroup
-					key={-1}
+					key={item.key}
 					onActiveSidebarItemChange={ activeItem => props.dispatch( changeActiveSidebarItem( activeItem ) ) }
 					activeItem={ props.activeItem }
 					header={ item.title }
@@ -80,12 +80,32 @@ const Sidebar = ( props ) =>
 		<nav className={ cn( s.root, { [ s.sidebarOpen ]: burgerSidebarOpen } ) } >
 			<header className={ s.logo }>
 				<SofiaLogo />
-				<span className={ s.title }>Drug Store</span>
+				<span className={ s.title }>Cửa hàng Nội thất</span>
 			</header>
 			<ul className={ s.nav }>
 				{
 					genSideBar()
 				}
+				{/* <LinksGroup
+					onActiveSidebarItemChange={ activeItem => props.dispatch( changeActiveSidebarItem( activeItem ) ) }
+					activeItem={ props.activeItem }
+					header="UI Elements"
+					isHeader
+					iconName={ <i className={ 'eva eva-cube-outline' } /> }
+					link="/template/uielements"
+					index="uielements"
+					childrenLinks={ [
+						{
+							header: 'Charts', link: '/template/ui-elements/charts',
+						},
+						{
+							header: 'Icons', link: '/template/ui-elements/icons',
+						},
+						{
+							header: 'Google Maps', link: '/template/ui-elements/maps',
+						},
+					] }
+				/> */}
 			</ul>
 			{/* <div className="bg-widget d-flex mt-auto ml-1">
 				<Button className="rounded-pill my-3 body-2 d-none d-md-block" type="submit" color="secondary-red">Unlock Full Version</Button>

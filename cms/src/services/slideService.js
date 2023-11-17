@@ -11,30 +11,30 @@ export const getSlides = async ( params ) =>
 
 export const show = async ( id, params ) =>
 {
-	return await getMethod( `/cms/slide/show/${ id }`, params );
+	return await getMethod( `/admin/slide/show/${ id }`, params );
 }
 
 export const SlideService = {
 	async getList(params) {
 		let filter = buildFilter( params );
-		return await getMethod( 'slide', filter );
+		return await getMethod( '/admin/slide', filter );
 	},
 	async show(id) {
-		return await getMethod( `/cms/slide/show/${ id }` );
+		return await getMethod( `/admin/slide/show/${ id }` );
 	},
 	async create ( data )
 	{
-		return await postMethod( `/cms/slide/store`, data );
+		return await postMethod( `/admin/slide/store`, data );
 	},
 
 	async update ( id, data )
 	{
-		return await putMethod( `/cms/slide/update/${ id }`, data );
+		return await putMethod( `/admin/slide/update/${ id }`, data );
 	},
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/cms/slide/${ id }` );
+		return await deleteMethod( `/admin/slide/${ id }` );
 	}
 }
 

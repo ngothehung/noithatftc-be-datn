@@ -94,14 +94,16 @@ export const OrderForm = ( props ) =>
 	{
 		dispatch( toggleShowLoading( true ) );
 		const response = await updateOrder( id, e );
+		dispatch( toggleShowLoading( false ) );
+
 		if ( response?.status === 'success' )
 		{
 			message.success( 'Update order successfully!' );
+			window.location.href = '/order'
 		} else
 		{
-			message.error( response.message );
+			message.error( response?.message );
 		}
-		dispatch( toggleShowLoading( false ) );
 	}
 
 	const onFieldsChange = ( e ) =>

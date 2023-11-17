@@ -40,14 +40,12 @@ export function logoutUser() {
 
 export function loginUser(creds) {
   return (dispatch) => {
-    localStorage.setItem('authenticated', true)
-
-    // dispatch(receiveLogin());
-    // if (creds.email.length > 0 && creds.password.length > 0) {
-    //   localStorage.setItem('authenticated', true)
-    // } else {
-    //   dispatch(loginError('Something was wrong. Try again'));
-    // }
+    dispatch(receiveLogin());
+    if (creds.email.length > 0 && creds.password.length > 0) {
+      localStorage.setItem('authenticated', true)
+    } else {
+      dispatch(loginError('Something was wrong. Try again'));
+    }
   }
 }
 

@@ -8,28 +8,28 @@ import uploadApi from "./upload";
 export const getProducts = async ( params ) =>
 {
 	let filter = buildFilter( params );
-	return await getMethod( '/cms/product/lists', filter );
+	return await getMethod( '/admin/product', filter );
 }
 
 export const showProduct = async ( id, params ) =>
 {
-	return await getMethod( `/cms/product/show/${ id }`, params );
+	return await getMethod( `/admin/product/show/${ id }`, params );
 }
 
 export const Product = {
 	async create ( data )
 	{
-		return await postMethod( `/cms/product/store`, data );
+		return await postMethod( `/admin/product/store`, data );
 	},
 
 	async update ( id, data )
 	{
-		return await putMethod( `/cms/product/update/${ id }`, data );
+		return await putMethod( `/admin/product/update/${ id }`, data );
 	},
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/cms/product/${ id }` );
+		return await deleteMethod( `/admin/product/${ id }` );
 	}
 }
 
@@ -41,7 +41,7 @@ export const showProductDetail = async ( productId, setProductData ) =>
 		const response = await showProduct( productId );
 		if ( response?.status === 'success' )
 		{
-			setProductData( response?.data );
+			setProductData( response?.data?.product );
 		} else
 		{
 			setProductData( null );
@@ -72,7 +72,7 @@ export const getProductsByFilter = async ( params, setProducts, setPaging, dispa
 		dispatch( toggleShowLoading( false ) )
 	} catch ( error )
 	{
-		console.log( error );
+		console.log( "error product--------> ", error );
 		setProducts( [] );
 		dispatch( toggleShowLoading( false ) )
 
@@ -90,15 +90,15 @@ export const submitFormProduct = async ( id = null, files, e, dispatch, history 
 		await timeDelay( 2000 );
 		// return;
 		let formValue = { ...e };
-
+		
 		delete formValue.image;
-		console.log(avatar);
 		formValue.avatar = avatar;
 		formValue.products_images = fileImg;
 		formValue.hot = formValue.hot ? 1 : -1;
 		formValue.category_id = Number( formValue.category_id );
 		formValue.price = Number( formValue.price );
 		formValue.number = Number( formValue.number );
+		formValue.sale = Number( formValue.sale || 0 );
 		let response;
 		if ( id )
 		{

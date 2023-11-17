@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Breadcrumb, Button, Col, Row } from "react-bootstrap";
-import moment from "moment/moment";
-import { toast } from "react-toastify";
-import { Container, Table } from 'reactstrap';
 import Widget from '../Widget/Widget';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { Pagination } from 'antd';
+import { Pagination, message } from 'antd';
+import
+{
+	Button,
+	Table
+} from "reactstrap";
+import { StarIcons } from './star';
+import { useDispatch } from 'react-redux';
+import { toggleShowLoading } from '../../redux/actions/common';
+import { timeDelay } from '../../services/common';
+import s from "../../pages/tables/Tables.js";
+import { VOTE_SERVICE_CMS } from '../../services/voteService'
+import { EMPTY_IMG } from '../../helpers/constant/image.js';
 
-export default function PageVoting ()
+export const PageVoting = () =>
 {
 
 	const [ paging, setPaging ] = useState( {
@@ -16,121 +23,117 @@ export default function PageVoting ()
 		total: 0
 	} );
 
-	const [ params, setParams ] = useState( {
-
-	} );
-
-
+	const dispatch = useDispatch();
 	const [ dataList, setDataList ] = useState( [] );
 
 	useEffect( () =>
 	{
-		getDataList( { page: paging.page, page_size: paging.page_size, ...params } ).then( r => { } );
+		getDataList( { page: paging.page, page_size: paging.page_size } ).then( r => { } );
 	}, [] );
 
 	const getDataList = async ( filters ) =>
 	{
-		// const response = await voteService.getLists( filters )
-		// if ( response?.status === 'success' || response?.status === 200 )
-		// {
-		// 	setDataList( response.data.votes );
-		// 	setPaging( response.meta )
-		// }
+		try
+		{
+			dispatch( toggleShowLoading( true ) );
+			const response = await VOTE_SERVICE_CMS.getLists( filters );
+			await timeDelay( 1000 );
+			if ( response?.status === 'success' || response?.status === 200 )
+			{
+				setDataList( response?.data?.votes );
+				setPaging( response?.data?.meta )
+			}
+			dispatch( toggleShowLoading( false ) );
+		} catch ( error )
+		{
+			console.log( error );
+			dispatch( toggleShowLoading( false ) );
+		}
+
 	}
 
 	const handleDelete = async ( id ) =>
 	{
-		// const response = await voteService.delete( id );
-		// if ( response?.status === 'success' || response?.status === 200 )
-		// {
-		// 	toast( "Xóa thành công!" );
-		// 	getDataList( { ...params } ).then( r => { } );
-		// } else
-		// {
-		// 	toast( response?.error || 'error' );
-		// }
+		console.log( id );
+		dispatch( toggleShowLoading( true ) );
+		const response = await VOTE_SERVICE_CMS.delete( id );
+		if ( response?.status === 'success' || response?.status === 200 )
+		{
+			message.success( 'Delete review successfully!' );
+			getDataList( { page: 1, page_size: 20 } ).then( r => { } );
+		} else
+		{
+			message.error( response?.message || 'Delete review failed!' );
+		}
+		dispatch( toggleShowLoading( false ) );
 	}
 
 	return (
-		<div>
-
-			<Container>
-				<Row>
-					<Col>
-						<Breadcrumb>
-							<Breadcrumb.Item href="/user" >
-								Đánh giá
-							</Breadcrumb.Item>
-							<Breadcrumb.Item active>Danh sách</Breadcrumb.Item>
-						</Breadcrumb>
-						{/* <div className={ 'd-flex justify-content-end' }>
-							<Link className={ 'btn btn-sm btn-primary' } to={ '/user/create' } >Thêm mới</Link>
-						</div> */}
-						<div className="widget-table-overflow p-5 mt-4">
-							<Table className={ `table-striped table-bordered table-hover ${ s.statesTable }` } responsive>
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>Customer</th>
-										<th>Product</th>
-										<th>Number Vote</th>
-										<th>Content</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									{ dataList.length > 0 ? dataList.map( ( item, key ) =>
-									{
-										return (
-											<tr key={ key }>
-												<td className='align-middle'>{ key + 1 }</td>
-												<td className='text-nowrap align-middle'>
-													{ item.user?.name || 'N/A' }
-													{/* <Link className={ '' }
+		<Widget>
+			<div className="widget-table-overflow p-5 mt-4">
+				<Table className={ `table-striped table-bordered table-hover ${ s.statesTable }` } responsive>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Customer</th>
+							<th>Product</th>
+							<th className='text-nowrap'>Number Vote</th>
+							<th>Content</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						{ dataList.length > 0 ? dataList.map( ( item, key ) =>
+						{
+							return (
+								<tr key={ key }>
+									<td className='align-middle'>{ key + 1 }</td>
+									<td className='text-nowrap align-middle'>
+										{ item?.user?.name || 'N/A' }
+										{/* <Link className={ '' }
 													to={ `/vote/update/${ item._id }` } >
 													
 												</Link> */}
-												</td>
-												<td className='text-nowrap align-middle'>{ item.user?.email || 'N/A' }</td>
-												<td className='text-nowrap align-middle'>{ item.room?.name || 'N/A' }</td>
-												<td className='align-middle'>
-													<StarIcons vote_number={ item.vote_number } />
-												</td>
-												<td className='text-break' style={ { maxWidth: '200px' } }>{ item.vote_content }</td>
-												<td className='align-middle'>
-													<Button variant="danger" size="sm"
-														onClick={ () => handleDelete( item.id ) }>
-														Xóa
-													</Button>{ ' ' }
-												</td>
-											</tr>
-										)
-									} )
-										:
-										<tr>
-											<td className='text-center' colSpan={ 8 }>Không có dữ liệu</td>
-										</tr>
-									}
-
-								</tbody>
-							</Table>
-						</div>
-						{
-							paging?.total > 0 &&
-							<div className="mx-auto d-flex justify-content-center my-4">
-								<Pagination
-									onChange={ e =>
-										getDataList( { ...paging, page: e, ...params } )
-									}
-									pageSize={ paging.page_size }
-									defaultCurrent={ paging.page }
-									total={ paging.total }
-								/>
-							</div>
+									</td>
+									<td className='align-middle' style={ { maxWidth: '100px' } }>{ item?.product?.name || 'N/A' }</td>
+									<td className='align-middle text-nowrap'>
+										<StarIcons vote_number={ item?.number } />
+									</td>
+									<td className='text-break' style={ { maxWidth: '200px' } }>{ item.content }</td>
+									<td className='align-middle'>
+										<Button className='btn btn-danger'
+											onClick={ () => handleDelete( item.id ) }>
+											Delete
+										</Button>{ ' ' }
+									</td>
+								</tr>
+							)
+						} )
+							:
+							<tr>
+								<td colSpan={ 6 } style={ { textAlign: "center", backgroundColor: '#ffff' } }>
+									<img className="text-center" src={ EMPTY_IMG } style={ { width: "300px", height: "300px" } } />
+									<div style={ { color: "#9A9A9A" } }>Data empty</div>
+								</td>
+							</tr>
 						}
-					</Col>
-				</Row>
-			</Container>
-		</div>
+
+					</tbody>
+				</Table>
+			</div>
+			{
+				paging?.total > 0 &&
+				<div className="mx-auto d-flex justify-content-center my-4">
+					<Pagination
+						onChange={ e =>
+							getDataList( { ...paging, page: e } )
+						}
+						pageSize={ paging.page_size }
+						defaultCurrent={ paging.page }
+						total={ paging.total }
+					/>
+				</div>
+			}
+		</Widget>
 	);
 }

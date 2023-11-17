@@ -6,6 +6,7 @@ import
 } from "reactstrap";
 import Widget from "../Widget/Widget.js";
 
+import s from "../../pages/tables/Tables.js";
 import { customDate } from "../../helpers/common/common.js";
 import { CategorySearch } from "./CategorySearch.js";
 import { Pagination } from "antd";

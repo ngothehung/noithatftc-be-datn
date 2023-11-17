@@ -9,7 +9,7 @@ export const AUTH_SERVICE = {
 	{
 		try
 		{
-			const response = await postMethod( '/auth/login', data );;
+			const response = await postMethod( '/auth/login', data );
 			await timeDelay( 2000 );
 			return response;
 		} catch ( error )
@@ -20,16 +20,16 @@ export const AUTH_SERVICE = {
 	// async getProfile ( id, dispatch ) 
 	async getProfile()
 	{
-		return await getMethod('/auth/info');
+		return await getMethod('/auth/profile');
 	},
 
 	async update ( data )
 	{
-		return await putMethod( `/auth/info`, data );
+		return await putMethod( `/auth/profile`, data );
 	},
 	async changePassword ( data )
 	{
-		return await putMethod( `/auth/info/change-password`, data );
+		return await putMethod( `/auth/change-password`, data );
 	}
 }
 export const submitProfile = async (files, e, dispatch, history ) =>

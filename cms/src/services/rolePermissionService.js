@@ -9,7 +9,7 @@ export const ROLE_SERVICE = {
 		{
 			let filter = buildFilter( params );
 			// dispatch( toggleShowLoading( true ) );
-			const response = await getMethod( '/be/role', filter );
+			const response = await getMethod( '/admin/role', filter );
 			await timeDelay( 2000 );
 			if ( response?.status === 'success' )
 			{
@@ -31,7 +31,7 @@ export const ROLE_SERVICE = {
 		try
 		{
 			dispatch( toggleShowLoading( true ) );
-			const response = await getMethod( `/cms/role/show/${ id }`, {} );
+			const response = await getMethod( `/admin/role/show/${ id }`, {} );
 			await timeDelay( 1000 );
 			dispatch( toggleShowLoading( false ) );
 			if ( response?.status === 'success' )
@@ -47,17 +47,17 @@ export const ROLE_SERVICE = {
 	},
 	async create ( data )
 	{
-		return await postMethod( `/cms/role/store`, data );
+		return await postMethod( `/admin/role/store`, data );
 	},
 
 	async update ( id, data )
 	{
-		return await putMethod( `/cms/role/update/${ id }`, data );
+		return await putMethod( `/admin/role/update/${ id }`, data );
 	},
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/cms/role/delete/${ id }` );
+		return await deleteMethod( `/admin/role/delete/${ id }` );
 	}
 }
 
@@ -89,7 +89,7 @@ export const getPermissions = async ( params ) =>
 	try
 	{
 		let filter = buildFilter( params );
-		const response = await getMethod( '/be/permission', filter );
+		const response = await getMethod( '/admin/permission', filter );
 		if ( response?.status === 'success' )
 		{
 			return response?.data;
@@ -105,7 +105,7 @@ export const getGroup = async (  ) =>
 {
 	try
 	{
-		const response = await getMethod( '/be/permission/config-type', {} );
+		const response = await getMethod( '/admin/permission/config-type', {} );
 		if ( response?.status === 'success' )
 		{
 			return response?.data;
