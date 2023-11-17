@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import Category from "./category.entity";
 import Order from "./order.entity";
-
+import Vote from "./vote.entity";
 
 @Entity('products')
 class Product {
@@ -56,7 +56,7 @@ class Product {
     @Column()
     public updated_at: Date;
 
-    
+    @ManyToOne(() => Category, (category) => category.products)
     @JoinColumn({ name: "pro_category_id", referencedColumnName: "id"})
     category: Category
 
@@ -64,9 +64,9 @@ class Product {
     // @JoinColumn({ name: "id", referencedColumnName: "od_product_id"})
     order: Order
 
-   
-   
-
+    @OneToMany(() => Vote, (vote) => vote.product)
+    @JoinColumn({ name: "id", referencedColumnName: "v_product_id"})
+    votes: Vote[]
 }
 
 export default Product;

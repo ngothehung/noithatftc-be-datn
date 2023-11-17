@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
+import Vote from "./vote.entity";
 
 @Unique(["email"])
 @Unique(["username"])
@@ -38,7 +39,9 @@ class User {
     @Column()
     public updated_at: Date;
 
-   
+    @OneToMany(() => Vote, (vote) => vote.user)
+    @JoinColumn({ name: "id", referencedColumnName: "v_user_id"})
+    votes: Vote[]
 }
 
 export default User;
