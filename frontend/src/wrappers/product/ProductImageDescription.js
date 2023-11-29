@@ -32,7 +32,7 @@ const ProductImageDescription = ( {
 	const { addToast } = useToasts();
 
 
-	const discountedPrice = (checkTimeNow(product?.sale_to) && product?.sale) ? getDiscountPrice( product.price, product.sale ) : 0;
+	const discountedPrice = (checkTimeNow(product?.sale_to) && product?.sale) ? getDiscountPrice( product.price, product.sale ) : null;
 	const finalProductPrice = +( product.price * currency.currencyRate ).toFixed( 2 );
 	const finalDiscountedPrice = +(discountedPrice * currency.currencyRate).toFixed( 2 );
 

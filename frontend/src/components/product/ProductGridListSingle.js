@@ -25,7 +25,7 @@ const ProductGridListSingle = ( {
 	const [ modalShow, setModalShow ] = useState( false );
 	const { addToast } = useToasts();
 
-	const discountedPrice = (checkTimeNow(product?.sale_to) && product?.sale) ? getDiscountPrice( product.price, product.sale ) : 0;
+	const discountedPrice = (checkTimeNow(product?.sale_to) && product?.sale) ? getDiscountPrice( product.price, product.sale ) : null;
 	const finalProductPrice = +( product.price * currency.currencyRate ).toFixed( 2 );
 	const finalDiscountedPrice = +( discountedPrice * currency.currencyRate ).toFixed( 2 );
 
@@ -39,7 +39,8 @@ const ProductGridListSingle = ( {
 					className={ `product-wrap ${ spaceBottomClass ? spaceBottomClass : "" }` }
 				>
 					<div className="product-img">
-						<Link to={ process.env.PUBLIC_URL + "/product/" + product.id }>
+						{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */}
+						<Link to={`/product/${product?.slug}-${product.id}`}>
 							<img
 								className="default-img"
 								src={ buildImage( product.avatar ) }
@@ -128,7 +129,8 @@ const ProductGridListSingle = ( {
 					</div>
 					<div className="product-content text-center">
 						<h3>
-							<Link to={ process.env.PUBLIC_URL + "/product/" + product.id }>
+							{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */}
+						<Link to={`/product/${product?.slug}-${product.id}`}>
 								{ product.name }
 							</Link>
 						</h3>
@@ -158,7 +160,8 @@ const ProductGridListSingle = ( {
 						<div className="col-xl-4 col-md-5 col-sm-6">
 							<div className="product-list-image-wrap">
 								<div className="product-img">
-									<Link to={ process.env.PUBLIC_URL + "/product/" + product.id }>
+									{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */}
+						<Link to={`/product/${product?.slug}-${product.id}`}>
 										<img
 											className="default-img"
 											src={ buildImage( product.avatar ) }
@@ -194,7 +197,8 @@ const ProductGridListSingle = ( {
 						<div className="col-xl-8 col-md-7 col-sm-6">
 							<div className="shop-list-content">
 								<h3>
-									<Link to={ process.env.PUBLIC_URL + "/product/" + product.id }>
+									{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */}
+						<Link to={`/product/${product?.slug}-${product.id}`}>
 										{ product.name }
 									</Link>
 								</h3>

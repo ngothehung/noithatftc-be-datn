@@ -96,8 +96,8 @@ const mapDispatchToProps = (dispatch) => {
           item,
           addToast,
           quantityCount,
-          selectedProductColor,
-          selectedProductSize
+        //   selectedProductColor,
+        //   selectedProductSize
         )
       );
     },

@@ -25,7 +25,7 @@ const MyOrder = ({ location }) => {
 		<LayoutOne headerTop="visible">
 			{/* breadcrumb */}
 			<Breadcrumb />
-			<Order></Order>
+			<Order/>
 		</LayoutOne>
 	</Fragment>
     );

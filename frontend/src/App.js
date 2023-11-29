@@ -8,6 +8,7 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { Routers } from "./router/router";
 
 // home pages
 
@@ -69,26 +70,37 @@ const App = ( props ) =>
 							}
 						>
 							<Switch>
+								{ Routers.map( ( item, key ) =>
+								{
+									return (
+										<Route
+											key={ key }
+											exact={ item.exact }
+											path={ item.path }
+											component={ item.component }
+										/>
+									)
+								} ) }
+								<Redirect from="/auth" to="auth/login" />
+							</Switch>
+							{/* <Switch>
 								<Route
 									exact
 									path={ process.env.PUBLIC_URL + '/' }
 									component={ HomeCakeShop }
 								/>
 
-								{/* Homepages */ }
 
 								<Route
 									path={ "/home" }
 									component={ HomeCakeShop }
 								/>
 
-								{/* Shop pages */ }
 								<Route
 									path={ "/shop" }
 									component={ ShopGridStandard }
 								/>
 
-								{/* Shop product pages */ }
 								<Route
 									path={ process.env.PUBLIC_URL + "/product/:id" }
 									render={ ( routeProps ) => (
@@ -96,13 +108,11 @@ const App = ( props ) =>
 									) }
 								/>
 
-								{/* Blog pages */ }
 								<Route
 									path={ process.env.PUBLIC_URL + "/blog-standard" }
 									component={ BlogStandard }
 								/>
 
-								{/* Other pages */ }
 								<Route
 									path={ process.env.PUBLIC_URL + "/about" }
 									component={ About }
@@ -128,7 +138,7 @@ const App = ( props ) =>
 									component={ LoginRegister }
 								/>
 
-								<Redirect from="/auth" to="auth/login" />
+								
 
 								<Route
 									path={ process.env.PUBLIC_URL + "/cart" }
@@ -153,7 +163,7 @@ const App = ( props ) =>
 								/>
 
 								<Route exact component={ NotFound } />
-							</Switch>
+							</Switch> */}
 						</Suspense>
 					</ScrollToTop>
 				</Router>

@@ -10,9 +10,10 @@ import ShopSidebar from '../../wrappers/product/ShopSidebar';
 import ShopTopbar from '../../wrappers/product/ShopTopbar';
 import ShopProducts from '../../wrappers/product/ShopProducts';
 import * as queryString from 'query-string';
-import { getCategories, getCategoryList, getProducts } from "../../services/index";
+import { buildFilter, getCategories, getCategoryList, getProducts } from "../../services/index";
 import { toggleShowLoading } from "../../redux/actions/common";
 import { Pagination } from "antd";
+import { useHistory } from "react-router-dom";
 
 const ShopGridStandard = ( { location, dispatch } ) =>
 {
@@ -28,6 +29,7 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 	const [ paging, setPaging ] = useState( { page: 1, page_size: 20, total: 0 } );
 
 	const { pathname } = location;
+	const history = useHistory()
 
 
 	const getLayout = ( layout ) =>
@@ -38,8 +40,12 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 	const getProductList = async ( filter ) =>
 	{
 		dispatch( toggleShowLoading( true ) );
+		
 		try
 		{
+			filter = buildFilter(filter);
+			const paramSearch = new URLSearchParams(filter).toString();
+			history.replace({search: paramSearch});
 			const response = await getProducts( filter );
 			if ( response?.status === 'success' )
 			{
@@ -72,9 +78,8 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 	{
 
 		paging.page = currentPage;
-		// console.log(queryString());
 		getProductList( { ...paging, ...params } );
-	}, [ currentPage, params.name, params.category_id ] );
+	}, [ params.name, params.category_id ] );
 
 
 	return (
@@ -85,7 +90,7 @@ const ShopGridStandard = ( { location, dispatch } ) =>
             </MetaTags> */}
 
 			<BreadcrumbsItem to={ '/' }>Home</BreadcrumbsItem>
-			<BreadcrumbsItem to={ pathname }>Shop</BreadcrumbsItem>
+			<BreadcrumbsItem to={ pathname }>Products</BreadcrumbsItem>
 
 			<LayoutOne headerTop="visible">
 				{/* breadcrumb */ }
@@ -115,7 +120,7 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 									<div className="mx-auto d-flex justify-content-center my-4">
 										<Pagination
 											onChange={ e =>
-												getProductList( { ...paging, page: e, ...params } )
+												getProductList( { page: e,page_size: paging.page_size || 10 , ...params } )
 											}
 											pageSize={ paging.page_size }
 											defaultCurrent={ paging.page }

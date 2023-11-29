@@ -238,6 +238,9 @@
           @media #{$lg-layout} {
             left: -75px;
           }
+		  > li.category-menu {
+			width: 66.66%;
+		  }
           > li {
             display: inline-block;
             float: left;
@@ -331,6 +334,10 @@
             }
           }
         }
+		ul.category-mega > li > ul {
+			display: flex;
+			
+		}
         &:hover > ul.submenu {
           visibility: visible;
 
