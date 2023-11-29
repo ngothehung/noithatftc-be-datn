@@ -12,11 +12,12 @@ import ProductImageDescription from "../../wrappers/product/ProductImageDescript
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { getProducts, showProduct, showProductDetail } from "../../services";
 import { VOTE_SERVICE } from "../../services/shop/vote-service";
+import { extractIdBySlug } from "../../helpers/func";
 
 const Product = ( { location } ) =>
 {
 	const { pathname } = location;
-	const { id } = useParams()
+	const { id: param } = useParams()
 
 	const [ productData, setProductData ] = useState( null );
 	const [ reviews, setReviews ] = useState( [] );
@@ -29,9 +30,14 @@ const Product = ( { location } ) =>
 	const dispatch = useDispatch();
 	useEffect( () =>
 	{
-		showProductDetail( id, setProductData, dispatch );
-		getDataVotes({...paging, product_id: id});
-	}, [ id ] );
+		if(param) {
+			console.log(param);
+			let id = extractIdBySlug(param);
+			console.log(id);
+			showProductDetail( id, setProductData, dispatch );
+			getDataVotes({...paging, product_id: id});
+		}
+	}, [ param ] );
 
 	useEffect( () =>
 	{

@@ -10,6 +10,7 @@ import BannerTwenty from "../../wrappers/banner/BannerTwenty";
 import HeroSliderTwentyTwo from "../../wrappers/hero-slider/HeroSliderTwentyTwo";
 import { getSlidesByFilters } from "../../services/shop/slider-service";
 import { getCategories, getProductsByFilter } from "../../services";
+import CategoryTwoSlider from "../../wrappers/slider/CategoryTwoSlider";
 
 const HomeCakeShop = () => {
 
@@ -26,7 +27,7 @@ const HomeCakeShop = () => {
 
 	useState(() => {
 		getSlidesByFilters({page: 1, page_size:20, status: 1}, setSlides);
-		getCategories( {page: 1, page_size: 2, status: 1}, setCategories );
+		getCategories( {page: 1, page_size: 5, status: 1}, setCategories );
 	}, []);
 
 	useEffect(() => {
@@ -49,6 +50,7 @@ const HomeCakeShop = () => {
         {/* banner */}
         {/* <BannerNineteen spaceTopClass="pt-100" spaceBottomClass="pb-80" /> */}
         {/* feature icon */}
+		
         <FeatureIconFour
           bgImg="/assets/img/bg/shape.png"
           containerClass="container-fluid"
@@ -56,6 +58,7 @@ const HomeCakeShop = () => {
           spaceTopClass="pt-50"
           spaceBottomClass="pb-40"
         />
+		{categories?.length > 0 && <CategoryTwoSlider categoryData={categories}/>} 
         {/* tab product */}
         <TabProductFourteen
           category="cakes"
@@ -63,10 +66,10 @@ const HomeCakeShop = () => {
 		  setParams={setParams}
 		  params={params}
           spaceBottomClass="pb-100"
-          spaceTopClass="pt-100"
+          spaceTopClass="pt-50"
         />
         {/* banner */}
-        <BannerTwenty categories={categories} />
+        {/* <BannerTwenty categories={categories} /> */}
         {/* blog featured */}
         {/* <BlogFeaturedThree spaceTopClass="pt-70" spaceBottomClass="pb-70" /> */}
       </LayoutOne>

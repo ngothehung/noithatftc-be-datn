@@ -45,14 +45,14 @@ const TabProductFourteen = ( {
 				} ${ extraClass ? extraClass : "" }` }
 		>
 			<div className={ `${ containerClass ? containerClass : "container" }` }>
-				<SectionTitleThree
+				{/* <SectionTitleThree
 					titleText="Featured Products"
 					positionClass="text-center"
-				/>
+				/> */}
 				<Tab.Container defaultActiveKey="newArrival">
 					<Nav
 						variant="pills"
-						className="product-tab-list pt-30 pb-55 text-center"
+						className="product-tab-list-2 pt-30 pb-55 text-center"
 					>
 						<Nav.Item>
 							<Nav.Link eventKey="newArrival" onSelect={ ( e ) =>
@@ -71,10 +71,7 @@ const TabProductFourteen = ( {
 							</Nav.Link>
 						</Nav.Item>
 						{/* <Nav.Item>
-							<Nav.Link eventKey="saleItems" onSelect={ ( e ) =>
-							{
-								handleChangeTab( 2 )
-							} }>
+							<Nav.Link className="">
 								<h4>Giảm giá</h4>
 							</Nav.Link>
 						</Nav.Item> */}

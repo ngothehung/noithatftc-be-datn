@@ -25,7 +25,7 @@ const ProductGridSingle = ( {
 	const [ modalShow, setModalShow ] = useState( false );
 	const { addToast } = useToasts();
 
-	const discountedPrice = (checkTimeNow(product?.sale_to) && product?.sale) ? getDiscountPrice( product.price, product.sale ) : 0;
+	const discountedPrice = ( checkTimeNow( product?.sale_to ) && product?.sale ) ? getDiscountPrice( product.price, product.sale ) : 0;
 	const finalProductPrice = +( product.price * currency.currencyRate ).toFixed( 2 );
 	const finalDiscountedPrice = +(
 		discountedPrice * currency.currencyRate
@@ -42,7 +42,8 @@ const ProductGridSingle = ( {
 					className={ `product-wrap ${ spaceBottomClass ? spaceBottomClass : "" }` }
 				>
 					<div className="product-img">
-						<Link to={ process.env.PUBLIC_URL + "/product/" + product.id }>
+						{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
+						<Link to={ `/product/${ product?.slug }-${ product.id }` }>
 							<img
 								className="default-img"
 								src={ buildImage( product.avatar ) }
@@ -62,7 +63,7 @@ const ProductGridSingle = ( {
 						</Link>
 						{ product.sale || product.hot === 1 ? (
 							<div className="product-img-badges">
-								{ product.sale && (checkTimeNow(product?.sale_to) && product?.sale) ? (
+								{ product.sale && ( checkTimeNow( product?.sale_to ) && product?.sale ) ? (
 									<span className="pink">-{ product.sale }%</span>
 								) : (
 									""
@@ -136,7 +137,8 @@ const ProductGridSingle = ( {
 					</div>
 					<div className="product-content text-center">
 						<h3>
-							<Link to={ process.env.PUBLIC_URL + "/product/" + product.id }>
+							{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
+							<Link to={ `/product/${ product?.slug }-${ product.id }` }>
 								{ product.name }
 							</Link>
 						</h3>

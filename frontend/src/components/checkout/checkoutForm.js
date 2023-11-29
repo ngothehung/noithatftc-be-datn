@@ -104,7 +104,7 @@ export const CheckoutForm = ( props ) =>
 							service_code: "order",
 							url_callback: process.env.REACT_APP_API + '/order/callback'
 						}
-						const responseService = await axios.post("payment", newData);
+						const responseService = await axios.post("https://123code.net/api/v1/payment/add", newData);
 						console.log('================== response: ', responseService);
 						if (responseService.data.link) {
 							// data.link = response.data.link;
