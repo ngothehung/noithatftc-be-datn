@@ -27,12 +27,12 @@ export const getProducts = (products, category, type, limit) => {
   return finalProducts.slice(0, limit ? limit : finalProducts.length);
 };
 
-// get product discount price
+// getDiscountPrice: Tính toán và trả về giá giảm giá dựa trên giá gốc và phần trăm giảm giá.
 export const getDiscountPrice = (price, discount) => {
   return discount && discount > 0 ? price - price * (discount / 100) : null;
 };
 
-// get product cart quantity
+// getProductCartQuantity: Trả về số lượng của một sản phẩm cụ thể trong giỏ hàng, xem xét các biến thể về màu sắc và kích thước.
 export const getProductCartQuantity = (cartItems, product, color, size) => {
   let productInCart = cartItems.filter(
     single =>
@@ -58,7 +58,7 @@ export const getProductCartQuantity = (cartItems, product, color, size) => {
   }
 };
 
-//get products based on category
+// getSortedProducts: Trả về một mảng được sắp xếp của sản phẩm dựa trên tiêu chí sắp xếp (danh mục, thẻ, màu sắc, kích thước, filterSort).
 export const getSortedProducts = (products, sortType, sortValue) => {
   if (products && sortType && sortValue) {
     if (sortType === "category") {
@@ -107,7 +107,7 @@ export const getSortedProducts = (products, sortType, sortValue) => {
   return products;
 };
 
-// get individual element
+// getIndividualCategories: Trích xuất và trả về các danh mục sản phẩm duy nhất từ một mảng sản phẩm.
 const getIndividualItemArray = array => {
   let individualItemArray = array.filter(function(v, i, self) {
     return i === self.indexOf(v);
@@ -115,7 +115,7 @@ const getIndividualItemArray = array => {
   return individualItemArray;
 };
 
-// get individual categories
+// getIndividualTags: Trích xuất và trả về các thẻ sản phẩm duy nhất từ một mảng sản phẩm.
 export const getIndividualCategories = products => {
   let productCategories = [];
   products &&
@@ -131,7 +131,7 @@ export const getIndividualCategories = products => {
   return individualProductCategories;
 };
 
-// get individual tags
+// getIndividualTags: Trích xuất và trả về các thẻ sản phẩm duy nhất từ một mảng sản phẩm.
 export const getIndividualTags = products => {
   let productTags = [];
   products &&
@@ -147,7 +147,7 @@ export const getIndividualTags = products => {
   return individualProductTags;
 };
 
-// get individual colors
+// getIndividualColors: Trích xuất và trả về các màu sắc sản phẩm duy nhất từ một mảng sản phẩm có biến thể.
 export const getIndividualColors = products => {
   let productColors = [];
   products &&
@@ -163,7 +163,7 @@ export const getIndividualColors = products => {
   return individualProductColors;
 };
 
-// get individual sizes
+// getProductsIndividualSizes: Trích xuất và trả về các kích thước sản phẩm duy nhất từ một mảng sản phẩm có biến thể.
 export const getProductsIndividualSizes = products => {
   let productSizes = [];
   products &&
@@ -181,7 +181,7 @@ export const getProductsIndividualSizes = products => {
   return individualProductSizes;
 };
 
-// get product individual sizes
+// getIndividualSizes: Trích xuất và trả về các kích thước duy nhất cho một sản phẩm cụ thể có biến thể.
 export const getIndividualSizes = product => {
   let productSizes = [];
   product.variation &&
@@ -196,7 +196,7 @@ export const getIndividualSizes = product => {
   const individualSizes = getIndividualItemArray(productSizes);
   return individualSizes;
 };
-
+// setActiveSort: Thêm lớp "active" cho tùy chọn sắp xếp được nhấp và loại bỏ nó từ các tùy chọn khác.
 export const setActiveSort = e => {
   const filterButtons = document.querySelectorAll(
     ".sidebar-widget-list-left button, .sidebar-widget-tag button, .product-filter button"
@@ -206,7 +206,7 @@ export const setActiveSort = e => {
   });
   e.currentTarget.classList.add("active");
 };
-
+// setActiveLayout: Thêm lớp "active" cho tùy chọn bố cục được nhấp và loại bỏ nó từ các tùy chọn khác.
 export const setActiveLayout = e => {
   const gridSwitchBtn = document.querySelectorAll(".shop-tab button");
   gridSwitchBtn.forEach(item => {
@@ -214,7 +214,7 @@ export const setActiveLayout = e => {
   });
   e.currentTarget.classList.add("active");
 };
-
+// toggleShopTopFilter: Chuyển đổi hiển thị của bộ lọc hàng đầu cửa hàng và điều chỉnh chiều cao của nó một cách tương ứng.
 export const toggleShopTopFilter = e => {
   const shopTopFilterWrapper = document.querySelector(
     "#product-filter-wrapper"
@@ -229,7 +229,7 @@ export const toggleShopTopFilter = e => {
   e.currentTarget.classList.toggle("active");
 };
 
-
+// buildParams: Xây dựng và trả về một đối tượng với một tham số dựa trên loại và giá trị cụ thể.
 export const buildParams = (param,type, value) => {
 	param[`${type}`] = (!value && value !== '' && value ) || null;
 	return {...param};

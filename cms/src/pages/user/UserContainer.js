@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { UserCpn } from "../../components/User/User";
 import { USER_SERVICE } from "../../services/userService";
+import { buildFilter } from "../../services/common";
+import { useHistory } from "react-router-dom"
+
 
 export const UserContainer = () =>
 {
@@ -14,6 +17,8 @@ export const UserContainer = () =>
 	} );
 	const [ params, setParams ] = useState( {} );
 	const dispatch = useDispatch();
+	const history = useHistory();
+
 
 	useEffect( () =>
 	{
@@ -22,6 +27,9 @@ export const UserContainer = () =>
 
 	const getListData = async ( filter ) =>
 	{
+		filter = buildFilter( filter );
+		const paramSearch = new URLSearchParams( filter ).toString();
+		history.replace( { search: paramSearch } );
 		const response = await USER_SERVICE.getListData( filter, dispatch );
 		if(response) {
 			setListData(response.users);

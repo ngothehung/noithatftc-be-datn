@@ -1,12 +1,12 @@
 // @ts-nocheck
-import { Form, Input, Select, Switch, Table, Upload } from 'antd';
+import { Form, Input, InputNumber, Select, Switch, Table, Upload } from 'antd';
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import React from 'react';
 import Widget from '../Widget/Widget';
 import { DEFAUT_IMG } from '../../helpers/constant/image';
 import { useForm } from 'antd/lib/form/Form';
-import { toSlug } from '../../helpers/common/common';
+import { normFile, onFieldsChange, resetForm, toSlug, validateMessages } from '../../helpers/common/common';
 import { getCategoriesByFilter } from '../../services/categoryService';
 import { DeleteOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { showProductDetail, submitFormProduct } from '../../services/productService';
@@ -133,16 +133,7 @@ export const ProductForm = ( props ) =>
 		await showProductDetail( id, setProduct );
 	}
 
-	const validateMessages = {
-		required: '${label} is required!',
-		types: {
-			email: '${label} is not a valid email!',
-			number: '${label} is not a valid number!',
-		},
-		number: {
-			range: '${label} must be between ${min} and ${max}',
-		},
-	};
+	
 
 	const submitForm = async ( e ) =>
 	{
@@ -150,43 +141,7 @@ export const ProductForm = ( props ) =>
 		await submitFormProduct( id, files, {...e, options: valueAttributes}, dispatch, history );
 	}
 
-	const resetForm = () =>
-	{
-		form.resetFields();
-	}
-
-	const onFieldsChange = ( e ) =>
-	{
-		if ( e.length > 0 )
-		{
-			let value = typeof e[ 0 ].value === 'string' ? e[ 0 ].value : e[ 0 ].value;
-			if ( e[ 0 ].name[ 0 ] === 'name' && value != '' )
-			{
-				let slug = toSlug( value );
-				form.setFieldsValue( { slug: slug } );
-			}
-			let fieldValue = {
-				[ String( e[ 0 ].name[ 0 ] ) ]: value
-			}
-			form.setFieldsValue( fieldValue );
-		}
-	}
-
-	const normFile = ( e ) =>
-	{
-		if ( e?.fileList )
-		{
-			let fileChoose = e?.fileList.map( item =>
-			{
-				if ( item.default ) return item;
-				item.status = 'done';
-				return item;
-			} );
-			setFiles( fileChoose );
-		}
-		return e?.fileList;
-	}
-
+	
 	return (
 		<div className="w-75 mx-auto">
 			<Widget>
@@ -195,7 +150,7 @@ export const ProductForm = ( props ) =>
 					name='nest-messages form'
 					form={ form }
 					onFinish={ submitForm }
-					onFieldsChange={ onFieldsChange }
+					onFieldsChange={ (e) => onFieldsChange(e, form) }
 					validateMessages={ validateMessages }
 				>
 					<div className='mb-3'>
@@ -229,7 +184,7 @@ export const ProductForm = ( props ) =>
 							className='d-block'
 							valuePropName="fileList"
 							fileList={ files }
-							getValueFromEvent={ normFile }
+							getValueFromEvent={ e => normFile(e, setFiles) }
 						>
 							<Upload action="/upload" listType="picture-card">
 								{ files.length <= 5 && <div>
@@ -251,7 +206,7 @@ export const ProductForm = ( props ) =>
 								placeholder='Enter description' cols={ 10 } rows={ 5 } />
 						</Form.Item>
 
-						<div className='form-group'>
+						{/* <div className='form-group'>
 							<label >Thuộc tính</label>
 							<div className='mt-2'>
 								<div className="table-item row w-100 mx-auto" style={ { lineHeight: 3, backgroundColor: "#eef5f9", fontWeight: "700", borderBottom: "1px solid #F1F3F8" } }>
@@ -317,7 +272,7 @@ export const ProductForm = ( props ) =>
 								</div>
 
 							</div>
-						</div>
+						</div> */}
 
 						<div className='row'>
 
@@ -325,20 +280,46 @@ export const ProductForm = ( props ) =>
 								<Form.Item name="price" label="Product price"
 									rules={ [ { required: true } ] }
 									className='d-block'>
-									<Input className='form-control' placeholder='Enter price' />
+									<InputNumber 
+									className='form-control w-100'
+									formatter={value => {
+										if(value) {
+											return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+										}
+									}}
+  									parser={value =>
+									{
+										if(value) {
+											return  value.replace(/\$\s?|(,*)/g, '')
+										}
+									}} 
+									placeholder='Enter price' />
 								</Form.Item>
 							</div>
 							<div className='col-md-4'>
 								<Form.Item name="number" label="Product quantity"
 									rules={ [ { required: true } ] }
 									className='d-block'>
-									<Input className='form-control' placeholder='Enter quantity' />
+									<InputNumber className='form-control w-100' 
+									placeholder='Enter quantity'
+									formatter={value => {
+										if(value) {
+											return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+										}
+									}}
+  									parser={value =>
+									{
+										if(value) {
+											return  value.replace(/\$\s?|(,*)/g, '')
+										}
+									}}  
+									/>
 								</Form.Item>
 							</div>
 							<div className='col-md-4'>
 								<Form.Item name="sale" label="Discount"
 									className=' d-block'>
-									<Input className='form-control' placeholder='Enter discount (%)' />
+									<InputNumber max={100} className='form-control w-100' placeholder='Enter discount (%)' />
 								</Form.Item>
 							</div>
 							{/* <div className='col-md-4'>
@@ -369,11 +350,13 @@ export const ProductForm = ( props ) =>
 					</div >
 
 					<div className='d-flex justify-content-center'>
-						<button type="submit" className="btn btn-primary text-center" style={ { marginRight: 10, padding: '10px 10px' } }>
+						<button type="submit" className="btn btn-primary text-center" 
+						style={ { marginRight: 10, padding: '10px 10px' } }>
 							<i className="nc-icon nc-zoom-split mr-2"></i>{ !id && 'Create' || 'Update' }
 						</button>
 
-						{ !id && <button type="button" className="btn btn-secondary text-center" style={ { marginLeft: 10, padding: '10px 10px' } } onClick={ resetForm }>
+						{ !id && <button type="button" className="btn btn-secondary text-center" 
+						style={ { marginLeft: 10, padding: '10px 10px' } } onClick={ (e) => resetForm(form) }>
 							<i className="nc-icon nc-refresh-02 mr-2"></i>Reset
 						</button> }
 					</div>

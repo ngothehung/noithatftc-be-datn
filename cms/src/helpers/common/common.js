@@ -43,3 +43,51 @@ export const toSlug = ( str ) =>
 	// return
 	return str;
 }
+
+export const resetForm = ( form ) =>
+{
+	form.resetFields();
+}
+
+export const onFieldsChange = ( e, form ) =>
+{
+	if ( e.length > 0 )
+	{
+		let value = typeof e[ 0 ].value === 'string' ? e[ 0 ].value : e[ 0 ].value;
+		if ( e[ 0 ].name[ 0 ] === 'name' && value != '' )
+		{
+			let slug = toSlug( value );
+			form.setFieldsValue( { slug: slug } );
+		}
+		let fieldValue = {
+			[ String( e[ 0 ].name[ 0 ] ) ]: value
+		}
+		form.setFieldsValue( fieldValue );
+	}
+}
+
+export const normFile = ( e, setFiles ) =>
+{
+	if ( e?.fileList )
+	{
+		let fileChoose = e?.fileList.map( item =>
+		{
+			if ( item.default ) return item;
+			item.status = 'done';
+			return item;
+		} );
+		setFiles( fileChoose );
+	}
+	return e?.fileList;
+}
+
+export const  validateMessages = {
+	required: '${label} is required!',
+	types: {
+		email: '${label} is not a valid email!',
+		number: '${label} is not a valid number!',
+	},
+	number: {
+		range: '${label} must be between ${min} and ${max}',
+	},
+};

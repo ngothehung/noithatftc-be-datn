@@ -18,6 +18,7 @@ import { ToastContainer } from 'react-toastify';
 // -- Data Store
 const store = createStore(
 	reducers,
+	// load(),
 	applyMiddleware( ReduxThunk )
 );
 

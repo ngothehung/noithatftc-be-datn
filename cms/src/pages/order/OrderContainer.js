@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { message } from "antd";
 import { Orders } from "../../components/Order/Order.js";
 import { getOrdersByFilter } from "../../services/orderService.js";
+import {useHistory} from "react-router-dom"
+import { buildFilter } from "../../services/common.js";
 
 export const OrderContainer = () =>
 {
@@ -15,12 +17,16 @@ export const OrderContainer = () =>
 	});
 	const [params, setParams] = useState({})
 	const dispatch = useDispatch();
+	const history = useHistory();
 	
     useEffect(() => {
 		getOrdersByFilters(paging, setOrders, setPaging);
 	}, []);
 
 	const getOrdersByFilters = async (filter) => {
+		filter = buildFilter( filter );
+		const paramSearch = new URLSearchParams( filter ).toString();
+		history.replace( { search: paramSearch } );
 		await getOrdersByFilter(filter, setOrders, setPaging, dispatch);
 	}
 

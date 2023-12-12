@@ -5,23 +5,23 @@ export const SIDE_BARS = [
 		title: 'Dashboard',
 		key: -1 
 	},
-	// {
-	// 	path: '/user',
-	// 	icon: 'eva eva-people',
-	// 	title: 'User',
-	// 	children: [
-	// 		{
-	// 			path: '/user/list',
-	// 			title: 'list ',
-	// 			icon: '',
-	// 		},
-	// 		{
-	// 			path: '/user/create',
-	// 			icon: '',
-	// 			title: 'Add new',
-	// 		},
-	// 	]
-	// },
+	{
+		path: '/user',
+		icon: 'eva eva-people',
+		title: 'User',
+		children: [
+			{
+				path: '/user/list',
+				title: 'list ',
+				icon: '',
+			},
+			{
+				path: '/user/create',
+				icon: '',
+				title: 'Add new',
+			},
+		]
+	},
 	{
 		path: '/product',
 		icon: 'eva eva-list',

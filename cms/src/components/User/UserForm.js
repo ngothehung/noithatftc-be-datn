@@ -32,7 +32,7 @@ export const UserForm = ( props ) =>
 			{ value: 1, label: "Active" },
 			{ value: 0, label: "Inactive" }
 		] );
-		// getListRoles();
+		getListRoles();
 	}, [] );
 
 	useEffect( () =>
@@ -57,14 +57,14 @@ export const UserForm = ( props ) =>
 				url: buildImage( data.avatar ),
 				default: true
 			} );
-			// let role = data.roles?.reduce( (role, item) =>
-			// {
-			// 	if ( item )
-			// 	{
-			// 		role.push(item.id);
-			// 	}
-			// 	return role;
-			// }, [] );
+			let role = data.roles?.reduce( (role, item) =>
+			{
+				if ( item )
+				{
+					role.push(item.id);
+				}
+				return role;
+			}, [] );
 			let formValue = {
 				name: data.name,
 				// username: data.username,
@@ -273,7 +273,8 @@ export const UserForm = ( props ) =>
 							<Input className='form-control' placeholder='Enter address' />
 						</Form.Item>
 
-						{/* <Form.Item name="roles" label="Role"
+						{ (!id || data?.type === 1) && 
+							<Form.Item name="roles" label="Role"
 							rules={ [ { required: true } ] } className='d-block'>
 							<Select
 								placeholder="Select role"
@@ -284,7 +285,8 @@ export const UserForm = ( props ) =>
 								style={ { width: '100%' } }
 								options={ roles }
 							/>
-						</Form.Item> */}
+						</Form.Item>
+						}
 					</div>
 
 					<div className='d-flex justify-content-center'>

@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategoriesByFilter } from "../../services/categoryService";
 import { Categories } from "../../components/Category/Category";
-import { timeDelay } from "../../services/common";
+import { buildFilter, timeDelay } from "../../services/common";
 import { toggleShowLoading } from "../../redux/actions/common";
 import { SlidesPage } from "../../components/Slide/Slide";
+import { useHistory } from "react-router-dom";
 import { getDataByFilter } from "../../services/slideService";
 
 export const SlidesContainer = () =>
@@ -18,6 +19,7 @@ export const SlidesContainer = () =>
 	} );
 	const [ params, setParams ] = useState( {} );
 	const dispatch = useDispatch();
+	const history = useHistory()
 
 	useEffect( () =>
 	{
@@ -26,9 +28,12 @@ export const SlidesContainer = () =>
 
 	const getDatasByFilter = async ( filter ) =>
 	{
+		filter = buildFilter( filter );
+		const paramSearch = new URLSearchParams( filter ).toString();
+		history.replace( { search: paramSearch } );
 		const rs = await getDataByFilter( filter, dispatch );
-		await timeDelay(1000 );
-		
+		await timeDelay( 1000 );
+
 		dispatch( toggleShowLoading( false ) );
 		if ( rs )
 		{
