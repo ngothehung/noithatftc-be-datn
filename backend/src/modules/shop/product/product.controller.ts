@@ -30,7 +30,8 @@ export class ProductController {
 				status: req.query.status || null,
 				category_id: req.query.category_id || null,
 				is_hot: req.query.is_hot || null,
-				is_sale: req.query.is_sale || null
+				is_sale: req.query.is_sale || null,
+				order: req?.query?.order || null
 			};
 			return BaseResponse(HTTP_STATUS.success, await this.adminProdService.getProducts(paging, filters),'', 'successfully!');
 		} catch (error) {
@@ -44,7 +45,7 @@ export class ProductController {
 	@HttpCode(HttpStatus.OK)
     @ApiResponse({ status: 200, description: 'success' })
 	async show(
-		@Param('id') id: number
+		@Param('id') id: any
 	) {
 		try {
 			return BaseResponse(HTTP_STATUS.success, await this.adminProdService.show(id), '', 'successfully!');

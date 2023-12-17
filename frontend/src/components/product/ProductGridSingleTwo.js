@@ -5,7 +5,7 @@ import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../helpers/product";
 import ProductModal from "./ProductModal";
 import { checkTimeNow, customNumber } from "../../helpers/func";
-import { buildImage } from "../../services";
+import { buildImage, onErrorImage } from "../../services";
 import { StarIcons } from "../common/star";
 
 const ProductGridSingleTwo = ( {
@@ -49,26 +49,27 @@ const ProductGridSingleTwo = ( {
 						} ${ colorClass ? colorClass : "" } ` }
 				>
 					<div className="product-img">
-						{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
-						<Link to={ `/product/${ product?.slug }-${ product.id }` }>
+						<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 							<img
 								className="default-img"
 								style={ { width: "100%", height: "270px", objectFit: "cover" } }
 								src={ buildImage( product.avatar ) }
 								alt=""
 							/>
-							{ product?.product_images?.length > 0 && (
+							{ product?.product_images?.length > 0 ? (
 								<img
 									className="hover-img"
-									style={ { width: "100%", height: "270px", objectFit: "cover" } }
-									src={buildImage( product.product_images[0]?.path ) }
-									alt={product?.product_images[0]?.name}
+									src={buildImage(product.product_images[ 0 ].path)}
+									alt={buildImage(product.product_images[ 0 ].path)}
+									onError={ onErrorImage }
 								/>
+							) : (
+								""
 							) }
 						</Link>
 						{ product.sale || product.hot === 1 ? (
 							<div className="product-img-badges">
-								{ product.sale && ( checkTimeNow( product?.sale_to ) && product?.sale ) ? (
+								{ product.sale && (checkTimeNow(product?.sale_to) && product?.sale) ? (
 									<span className="pink">-{ product.sale }%</span>
 								) : (
 									""
@@ -126,14 +127,13 @@ const ProductGridSingleTwo = ( {
 								}` }
 						>
 							<h3>
-								{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
-								<Link to={ `/product/${ product?.slug }-${ product.id }` }>
+								<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 									{ product.name }
 								</Link>
 							</h3>
-							<div className="my-2">
-								<StarIcons vote_number={ vote_number } is_form={ false }></StarIcons>
-							</div>
+							{/*<div className="my-2">*/}
+							{/*	<StarIcons vote_number={vote_number} is_form={false}></StarIcons>*/}
+							{/*</div>*/}
 							<div className="price-2">
 								{ discountedPrice !== null ? (
 									<Fragment>
@@ -145,7 +145,7 @@ const ProductGridSingleTwo = ( {
 										</span>
 									</Fragment>
 								) : (
-									<span>{ customNumber( finalProductPrice, 'đ' ) } </span>
+									<span>{ customNumber( finalProductPrice, 'đ' ) }</span>
 								) }
 							</div>
 						</div>

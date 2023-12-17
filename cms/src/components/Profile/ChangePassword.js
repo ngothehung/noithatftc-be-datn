@@ -24,12 +24,12 @@ export const ChangePassword = (props) => {
     }, [data]);
 
     const validateMessages = {
-        required: '${label} is required!',
+        required: '${label} không được để trống!',
         types: {
             password: '${label} is not a valid password!',
         },
         number: {
-            range: '${label} must be between ${min} and ${max}',
+            range: '${label} trong khoảng ${min} - ${max}',
         },
     };
 

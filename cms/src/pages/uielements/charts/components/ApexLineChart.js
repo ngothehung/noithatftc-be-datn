@@ -1,106 +1,101 @@
-import React, { useEffect, useState } from "react";
+import moment from "moment";
+import React, { useEffect, useRef, useState } from "react";
 import ApexCharts from "react-apexcharts";
 
 const series = [
-	{
-		name: "Pending",
-		data: [ 670, 720, 770, 690, 900, 970, 1030 ],
-	},
-	{
-		name: "Approved",
-		data: [ 760, 590, 910, 850, 700, 1050, 920 ],
-	},
-	{
-		name: "Success",
-		data: [ 760, 590, 910, 850, 700, 1050, 920 ],
-	},
-	{
-		name: "Reject/Cancel",
-		data: [ 760, 590, 910, 850, 700, 1050, 920 ],
-	}
+
 ];
 
 const chartSettings = {
-	dataLabels: {
-		enabled: false,
-	},
-	stroke: {
-		curve: "smooth",
-		width: 2,
-	},
-	xaxis: {
-		type: "category",
-		categories: [],
-		labels: {
-			style: {
-				colors: "#6B859E",
-				opacity: 0.7,
-			},
-		},
-	},
-	yaxis: {
-		labels: {
-			style: {
-				colors: [ "#6B859E" ],
-				opacity: 0.7,
-			},
-		},
-	},
-	tooltip: {
-		x: {
-			show: false,
-		},
-	},
-	fill: {
-		type: "gradient",
-		gradient: {
-			shadeIntensity: 1,
-			opacityFrom: 0.7,
-			opacityTo: 1,
-			stops: [ 40, 90, 100 ]
-		}
-	},
-	colors: [ "#FFC405", "#4D53E0", "#43BC13", "#FF5668" ],
-	chart: {
-		toolbar: {
-			show: false,
-		},
-	},
-	legend: {
-		show: true,
-		horizontalAlign: "center",
-	},
+
 };
 
 export default function ApexLineChart ( props )
 {
-	const [ seriesData, setSeriesData ] = useState( series );
-	const [ option, setOption ] = useState( chartSettings );
+	const [ seriesData, setSeriesData ] = useState( [] );
+	const [ option, setOption ] = useState( {} );
+	console.log(props);
 	useEffect( () =>
 	{
-		if ( props.data )
-		{
-			let newData = series.map( item =>
-			{
-				let status = props.data.find( e => e.status == item.key );
-				if ( status ) item.value = status.total;
-				return item;
-			} );
-			setSeriesData( newData );
-		}
-		if(props.listDates?.length > 0) {
-			option.xaxis.categories  = props.listDates;
-			console.log(option);
-			setOption(option)
-		}
-	}, [ props.data, props.listDates ] );
+		let newData = [ {
+			name: 'Revenues',
+			data: props.data
+		} ]
+		setSeriesData( newData );
 
+		if ( props.listDates?.length > 0 )
+		{
+			setOption( {
+				dataLabels: {
+					enabled: false,
+				},
+				stroke: {
+					curve: "smooth",
+					width: 2,
+				},
+				xaxis: {
+					type: "datetime",
+					categories: props.listDates.map( item => moment(item).utc(true).format('DD-MM-yyyy') ),
+					labels: {
+						style: {
+							colors: "#6B859E",
+							opacity: 0.7,
+						},
+						show: true,
+						format: 'DD-MM-yyyy'
+					},
+				},
+				label: {
+					format: 'DD-MM-yyyy'
+				},
+
+
+				yaxis: {
+					labels: {
+						style: {
+							colors: [ "#6B859E" ],
+							opacity: 0.7,
+						},
+					},
+				},
+				tooltip: {
+					x: {
+						show: true,
+						format: 'DD-MM'
+					},
+				},
+				fill: {
+					type: "gradient",
+					gradient: {
+						shadeIntensity: 1,
+						opacityFrom: 0.7,
+						opacityTo: 1,
+						stops: [ 40, 90, 100 ]
+					}
+				},
+				colors: [ "#FFC405", "#4D53E0", "#43BC13", "#FF5668" ],
+				chart: {
+					toolbar: {
+						show: true,
+					},
+				},
+				legend: {
+					show: true,
+					horizontalAlign: "center",
+				},
+			} )
+		}
+	}, [ props.isCheck ] );
 	return (
-		<ApexCharts
-			options={ chartSettings }
-			series={ seriesData }
-			type="area"
-			height={ 300 }
-		/>
+
+		<>
+			{ props?.data?.length > 0 && <ApexCharts
+				options={ option }
+				series={ seriesData }
+				type="area"
+				height={ 300 }
+			/> }
+			
+		</>
 	);
 }

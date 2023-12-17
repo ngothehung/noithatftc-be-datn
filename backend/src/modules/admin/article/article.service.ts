@@ -19,7 +19,7 @@ export class ArticleService {
 
         const [articles, total] = await this.articleRepo.findAndCount({
             where: conditions,
-            order: { id: 'ASC' },
+            order: { created_at: 'DESC' },
             relations: {
                
                 // user: true

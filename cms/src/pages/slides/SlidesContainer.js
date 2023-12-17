@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategoriesByFilter } from "../../services/categoryService";
 import { Categories } from "../../components/Category/Category";
-import { buildFilter, timeDelay } from "../../services/common";
+import { timeDelay } from "../../services/common";
 import { toggleShowLoading } from "../../redux/actions/common";
 import { SlidesPage } from "../../components/Slide/Slide";
-import { useHistory } from "react-router-dom";
-import { getDataByFilter } from "../../services/slideService";
+import { SlideService, getDataByFilter } from "../../services/slideService";
+import Breadcrumbs from "../../components/Breadbrumbs/Breadcrumbs";
+import { message } from "antd";
 
 export const SlidesContainer = () =>
 {
@@ -19,7 +20,6 @@ export const SlidesContainer = () =>
 	} );
 	const [ params, setParams ] = useState( {} );
 	const dispatch = useDispatch();
-	const history = useHistory()
 
 	useEffect( () =>
 	{
@@ -28,9 +28,6 @@ export const SlidesContainer = () =>
 
 	const getDatasByFilter = async ( filter ) =>
 	{
-		filter = buildFilter( filter );
-		const paramSearch = new URLSearchParams( filter ).toString();
-		history.replace( { search: paramSearch } );
 		const rs = await getDataByFilter( filter, dispatch );
 		await timeDelay( 1000 );
 
@@ -42,14 +39,42 @@ export const SlidesContainer = () =>
 		}
 	}
 
+	const routes = [
+		{
+			name: 'Slide',
+			route: '/slide/list'
+		},
+		{
+			name: 'Danh sách',
+			route: ''
+		}
+	];
 
-	return <SlidesPage
-		datas={ datas }
-		paging={ paging }
-		params={ params }
-		getDatasByFilter={ getDatasByFilter }
-		setParams={ setParams }
-		setPaging={ setPaging }
-		setDatas={ setDatas }
-	/>
+	const deleteById = async (id) => {
+		try {
+			const response = await SlideService.delete(id);
+			if(response?.status === 'success') {
+				message.success('Delete successfully');
+				await getDatasByFilter({...paging, ...params});
+			} else {
+				message.error(response?.message);
+			}
+
+		} catch (error) {
+			message.error(error?.message);
+		}
+	}
+
+	return (
+		<>
+			<Breadcrumbs routes={ routes } title={ "Slide" } /> <SlidesPage
+				datas={ datas }
+				paging={ paging }
+				params={ params }
+				deleteById={ deleteById }
+				getDatasByFilter={ getDatasByFilter }
+				setParams={ setParams }
+				setPaging={ setPaging }
+				setDatas={ setDatas }
+			/></> )
 };

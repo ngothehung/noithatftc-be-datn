@@ -15,15 +15,15 @@ export const OrderSearch = ( props ) =>
 	useEffect( () =>
 	{
 		setStatus( [
-			{ value: 1, label: "Pending" },
-			{ value: 2, label: "Approved" },
-			{ value: 3, label: "Success" },
-			{ value: 4, label: "Reject/Cancel" }
+			{ value: 1, label: "Chờ duyệt" },
+			{ value: 2, label: "Đã duyệt" },
+			{ value: 3, label: "Hoàn thành" },
+			{ value: 4, label: "Hủy bỏ" }
 		] );
 		setShippingStatus( [
-			{ value: 1, label: "Waiting for delivery" },
-			{ value: 2, label: "Delivering" },
-			{ value: 3, label: "Delivered" },
+			{ value: 1, label: "Chờ lấy hàng" },
+			{ value: 2, label: "Đang giao" },
+			{ value: 3, label: "Đã giao" },
 		] );
 	}, [] )
 
@@ -61,13 +61,9 @@ export const OrderSearch = ( props ) =>
 			onFinish={ submitForm }
 		>
 			<div className="row mb-1">
+				
 				<div className="col-md-3 mb-2 form-group">
-					<Form.Item name="id" label="ID" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter ID' />
-					</Form.Item>
-				</div>
-				<div className="col-md-3 mb-2 form-group">
-					<Form.Item name="product_name" label="Product name" className='mb-0 d-block'>
+					<Form.Item name="product_name" label="Tên sản phẩm" className='mb-0 d-block'>
 						<Input className='form-control' placeholder='Enter product name' />
 					</Form.Item>
 				</div>
@@ -76,29 +72,25 @@ export const OrderSearch = ( props ) =>
 						<Input className='form-control' placeholder='Enter receiver name' />
 					</Form.Item>
 				</div>
-				<div className="col-md-3 mb-2 form-group">
-					<Form.Item name="receiver_email" label="Receiver email" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter receiver email' />
-					</Form.Item>
-				</div>
+				
 				<div className="col-md-3 mb-2 form-group">
 					<Form.Item name="receiver_phone" label="Receiver phone" className='mb-0 d-block'>
 						<Input className='form-control' placeholder='Enter receiver phone' />
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2">
-					<Form.Item name="status" label="Status" className='mb-0 d-block'>
+					<Form.Item name="status" label="Trạng thái" className='mb-0 d-block'>
 						<Select
-							placeholder="Select status"
+							placeholder="Chọn trạng thái"
 							style={ { width: '100%' } }
 							options={ status }
 						/>
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2">
-					<Form.Item name="shipping_status" label="Shipping Status" className='mb-0 d-block'>
+					<Form.Item name="shipping_status" label="Trạng thái giao hàng" className='mb-0 d-block'>
 						<Select
-							placeholder="Select shipping status"
+							placeholder="Chọn trạng thái giao hàng"
 							style={ { width: '100%' } }
 							options={ shippingStatus }
 						/>
@@ -107,11 +99,11 @@ export const OrderSearch = ( props ) =>
 			</div>
 
 			<button type="submit" className="btn btn-primary" style={ { marginRight: 10, padding: '10px 10px' } }>
-				<i className="nc-icon nc-zoom-split mr-2"></i>Search
+				<i className="nc-icon nc-zoom-split mr-2"></i>Tìm kiếm
 			</button>
 
 			<button type="button" className="btn btn-secondary" style={ { marginLeft: 10, padding: '10px 10px' } } onClick={ resetForm }>
-				<i className="nc-icon nc-refresh-02 mr-2"></i>Reset
+				<i className="nc-icon nc-refresh-02 mr-2"></i> Hoàn tác
 			</button>
 		</Form>
 	);

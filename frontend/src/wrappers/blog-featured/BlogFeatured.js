@@ -5,7 +5,6 @@ import BlogFeaturedSingle from "../../components/blog-featured/BlogFeaturedSingl
 import SectionTitle from "../../components/section-title/SectionTitle";
 
 const BlogFeatured = ({ spaceTopClass, spaceBottomClass }) => {
-	return null;
   return (
     <div
       className={`blog-area ${spaceTopClass ? spaceTopClass : ""} ${

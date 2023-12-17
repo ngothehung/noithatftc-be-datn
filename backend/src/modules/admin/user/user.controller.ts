@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Req, UseGuards} from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { HTTP_STATUS, IPaging, Response, BaseResponse } from 'src/helpers/helper';
@@ -26,7 +26,6 @@ export class UserController {
     {
         try{
 			const user = request.user;
-			console.log(user);
 
             const filter = {
                 email : request.query.email || null,
@@ -133,6 +132,25 @@ export class UserController {
         }
     }
 
+    @Delete('delete/:id')
+    @HttpCode(HttpStatus.OK)
+    @UseGuards(RoleGuard)
+    @ApiResponse({ status: 200, description: 'success' })
+    async deleteCategory(@Param('id') cateId: number) {
+        try {
+            let user = await this.userService.findById(cateId);
+
+            if (!user) {
+                return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','user does not exist!');
+            } else {
+                await this.userService.deleteUser(cateId);
+                return BaseResponse(HTTP_STATUS.success, {}, '','Deleted successfully!');
+            }
+        } catch (e) {
+            return BaseResponse(e.status, e.response, e.code || 'E0001', e.message);
+        }
+    }
+
     @Put('lock/:id')
 	@ApiResponse({ status: 200, description: 'success' })
     async accountLock(
@@ -166,5 +184,5 @@ export class UserController {
 			return BaseResponse(error.status, error.response, error.code || 'E0001', error.message);
         }
     }
-	
+
 }

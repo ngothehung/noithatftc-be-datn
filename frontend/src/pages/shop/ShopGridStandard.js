@@ -13,23 +13,24 @@ import * as queryString from 'query-string';
 import { buildFilter, getCategories, getCategoryList, getProducts } from "../../services/index";
 import { toggleShowLoading } from "../../redux/actions/common";
 import { Pagination } from "antd";
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import ShopTopbarFilter from '../../wrappers/product/ShopTopbarFilter';
 
 const ShopGridStandard = ( { location, dispatch } ) =>
 {
 	const [ layout, setLayout ] = useState( 'grid three-column' );
-	const [ offset, setOffset ] = useState( 0 );
-	const [ currentPage, setCurrentPage ] = useState( 1 );
 	const [ products, setProducts ] = useState( [] );
 	const [ categories, setCategories ] = useState( [] );
 	const [ params, setParams ] = useState( {
 		name: null,
-		category_id: null
+		category_id: null,
+		order: null
 	} );
 	const [ paging, setPaging ] = useState( { page: 1, page_size: 20, total: 0 } );
 
 	const { pathname } = location;
-	const history = useHistory()
+
+	const history = useHistory();
 
 
 	const getLayout = ( layout ) =>
@@ -40,13 +41,12 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 	const getProductList = async ( filter ) =>
 	{
 		dispatch( toggleShowLoading( true ) );
-		
 		try
 		{
-			filter = buildFilter(filter);
-			const paramSearch = new URLSearchParams(filter).toString();
-			history.replace({search: paramSearch});
-			const response = await getProducts( filter );
+			const params = buildFilter( filter );
+			const response = await getProducts( params );
+			const paramSearch = new URLSearchParams( params ).toString();
+			history.replace( { search: paramSearch } );
 			if ( response?.status === 'success' )
 			{
 				setProducts( response?.data?.products );
@@ -77,9 +77,15 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 	useEffect( () =>
 	{
 
-		paging.page = currentPage;
+		// console.log(queryString());
 		getProductList( { ...paging, ...params } );
-	}, [ params.name, params.category_id ] );
+		console.log( params );
+	}, [ params.name, params.category_id, params.order ] );
+
+	// addToast("Added To Wishlist", {
+    //     appearance: "success",
+    //     autoDismiss: true
+    //   });
 
 
 	return (
@@ -89,8 +95,8 @@ const ShopGridStandard = ( { location, dispatch } ) =>
                 <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
             </MetaTags> */}
 
-			<BreadcrumbsItem to={ '/' }>Home</BreadcrumbsItem>
-			<BreadcrumbsItem to={ pathname }>Products</BreadcrumbsItem>
+			<BreadcrumbsItem to={ '/' }>Trang chủ</BreadcrumbsItem>
+			<BreadcrumbsItem to={ pathname }>Sản phẩm</BreadcrumbsItem>
 
 			<LayoutOne headerTop="visible">
 				{/* breadcrumb */ }
@@ -99,17 +105,34 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 				<div className="shop-area pt-95 pb-100">
 					<div className="container">
 						<div className="row">
-							<div className="col-lg-3 order-2 order-lg-1">
+							<div className="col-12 order-2 order-lg-1">
 								{/* shop sidebar */ }
-								<ShopSidebar
+								{/* <ShopSidebar
 									categories={ categories }
 									params={ params }
 									setParams={ setParams }
-									sideSpaceClass="mr-30" />
+									sideSpaceClass="mr-30" /> */}
+								<ShopTopbarFilter
+									categories={ categories }
+									params={ params }
+									setParams={ setParams }
+									getLayout={ getLayout }
+									productCount={ paging.total }
+									sortedProductCount={ products.length }
+								/>
 							</div>
-							<div className="col-lg-9 order-1 order-lg-2">
+
+							<div className="col-12 order-1 order-lg-2">
+
+								<p>
+									Showing { products.length } of { paging.total } result
+								</p>
 								{/* shop topbar default */ }
-								<ShopTopbar getLayout={ getLayout } productCount={ paging.total } sortedProductCount={ products.length } />
+								{/* <ShopTopbar
+									getLayout={ getLayout }
+									params={ params } setParams={ setParams }
+									productCount={ paging.total }
+									sortedProductCount={ products.length } /> */}
 
 								{/* shop page content default */ }
 								<ShopProducts layout={ layout } products={ products } />
@@ -120,7 +143,7 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 									<div className="mx-auto d-flex justify-content-center my-4">
 										<Pagination
 											onChange={ e =>
-												getProductList( { page: e,page_size: paging.page_size || 10 , ...params } )
+												getProductList( { page: e, page_size:20, ...params } )
 											}
 											pageSize={ paging.page_size }
 											defaultCurrent={ paging.page }

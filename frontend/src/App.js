@@ -8,7 +8,13 @@ import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
-import { Routers } from "./router/router";
+import Contact from "./pages/other/Contact";
+import BlogFeaturedSingle from "./components/blog-featured/BlogFeaturedSingle";
+import BlogFeaturedThreeSingle from "./components/blog-featured/BlogFeaturedThreeSingle";
+
+const BlogDetailsStandard = lazy(() =>
+	import("./pages/blog/BlogDetailsStandard")
+);
 
 // home pages
 
@@ -30,6 +36,7 @@ const About = lazy( () => import( "./pages/other/About" ) );
 // const Contact = lazy(() => import("./pages/other/Contact"));
 const MyAccount = lazy( () => import( "./pages/other/MyAccount" ) );
 const LoginRegister = lazy( () => import( "./pages/other/LoginRegister" ) );
+const resetPassword = lazy( () => import( "./pages/other/resetPassword" ) );
 
 const Cart = lazy( () => import( "./pages/other/Cart" ) );
 const Wishlist = lazy( () => import( "./pages/other/Wishlist" ) );
@@ -55,7 +62,7 @@ const App = ( props ) =>
 		);
 	} );
 	return (
-		<ToastProvider placement="bottom-left">
+		<ToastProvider placement="top-right">
 			<BreadcrumbsProvider>
 				<Router>
 					<ScrollToTop>
@@ -70,37 +77,26 @@ const App = ( props ) =>
 							}
 						>
 							<Switch>
-								{ Routers.map( ( item, key ) =>
-								{
-									return (
-										<Route
-											key={ key }
-											exact={ item.exact }
-											path={ item.path }
-											component={ item.component }
-										/>
-									)
-								} ) }
-								<Redirect from="/auth" to="auth/login" />
-							</Switch>
-							{/* <Switch>
 								<Route
 									exact
 									path={ process.env.PUBLIC_URL + '/' }
 									component={ HomeCakeShop }
 								/>
 
+								{/* Homepages */ }
 
 								<Route
 									path={ "/home" }
 									component={ HomeCakeShop }
 								/>
 
+								{/* Shop pages */ }
 								<Route
 									path={ "/shop" }
 									component={ ShopGridStandard }
 								/>
 
+								{/* Shop product pages */ }
 								<Route
 									path={ process.env.PUBLIC_URL + "/product/:id" }
 									render={ ( routeProps ) => (
@@ -108,22 +104,46 @@ const App = ( props ) =>
 									) }
 								/>
 
+								{/* Blog pages */ }
 								<Route
 									path={ process.env.PUBLIC_URL + "/blog-standard" }
 									component={ BlogStandard }
 								/>
-
 								<Route
-									path={ process.env.PUBLIC_URL + "/about" }
+									path={ process.env.PUBLIC_URL + "/blog-details-standard" }
+									component={ BlogDetailsStandard }
+									// component={ BlogFeaturedSingle }
+								/>
+
+								{/* Other pages */ }
+								<Route
+									path={ process.env.PUBLIC_URL + "/gioi-thieu" }
 									component={ About }
+								/>
+								<Route
+									path={ process.env.PUBLIC_URL + "/lien-he" }
+									component={ Contact
+								}
 								/>
 								<Route
 									path={ process.env.PUBLIC_URL + "/my-order" }
 									component={ MyOrder }
 								/>
 								<Route
+									path={ process.env.PUBLIC_URL + "/order" }
+									component={ MyOrder }
+								/>
+								<Route
 									path={ process.env.PUBLIC_URL + "/payment/:type" }
 									component={ PaymentStatus }
+								/>
+								<Route
+									path={ process.env.PUBLIC_URL + "/reset-password/:type" }
+									component={ resetPassword }
+								/>
+								<Route
+									path={ process.env.PUBLIC_URL + "/reset-password" }
+									component={ resetPassword }
 								/>
 								<Route
 									path={ process.env.PUBLIC_URL + "/payment" }
@@ -138,7 +158,7 @@ const App = ( props ) =>
 									component={ LoginRegister }
 								/>
 
-								
+								<Redirect from="/auth" to="auth/login" />
 
 								<Route
 									path={ process.env.PUBLIC_URL + "/cart" }
@@ -163,7 +183,7 @@ const App = ( props ) =>
 								/>
 
 								<Route exact component={ NotFound } />
-							</Switch> */}
+							</Switch>
 						</Suspense>
 					</ScrollToTop>
 				</Router>

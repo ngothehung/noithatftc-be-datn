@@ -6,6 +6,7 @@ import ProductGridSingle from "../../components/product/ProductGridSingle";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToWishlist } from "../../redux/actions/wishlistActions";
 import { addToCompare } from "../../redux/actions/compareActions";
+import { getItem } from "../../services";
 
 const ProductGrid = ({
   products,
@@ -20,7 +21,7 @@ const ProductGrid = ({
   spaceBottomClass
 }) => {
 
-	console.log(products);
+	const userId = getItem('id')
   return (
 	 products &&  products.map(product => {
         return (
@@ -37,7 +38,7 @@ const ProductGrid = ({
             }
             wishlistItem={
               wishlistItems.filter(
-                wishlistItem => wishlistItem.id === product.id
+                wishlistItem => wishlistItem.id === product.id && wishlistItem?.user_like === userId
               )[0]
             }
             compareItem={

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Widget from '../Widget/Widget';
-import { Pagination, message } from 'antd';
+import {  Pagination, message } from 'antd';
 import
 {
 	Button,
@@ -12,7 +12,7 @@ import { toggleShowLoading } from '../../redux/actions/common';
 import { timeDelay } from '../../services/common';
 import s from "../../pages/tables/Tables.js";
 import { VOTE_SERVICE_CMS } from '../../services/voteService'
-import { EMPTY_IMG } from '../../helpers/constant/image.js';
+import Breadcrumbs from '../Breadbrumbs/Breadcrumbs.js';
 
 export const PageVoting = () =>
 {
@@ -37,8 +37,8 @@ export const PageVoting = () =>
 		{
 			dispatch( toggleShowLoading( true ) );
 			const response = await VOTE_SERVICE_CMS.getLists( filters );
-			await timeDelay( 1000 );
-			if ( response?.status === 'success' || response?.status === 200 )
+			await timeDelay( 500 );
+			if ( response?.status === 'success' || response?.status === 'success' )
 			{
 				setDataList( response?.data?.votes );
 				setPaging( response?.data?.meta )
@@ -54,21 +54,34 @@ export const PageVoting = () =>
 
 	const handleDelete = async ( id ) =>
 	{
-		console.log( id );
+		console.log(id);
 		dispatch( toggleShowLoading( true ) );
 		const response = await VOTE_SERVICE_CMS.delete( id );
-		if ( response?.status === 'success' || response?.status === 200 )
+		await timeDelay(500)
+		if ( response?.status === 'success' || response?.status === 'success' )
 		{
 			message.success( 'Delete review successfully!' );
-			getDataList( { page: 1, page_size: 20 } ).then( r => { } );
+			await getDataList( { page: 1, page_size: 20 } ).then( r => { } );
 		} else
 		{
 			message.error( response?.message || 'Delete review failed!' );
 		}
 		dispatch( toggleShowLoading( false ) );
 	}
+	const routes = [
+		{
+			name: 'Đánh giá',
+			route: '/reviews'
+		},
+		{
+			name: 'Danh sách',
+			route: ''
+		}
+	]
 
 	return (
+		<>
+			<Breadcrumbs routes={ routes } title={ "Đánh giá" } />
 		<Widget>
 			<div className="widget-table-overflow p-5 mt-4">
 				<Table className={ `table-striped table-bordered table-hover ${ s.statesTable }` } responsive>
@@ -91,11 +104,11 @@ export const PageVoting = () =>
 									<td className='text-nowrap align-middle'>
 										{ item?.user?.name || 'N/A' }
 										{/* <Link className={ '' }
-													to={ `/vote/update/${ item._id }` } >
+													to={ `/vote/update/${ item.id }` } >
 													
 												</Link> */}
 									</td>
-									<td className='align-middle' style={ { maxWidth: '100px' } }>{ item?.product?.name || 'N/A' }</td>
+									<td className='align-middle' style={{maxWidth: '100px'}}>{ item?.product?.name || 'N/A' }</td>
 									<td className='align-middle text-nowrap'>
 										<StarIcons vote_number={ item?.number } />
 									</td>
@@ -111,10 +124,7 @@ export const PageVoting = () =>
 						} )
 							:
 							<tr>
-								<td colSpan={ 6 } style={ { textAlign: "center", backgroundColor: '#ffff' } }>
-									<img className="text-center" src={ EMPTY_IMG } style={ { width: "300px", height: "300px" } } />
-									<div style={ { color: "#9A9A9A" } }>Data empty</div>
-								</td>
+								<td className='text-center' colSpan={ 8 }>Không có dữ liệu</td>
 							</tr>
 						}
 
@@ -135,5 +145,6 @@ export const PageVoting = () =>
 				</div>
 			}
 		</Widget>
+		</>
 	);
 }

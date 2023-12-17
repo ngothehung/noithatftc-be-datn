@@ -86,7 +86,7 @@ export const Permissions = ( props ) =>
 					<Table className={ `table-striped table-bordered table-hover ${ s.statesTable }` } responsive>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>#</th>
 								<th className="text-nowrap">Name</th>
 								<th className="text-nowrap">Guard name</th>
 								<th className="text-nowrap">Description</th>
@@ -127,7 +127,7 @@ export const Permissions = ( props ) =>
 								<tr>
 									<td colSpan={ 9 } style={ { textAlign: "center", backgroundColor: '#ffff' } }>
 										<img className="text-center" src={ EMPTY_IMG } style={ { width: "300px", height: "300px" } } />
-										<div style={ { color: "#9A9A9A" } }>Data empty</div>
+										<div style={ { color: "#9A9A9A" } }>Dữ liệu trống</div>
 									</td>
 								</tr>
 							}

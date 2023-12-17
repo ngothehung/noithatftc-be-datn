@@ -1,11 +1,12 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getCategoriesByFilter } from "../../services/categoryService";
+import { Category, getCategoriesByFilter } from "../../services/categoryService";
 import { Categories } from "../../components/Category/Category";
-import { buildFilter, timeDelay } from "../../services/common";
+import { timeDelay } from "../../services/common";
 import { toggleShowLoading } from "../../redux/actions/common";
-import {useHistory} from "react-router-dom";
+import Breadcrumbs from "../../components/Breadbrumbs/Breadcrumbs";
+import { message } from "antd";
 
 export const CategoryContainer = () =>
 {
@@ -15,7 +16,6 @@ export const CategoryContainer = () =>
 		page: 1,
 		page_size: 20
 	} );
-	const history = useHistory();
 	const [ params, setParams ] = useState( {} );
 	const dispatch = useDispatch();
 
@@ -26,9 +26,6 @@ export const CategoryContainer = () =>
 
 	const getDatasByFilter = async ( filter ) =>
 	{
-		filter = buildFilter( filter );
-		const paramSearch = new URLSearchParams( filter ).toString();
-		history.replace( { search: paramSearch } );
 		const rs = await getCategoriesByFilter( filter, dispatch );
 		await timeDelay( 1500 );
 
@@ -40,14 +37,42 @@ export const CategoryContainer = () =>
 		}
 	}
 
+	const routes = [
+		{
+			name: 'Danh mục',
+			route: '/category'
+		},
+		{
+			name: 'Danh sách',
+			route: '/category/list'
+		}
+	];
 
-	return <Categories
-		datas={ datas }
-		paging={ paging }
-		params={ params }
-		getDatasByFilter={ getDatasByFilter }
-		setParams={ setParams }
-		setPaging={ setPaging }
-		setDatas={ setDatas }
-	/>
+	const deleteById = async (id) => {
+		try {
+			const response = await Category.delete(id);
+			if(response?.status === 'success') {
+				message.success('Delete successfully');
+				await getDatasByFilter({...paging, ...params});
+			} else {
+				message.error(response?.message);
+			}
+
+		} catch (error) {
+			message.error(error?.message);
+		}
+	}
+	return ( <>
+		<Breadcrumbs routes={routes} title={"Danh mục"} />
+		<Categories
+			datas={ datas }
+			paging={ paging }
+			deleteById={ deleteById }
+			params={ params }
+			getDatasByFilter={ getDatasByFilter }
+			setParams={ setParams }
+			setPaging={ setPaging }
+			setDatas={ setDatas }
+		/>
+	</> )
 };

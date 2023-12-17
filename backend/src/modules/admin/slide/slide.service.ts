@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Equal, Raw, Repository } from 'typeorm';
+import { Equal, Like, Raw, Repository } from 'typeorm';
 import { IPaging, Paging } from 'src/helpers/helper';
 import { CreateSlidesDto } from './dto/createSlide.dto';
 import { UpdateSlidesDto } from './dto/updateSlide.dto';
@@ -19,7 +19,7 @@ export class SlideService {
 
         const [slides, total] = await this.slideRepo.findAndCount({
             where: conditions,
-            order: { id: 'ASC' },
+            order: { created_at: 'DESC' },
             take: paging.page_size,
             skip: ((paging.page - 1) * paging.page_size)
         });
@@ -51,9 +51,8 @@ export class SlideService {
     async buildConditions(filters: any)
     {
         const conditions: any = {};
-
         if (filters.id) conditions.id = Equal(filters.id);
-        if (filters.name) conditions.name = Raw(alias => `${alias} ILIKE '%${filters.name}%'`);
+        if (filters.name) conditions.name = Like(`%${filters.name}%`) ;
         if (filters.status) conditions.status = Equal(filters.status);
 
         return conditions;

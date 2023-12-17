@@ -67,7 +67,6 @@ export class ProductController {
 				page: req.query.page || 1,
 				page_size: req.query.page_size || 20
 			};
-			 // Tạo đối tượng filters từ các tham số truy vấn để tìm kiếm sản phẩm
 			const filters = {
 				name: req.query.name || null,
 				status: req.query.status || null,
@@ -75,7 +74,6 @@ export class ProductController {
 				hot: req.query.hot || null,
 				id: req.query.id || null,
 			};
-			 // Gọi phương thức getProducts từ service và trả về kết quả
 			return BaseResponse(HTTP_STATUS.success, await this.adminProdService.getProducts(paging, filters),'', 'successfully!');
 		} catch (error) {
 			console.log('-----e@getProducts---> ', error);

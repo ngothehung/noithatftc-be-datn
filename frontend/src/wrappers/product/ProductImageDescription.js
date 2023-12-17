@@ -9,6 +9,7 @@ import ProductDescriptionInfo from "../../components/product/ProductDescriptionI
 import ProductImageGallerySideThumb from "../../components/product/ProductImageGallerySideThumb";
 import ProductImageFixed from "../../components/product/ProductImageFixed";
 import { checkTimeNow } from "../../helpers/func";
+import { getItem } from "../../services";
 
 const ProductImageDescription = ( {
 	spaceTopClass,
@@ -22,9 +23,11 @@ const ProductImageDescription = ( {
 } ) =>
 {
 	const [ images, setImages ] = useState( null );
+	const userId = getItem('id')
+
 
 	const wishlistItem = wishlistItems.filter(
-		wishlistItem => wishlistItem.id === product.id
+		wishlistItem => wishlistItem.id === product.id && wishlistItem.user_like === userId
 	)[ 0 ];
 	const compareItem = compareItems.filter(
 		compareItem => compareItem.id === product.id
@@ -35,7 +38,6 @@ const ProductImageDescription = ( {
 	const discountedPrice = (checkTimeNow(product?.sale_to) && product?.sale) ? getDiscountPrice( product.price, product.sale ) : null;
 	const finalProductPrice = +( product.price * currency.currencyRate ).toFixed( 2 );
 	const finalDiscountedPrice = +(discountedPrice * currency.currencyRate).toFixed( 2 );
-
 
 	useEffect( () =>
 	{

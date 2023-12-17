@@ -41,7 +41,7 @@ export class ProductService {
 		const [products, total] = await this.adminProdRepo.findAndCount({
 			where: condition,
 			order: {
-				id: 'ASC'
+				created_at: 'DESC'
 			},
 			relations: {
 				product_images: true,

@@ -10,6 +10,9 @@ import { ProductModule } from './product/product.module';
 import { MiddlewareMiddleware } from './middleware/middleware.middleware';
 import { JwtModule } from '@nestjs/jwt';
 import { OrderModule } from './order/order.module';
+import { ContactModule } from './contact/contact.module';
+import { StatisticModule } from './statistic/statistic.module';
+import { DiscountModule } from './discount/discount.module';
 
 @Module({
     imports: [
@@ -22,7 +25,10 @@ import { OrderModule } from './order/order.module';
         MenuModule,
         ProductModule,
 		JwtModule,
-		OrderModule
+		OrderModule,
+		ContactModule,
+		StatisticModule,
+		DiscountModule
     ],
     providers: [],
     controllers: []

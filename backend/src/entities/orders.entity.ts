@@ -25,6 +25,12 @@ export class Orders {
 	@Column('float', { name: 'total_price', nullable: false, default: 0 })
 	total_price: number;
 
+	@Column({ name: 'code', nullable: false })
+	code: string;
+
+	@Column()
+	payment_type: number;
+
 	@Column('text', { name: 'note', nullable: true })
 	note: string | null;
 

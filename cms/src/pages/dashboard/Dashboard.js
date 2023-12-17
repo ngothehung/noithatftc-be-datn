@@ -1,50 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import
 {
 	Col,
-	Row,
-	Progress,
-	Button,
-	DropdownToggle,
-	DropdownMenu,
-	DropdownItem,
-	UncontrolledDropdown
+	Row
 } from "reactstrap";
 import Widget from "../../components/Widget/Widget.js";
-import ApexActivityChart from "./components/ActivityChart.js";
 
-import meal1 from "../../assets/dashboard/meal-1.svg";
-import meal2 from "../../assets/dashboard/meal-2.svg";
-import meal3 from "../../assets/dashboard/meal-3.svg";
 
 import s from "./Dashboard.module.scss";
 import { useDispatch } from "react-redux";
 import { DASHBOARD_SERVICE } from "../../services/dashboard.js";
-import Charts from "../uielements/charts/Charts.js";
-import ApexLineChart from "../uielements/charts/components/ApexLineChart.js";
-import RechartsPieChart from "../uielements/charts/components/RechartsPieChart.js";
 import { Form, Select } from "antd";
 import moment from "moment";
+import PipeChartApex from "../uielements/charts/components/PieChart.js";
+import ApexLineChart from "../uielements/charts/components/ApexLineChart.js";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import Breadcrumbs from "../../components/Breadbrumbs/Breadcrumbs.js";
+
 
 const Dashboard = () =>
 {
 	const [ checkboxes, setCheckboxes ] = useState( [ true, false ] );
 	const [ optionMonth, setOptionMonth ] = useState( [] );
+	const [ month, setMonth ] = useState( moment().month() );
+	const [ dataRevenue, setDataRevenue ] = useState( [] );
+	const [ dataDate, setDataDate ] = useState( [] );
+	const [ isCheck, setIsCheck ] = useState( false );
 
 	const toggleCheckbox = ( id ) =>
 	{
 		setCheckboxes( checkboxes => checkboxes
 			.map( ( checkbox, index ) => index === id ? !checkbox : checkbox ) )
 	}
-	const meals = [ meal1, meal2, meal3 ];
-
-	// const optionMonth = [
-	// 	{ value: 1, label: 'Pending' },
-	// 	{ value: 2, label: 'Approved' },
-	// 	{ value: 3, label: 'Success' },
-	// 	{ value: 4, label: 'Reject/Cancel' },
-	// ]
 
 	const [ data, setData ] = useState( null );
 
@@ -54,7 +41,7 @@ const Dashboard = () =>
 
 	useEffect( () =>
 	{
-		// getDashboard( {} );
+		getDashboard( {} );
 		getTime()
 	}, [] );
 
@@ -64,7 +51,7 @@ const Dashboard = () =>
 		{
 			let obj = {
 				value: index + 1,
-				label: moment().month( index ).format( 'MMMM' )
+				label: `Tháng ${ index + 1 }`
 			};
 			newItem.push( obj );
 			return newItem
@@ -72,12 +59,29 @@ const Dashboard = () =>
 		setOptionMonth( arrayTime )
 	}
 
-	// const getDashboard = async ( filter ) =>
-	// {
-	// 	await DASHBOARD_SERVICE.getByFilter( filter, setData, dispatch );
-	// }
-	return null
-	return (
+	const getDashboard = async ( filter ) =>
+	{
+		setIsCheck( false );
+		const response = await DASHBOARD_SERVICE.getByFilter( filter, setData, dispatch );
+		if ( response?.status === 'success' )
+		{
+			let date = response?.data?.group_day?.map( item => item.day );
+			let total = response?.data?.group_day?.map( item => item.total_price );
+			setDataRevenue( total );
+			setDataDate( date );
+		}
+		setIsCheck( true );
+
+
+	}
+	const routes = [
+		{
+			name: 'Dashboard',
+			route: '/'
+		},
+	]
+	return ( <>
+		<Breadcrumbs routes={ routes } title={ "Dashboard" } />
 		<Row>
 			<Col className="pr-grid-col" xs={ 12 } lg={ 12 }>
 				<Row className="gutter mb-4">
@@ -85,8 +89,8 @@ const Dashboard = () =>
 						<Widget className="widget-p-sm bg-primary text-white">
 							<div className={ s.smallWidget }>
 								<div className="d-md-flex align-items-center justify-content-md-between">
-									<p className="headline-2">Total Customers</p>
-									<p className="headline-2">{ data?.totalUser || 0 } <i className="eva eva-people ml-2"></i></p>
+									<p className="headline-2">Người dùng</p>
+									<p className="headline-2">{ data?.total_user || 0 } <i className="eva eva-people ml-2"></i></p>
 								</div>
 							</div>
 						</Widget>
@@ -95,8 +99,8 @@ const Dashboard = () =>
 						<Widget className="widget-p-sm bg-warning text-white">
 							<div className={ s.smallWidget }>
 								<div className="d-md-flex align-items-center justify-content-md-between">
-									<p className="headline-2">Total Products</p>
-									<p className="headline-2"> { data?.totalProduct || 0 } <i className="eva eva-list ml-2"></i></p>
+									<p className="headline-2">Sản phẩm</p>
+									<p className="headline-2"> { data?.total_product || 0 } <i className="eva eva-list ml-2"></i></p>
 								</div>
 							</div>
 						</Widget>
@@ -105,8 +109,8 @@ const Dashboard = () =>
 						<Widget className="widget-p-sm bg-success text-white">
 							<div className={ s.smallWidget }>
 								<div className="d-md-flex align-items-center justify-content-md-between">
-									<p className="headline-2">Total Orders</p>
-									<p className="headline-2"> { data?.totalOrder || 0 } <i className="eva eva-layers ml-2"></i></p>
+									<p className="headline-2">Đơn hàng</p>
+									<p className="headline-2"> { data?.total_order || 0 } <i className="eva eva-layers ml-2"></i></p>
 								</div>
 							</div>
 						</Widget>
@@ -114,28 +118,33 @@ const Dashboard = () =>
 				</Row>
 				<div className="gutter">
 
-					<Widget className="widget-p-md">
-						{/* <div className="d-md-flex align-items-center">
-							<div className="headline-3 mb-3 font-weight-bold mr-2">Select Month:</div>
+					<Widget className="widget-p-lg">
+						<div className="align-items-center row mb-3 p-2">
+							<div className="headline-3 mb-3 col-2 font-weight-bold">Chọn tháng:</div>
 							<Select
-								placeholder="Select month"
-								className="mb-4"
+								placeholder="Chọn tháng"
+								className="mb-4 col-3 w-100"
 								size="large"
-								onChange={(e) => {
-									getDashboard({month: e})
-								}}
+								defaultValue={ month + 1 }
+								onChange={ ( e ) =>
+								{
+									getDashboard( { month: e } );
+									setMonth( e );
+								} }
 								options={ optionMonth }
 							/>
-						</div> */}
+						</div>
 						<Row className="gutter mb-4">
-							{/* <Col className="mb-4 pr-0 mb-md-0" xs={ 12 } md={ 6 }>
-								<h2 className="headline-2 mb-3">Order Sales Amount</h2>
-								<ApexLineChart className="pb-4" listDates={data?.listDate} data={data?.listOrderByStatus}/>
-							</Col> */}
-							<Col className="mb-4 px-0 mb-md-0" xs={ 12 } md={ 12}>
-								<h2 className="headline-2 mb-3">Order Status</h2>
-								<RechartsPieChart className="pb-4" data={data?.orderByStatus}/>
+							<Col className="mb-4 mb-md-0" xs={ 12 } md={ 6 }>
+								<h2 className="headline-2">Trạng thái đơn hàng</h2>
+								<PipeChartApex className="pb-4" data={ data?.group_status } />
 							</Col>
+							<Col className="my-4 pr-0 mb-md-0" xs={ 12 } md={ 12 }>
+								<h2 className="headline-2 mb-3">Doanh số</h2>
+
+								<ApexLineChart className="pb-4" month={ month } isCheck={ isCheck } listDates={ dataDate } data={ dataRevenue } />
+							</Col>
+
 						</Row>
 					</Widget>
 
@@ -143,6 +152,7 @@ const Dashboard = () =>
 
 			</Col>
 		</Row >
+	</>
 	)
 }
 

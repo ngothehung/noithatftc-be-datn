@@ -19,7 +19,7 @@ export class CategoryService {
 
         const [categories, total] = await this.cateRepo.findAndCount({
             where: conditions,
-            order: { id: 'ASC' },
+            order: { created_at: 'DESC' },
             take: paging.page_size,
             skip: ((paging.page - 1) * paging.page_size),
         });
@@ -66,7 +66,7 @@ export class CategoryService {
 
         const [ categories, total] = await this.cateRepo.findAndCount({
             where: condition,
-            order: { id: 'ASC' },
+            order: { created_at: 'DESC' },
             take: paging.page_size,
             skip: ((paging.page - 1) * paging.page_size)
         });

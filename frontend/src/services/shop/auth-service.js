@@ -4,6 +4,9 @@ export const Auth_Service = {
 	login: async (data) => {
 		return await postMethod('auth/login', data);
 	},
+	resetPassword: async (data) => {
+		return await postMethod('auth/reset-password', data);
+	},
 	register: async (data) => {
 		return await postMethod('auth/register', data);
 	},
@@ -15,5 +18,8 @@ export const Auth_Service = {
 	},
 	changePassword: async (data) => {
 		return await putMethod('auth/change-password', data);
+	},
+	reset: async (data) => {
+		return await putMethod('auth/password/reset', data);
 	}
 }

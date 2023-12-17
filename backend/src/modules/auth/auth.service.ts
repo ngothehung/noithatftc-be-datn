@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 import * as bcrypt from 'bcrypt';
 import * as md5 from 'md5';
 import { BadRequestException } from 'src/helpers/response/badRequest';
-import { getSecond } from 'src/helpers/helper';
+import { getSecond, makeId } from 'src/helpers/helper';
 import { JwtService } from '@nestjs/jwt';
 import { UpdateProfileDto } from './dtos/update-profile.dto';
 import { UserService } from '../admin/user/user.service';
@@ -89,8 +89,40 @@ export class AuthService {
 		if (_.isEmpty(user)) {
 			throw new BadRequestException({ code: 'U0002' });
 		}
+		
 		let newPassword = await bcrypt.hash(data.password.trim(), 10);
+		
 		await this.userRepo.update(userId, {password: newPassword});
+		return user;
+	}
+
+	async reset(data: any) {
+		let user = await this.userRepo.findOneBy({ email: data.email });
+		if (_.isEmpty(user)) {
+			throw new BadRequestException({ code: 'U0002' });
+		}
+		const isPasswordMatching = await bcrypt.compare(
+			data.old_password,
+			user.password
+		);
+		if(!isPasswordMatching) {
+			throw new BadRequestException({code: "U0002", message: "Mật khẩu cũ không đúng"})
+		}
+		let newPassword = await bcrypt.hash(data.password.trim(), 10);
+		await this.userRepo.update(user.id, {password: newPassword});
+		return user;
+	}
+
+
+	async resetPassword(data: any) {
+		let user = await this.userRepo.findOneBy({ email: data.email});
+		if (_.isEmpty(user)) {
+			throw new BadRequestException({ code: 'U0002' });
+		}
+		const newPass = makeId( 6 ); 
+		let newPassword = await bcrypt.hash(newPass, 10);
+		await this.userRepo.update(user.id, {password: newPassword});
+		this.mailService.resetPassword({...data, password: newPass});
 		return user;
 	}
 
@@ -114,7 +146,7 @@ export class AuthService {
 
 	async register(data: RegisterDto) {
 		data.status = 1;
-		// await this.validateService.validateUser(data, true);
+		await this.validateService.validateUser(data, true);
 		delete data.password_cf;
 		data.password = await bcrypt.hash(data.password.trim(), 10);
 		const newData = await this.userRepo.create(data);

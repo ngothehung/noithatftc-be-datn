@@ -10,71 +10,73 @@ import BannerTwenty from "../../wrappers/banner/BannerTwenty";
 import HeroSliderTwentyTwo from "../../wrappers/hero-slider/HeroSliderTwentyTwo";
 import { getSlidesByFilters } from "../../services/shop/slider-service";
 import { getCategories, getProductsByFilter } from "../../services";
-import CategoryTwoSlider from "../../wrappers/slider/CategoryTwoSlider";
+import BannerPage from "../../components/banner/Banner";
 
-const HomeCakeShop = () => {
+const HomeCakeShop = () =>
+{
 
-	const [slides, setSlides] = useState(null);
-	const [products, setProducts] = useState(null);
-	const [categories, setCategories] = useState(null)
-	const [params, setParams] = useState({
+	const [ slides, setSlides ] = useState( null );
+	const [ products, setProducts ] = useState( null );
+	const [ categories, setCategories ] = useState( null )
+	const [ params, setParams ] = useState( {
 		is_hot: null,
 		is_sale: null,
 		page: 1,
 		page_size: 8,
 		status: 1
-	});
+	} );
 
-	useState(() => {
-		getSlidesByFilters({page: 1, page_size:20, status: 1}, setSlides);
-		getCategories( {page: 1, page_size: 5, status: 1}, setCategories );
-	}, []);
+	useState( () =>
+	{
+		getSlidesByFilters( { page: 1, page_size: 20, status: 1 }, setSlides );
+		getCategories( { page: 1, page_size: 3, status: 1 }, setCategories );
+	}, [] );
 
-	useEffect(() => {
-		getProductsByFilter(params, setProducts);
-	}, [params])
+	useEffect( () =>
+	{
+		getProductsByFilter( params, setProducts );
+	}, [ params ] )
 
-  return (
-    <Fragment>
-      <MetaTags>
-        <title>Home</title>
-        <meta
-          name="description"
-          content="Cửa hàng Nội thất home of flone react minimalist eCommerce template."
-        />
-      </MetaTags>
-      <LayoutOne headerTop="visible">
-        {/* hero slider */}
-		{slides && <HeroSliderTwentyTwo slides={slides}/>}
+	return (
+		<Fragment>
+			<MetaTags>
+				<title>Home</title>
+				<meta
+					name="description"
+					content="Cửa hàng bán trái cây"
+				/>
+			</MetaTags>
+			<LayoutOne headerTop="visible">
+				{/* hero slider */ }
+				{ slides && <HeroSliderTwentyTwo slides={ slides } /> }
+				{/* tab product */ }
 
-        {/* banner */}
-        {/* <BannerNineteen spaceTopClass="pt-100" spaceBottomClass="pb-80" /> */}
-        {/* feature icon */}
-		
-        <FeatureIconFour
-          bgImg="/assets/img/bg/shape.png"
-          containerClass="container-fluid"
-          gutterClass="padding-10-row-col"
-          spaceTopClass="pt-50"
-          spaceBottomClass="pb-40"
-        />
-		{categories?.length > 0 && <CategoryTwoSlider categoryData={categories}/>} 
-        {/* tab product */}
-        <TabProductFourteen
-          category="cakes"
-		  products={products}
-		  setParams={setParams}
-		  params={params}
-          spaceBottomClass="pb-100"
-          spaceTopClass="pt-50"
-        />
-        {/* banner */}
-        {/* <BannerTwenty categories={categories} /> */}
-        {/* blog featured */}
-        {/* <BlogFeaturedThree spaceTopClass="pt-70" spaceBottomClass="pb-70" /> */}
-      </LayoutOne>
-    </Fragment>
-  );
+				<BannerPage />
+				<TabProductFourteen
+					category="cakes"
+					products={ products }
+					setParams={ setParams }
+					params={ params }
+					spaceBottomClass="pb-100"
+					spaceTopClass="pt-100"
+					title={ 'Sản phẩm nổi bật' }
+				/>
+				{/* banner */ }
+				<BannerTwenty categories={ categories } />
+				<TabProductFourteen
+					category="cakes"
+					products={ products }
+					setParams={ setParams }
+					params={ params }
+					spaceBottomClass="pb-100"
+					spaceTopClass="pt-100"
+					title={ 'Sản phẩm mới' }
+				/>
+				{/* blog featured */ }
+				{/* <BlogFeaturedThree spaceTopClass="pt-70" spaceBottomClass="pb-70" /> */ }
+			</LayoutOne>
+		</Fragment>
+	);
 };
 
 export default HomeCakeShop;

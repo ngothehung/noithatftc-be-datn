@@ -10,7 +10,7 @@ export const AUTH_SERVICE = {
 		try
 		{
 			const response = await postMethod( '/auth/login', data );
-			await timeDelay( 2000 );
+			await timeDelay( 500 );
 			return response;
 		} catch ( error )
 		{
@@ -39,7 +39,7 @@ export const submitProfile = async (files, e, dispatch, history ) =>
 		dispatch( toggleShowLoading( true ) );
 		let fileImg = [];
 		let avatar = await uploadApi.uploadFile(files);
-		await timeDelay( 2000 );
+		await timeDelay( 500 );
 		let formValue = { ...e };
 		delete formValue.image;
 		if(avatar) {

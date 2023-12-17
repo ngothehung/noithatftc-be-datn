@@ -32,7 +32,7 @@ const Header = ( props ) =>
 	const [ menuOpen, setMenuOpen ] = useState( false );
 	const [ notificationsOpen, setNotificationsOpen ] = useState( false );
 
-	const userImage = getItem( 'avatar' ) && JSON.parse(getItem( 'avatar' )) || null;
+	const userImage = getItem( 'avatar' ) || null;
 
 	const toggleNotifications = () =>
 	{

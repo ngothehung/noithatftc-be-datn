@@ -7,7 +7,7 @@ import { ILike, In, Like, Repository } from 'typeorm';
 import { ProductService } from '../product/product.service';
 import * as _ from 'lodash';
 import { BadRequestException } from 'src/helpers/response/badRequest';
-import { IPaging, Paging } from 'src/helpers/helper';
+import { IPaging, Paging, makeId } from 'src/helpers/helper';
 import { Products } from 'src/entities/product.entity';
 import { TransactionOrderDto } from './dto/transactionOrder.dto';
 import { Transactions } from 'src/entities/transaction.entity';
@@ -27,39 +27,24 @@ export class OrderService {
 
 	async create(createOrderDto: CreateOrderDto, user: any) {
 		let products = createOrderDto.products || null;
-
+		let totalDiscount = createOrderDto.total_discount || 0;
 		const rs = await this.countProduct(products);
 		let transactionOrder: any = rs.products;
-		createOrderDto.total_discount = rs.totalDiscount;
+		createOrderDto.total_discount = totalDiscount;
 		delete createOrderDto.products;
-		createOrderDto.total_price = rs.totalPrice;
-		createOrderDto.user_id = user.id;
+		createOrderDto.total_price = createOrderDto.total_price;
+		createOrderDto.user_id = createOrderDto.user_id || 0;
 		createOrderDto.status = 1;
 		createOrderDto.shipping_status = 1;
 		createOrderDto.payment_status = 0;
 		createOrderDto.created_at = new Date();
 		createOrderDto.updated_at = new Date();
 
-		const newOrder: any = this.orderRepo.create(createOrderDto);
+		const newOrder: any = this.orderRepo.create({...createOrderDto, code: makeId(10)});
 		await this.orderRepo.save(newOrder);
-		await this.storeTransaction(transactionOrder, newOrder.id, user.id);
-		try {
-			let url_return = process.env.URL_REDIRECT;
-			let newData = {
-				order_id: newOrder.id,
-				url_return: `${url_return}/order/callback`,
-				amount: newOrder.total_price,
-				service_code: "order",
-				url_callback: `${url_return}/order/callback`
-			}
-			const response = await axios.post("payment", newData);
-			if (response.data.link) {
-				newOrder.link = response.data.link;
-			}
-
-		} catch (err) {
-			throw new BadRequestException({ code: 'OR0001', message: err?.message });
-		}
+		await this.storeTransaction(transactionOrder, newOrder.id, user?.id);
+		const newData = await this.findOne(newOrder.id);
+		this.mailService.sendOrderData(newData)
 		return newOrder;
 	}
 
@@ -125,11 +110,12 @@ export class OrderService {
 			if (filter.receiver_name) condition.receiver_name = ILike(`%${filter.receiver_name}%`);
 			if (filter.receiver_email) condition.receiver_email = ILike(`%${filter.receiver_email}%`);
 			if (filter.receiver_phone) condition.receiver_phone = ILike(`%${filter.receiver_phone}%`);
+			if (filter.code) condition.code = filter.code;
 		}
 		const [orders, total] = await this.orderRepo.findAndCount({
 			where: condition,
 			order: {
-				id: 'ASC'
+				created_at: 'DESC'
 			},
 			relations: {
 				user: true,
@@ -138,7 +124,6 @@ export class OrderService {
 			take: paging.page_size,
 			skip: ((paging.page - 1) * paging.page_size)
 		});
-
 		return { orders: orders, meta: new Paging(paging.page, paging.page_size, total) };
 	}
 
@@ -163,17 +148,18 @@ export class OrderService {
 	async webhook(req: any, res: any) {
 		let id = req.query.vnp_TxnRef;
 		console.log("order id------> ", id);
-		if (req.query.vnp_ResponseCode == "00") { 
+		if (req.query.vnp_ResponseCode == "00") {
 			// req.query.vnp_ResponseCode === "00" thanh toán thành công
 			const order = await this.findOne(id);
 			console.log("order=======> ", order);
 			// order.status = 2 ;
 			order.payment_status = 1;// Đã thanh toán;
-			this.orderRepo.update(order.id, {payment_status: 1, updated_at: new Date()});
+			order.payment_type = 1;// Đã thanh toán;
+			this.orderRepo.update(order.id, {payment_status: 1, updated_at: new Date(),payment_type: 1});
 			if (order) {
 				this.mailService.sendOrderData(order)
 			}
-			
+
 
 			return res.redirect(process.env.URL_REDIRECT_FE + '/payment/success');
 		}

@@ -88,7 +88,8 @@ export const CheckoutForm = ( props ) =>
 					status: 1,
 					payment_status: 0,
 					shipping_status: 1,
-					order_type: 0
+					order_type: 0,
+					payment_type: props.paymentType
 				 }
 				const response = await ORDER_SERVICE.create( data );
 				await timeDelay( 1000 );
@@ -96,24 +97,7 @@ export const CheckoutForm = ( props ) =>
 				{
 					console.log('============ response: ', response);
 
-					try {
-						let newData = {
-							order_id: response.data.id,
-							url_return: process.env.REACT_APP_API + '/order/callback',
-							amount: cartTotalPrice,
-							service_code: "order",
-							url_callback: process.env.REACT_APP_API + '/order/callback'
-						}
-						const responseService = await axios.post("https://123code.net/api/v1/payment/add", newData);
-						console.log('================== response: ', responseService);
-						if (responseService.data.link) {
-							// data.link = response.data.link;
-							window.open( responseService?.data?.link, '_blank ' );
-						}
-
-					} catch (err) {
-						console.log('------------- ERROR CART',err);
-					}
+					
 
 					message.success( 'Checkout successfully!' );
 					await timeDelay( 1000 );

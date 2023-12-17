@@ -82,7 +82,7 @@ export const PERMISSION_ROUTE = [
 
 
 export const regexGmail = /([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@gmail([\.])com/g;
-export const regexEmail = /^[a-z][a-z0-9_\.]{0,31}[a-z0-9]{0,}@[a-z0-9\-]{2,}(\.[a-z0-9\-]{2,}){1,4}$/
-export const regexPass = /^[a-zA-Z0-9]{6,20}$/g;
-export const regexUserName = /^[a-zA-Z0-9]{6,20}$/g;
+export const regexEmail = /[a-z][a-z0-9_\.]{0,31}[a-z0-9]{0,}@[a-z0-9\-]{2,}(\.[a-z0-9\-]{2,}){1,4}/g
+export const regexPass = /([a-zA-Z0-9]){6,20}/g;
+export const regexUserName = /([a-zA-Z0-9]){6,20}/g;
 export const regexPhone = /((09|03|07|08|05|04|\+84|84)+([0-9]{8,9})\b)/g;

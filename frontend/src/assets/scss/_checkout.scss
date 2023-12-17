@@ -129,6 +129,8 @@
   }
 }
 
+
+
 .your-order-area {
   @media #{$md-layout} {
     margin-top: 30px;
@@ -283,6 +285,9 @@
     border-radius: 50px;
     background: none;
     background-color: $theme-color;
+	&.btn-danger {
+		background-color: #dc3545;
+	}
     &:hover {
       background-color: #333;
     }

@@ -9,13 +9,17 @@ export const DASHBOARD_SERVICE = {
 			let filters = buildFilter(params);
 			dispatch(toggleShowLoading(true))
 			const response = await getMethod('/admin/statistical', filters);
+			dispatch(toggleShowLoading(false))
+
 			// await timeDelay(2000);
 			if (response?.status === 'success') {
 				setData(response?.data);
+				return response
 			} else {
 				setData(null);
+				return null
 			}
-			dispatch(toggleShowLoading(false))
+			
 		} catch (error) {
 			console.log("dashboard -------> ", error);
 			setData(null);

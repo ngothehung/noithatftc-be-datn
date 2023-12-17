@@ -8,51 +8,70 @@ export const SIDE_BARS = [
 	{
 		path: '/user',
 		icon: 'eva eva-people',
-		title: 'User',
-		children: [
-			{
-				path: '/user/list',
-				title: 'list ',
-				icon: '',
-			},
-			{
-				path: '/user/create',
-				icon: '',
-				title: 'Add new',
-			},
-		]
+		title: 'Người dùng',
+		key: -5
+		// children: [
+		// 	{
+		// 		path: '/user/list',
+		// 		title: 'list ',
+		// 		icon: '',
+		// 	},
+		// 	// {
+		// 	// 	path: '/user/create',
+		// 	// 	icon: '',
+		// 	// 	title: 'Add new',
+		// 	// },
+		// ]
 	},
 	{
 		path: '/product',
 		icon: 'eva eva-list',
-		title: 'Product',
+		title: 'Sản phẩm',
 		children: [
 			{
 				path: '/product/list',
-				title: 'List',
+				title: 'Danh sách',
 				icon: '',
 			},
 			{
 				path: '/product/create',
 				icon: '',
-				title: 'Add new',
+				title: 'Thêm mới',
 			},
 		]
 	},
 	{
 		path: '/category',
 		icon: 'eva eva-sun',
-		title: 'Category',
+		title: 'Phân loại',
 		children: [
 			{
 				path: '/category/list',
-				title: 'List ',
+				title: 'Danh sách ',
 				icon: '',
 			},
 			{
 				path: '/category/create',
 				icon: '',
-				title: 'Add new',
+				title: 'Thêm mới',
+			},
+		]
+	},
+
+	{
+		path: '/discount',
+		icon: 'eva eva-flash',
+		title: 'Giảm giá',
+		children: [
+			{
+				path: '/discount/list',
+				title: 'Danh sách',
+				icon: '',
+			},
+			{
+				path: '/discount/create',
+				icon: '',
+				title: 'Thêm mới',
 			},
 		]
 	},
@@ -63,50 +82,51 @@ export const SIDE_BARS = [
 		children: [
 			{
 				path: '/slide/list',
-				title: 'List ',
+				title: 'Danh sách',
 				icon: '',
 			},
 			{
 				path: '/slide/create',
 				icon: '',
-				title: 'Add new',
+				title: 'Thêm mới',
 			},
 		]
 	},
 	{
 		path: '/order',
 		icon: 'eva eva-grid',
-		title: 'Order',
-		children: [
-			{
-				path: '/order/list',
-				title: 'List',
-				icon: '',
-			}
-		]
+		title: 'Đơn hàng',
+		key: -4
 	},
-	{
-		path: '/setting',
-		icon: 'eva eva-settings',
-		title: 'Setting',
-		children: [
-			{
-				path: '/setting/role/list',
-				title: 'Roles',
-				icon: '',
-			},
-			{
-				path: '/setting/permission/list',
-				icon: '',
-				title: 'Permissions',
-			},
-		]
-	},
+	// {
+	// 	path: '/setting',
+	// 	icon: 'eva eva-settings',
+	// 	title: 'Setting',
+	// 	children: [
+	// 		{
+	// 			path: '/setting/role/list',
+	// 			title: 'Roles',
+	// 			icon: '',
+	// 		},
+	// 		{
+	// 			path: '/setting/permission/list',
+	// 			icon: '',
+	// 			title: 'Permissions',
+	// 		},
+	// 	]
+	// },
 
 	{
 		path: '/reviews',
 		icon: 'eva eva-star',
-		title: 'Reviews',
+		title: 'Đánh giá',
 		key: -2
 	},
+
+	// {
+	// 	path: '/contact',
+	// 	icon: 'eva eva-inbox',
+	// 	title: 'Liên hệ',
+	// 	key: -3
+	// },
 ]

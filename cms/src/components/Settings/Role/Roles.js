@@ -69,14 +69,14 @@ export const Roles = ( props ) =>
 			<Widget>
 				<div className="px-5 pt-5">
 					<Link to="/setting/role/create" className="btn btn-info">
-						<span className="d-flex align-items-center"><i className="eva eva-plus mr-2"></i> Create</span>
+						<span className="d-flex align-items-center"><i className="eva eva-plus mr-2"></i> Thêm mới</span>
 					</Link>
 				</div>
 				<div className="widget-table-overflow p-5 mt-4">
 					<Table className={ `table-striped table-bordered table-hover ${ s.statesTable }` } responsive>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>#</th>
 								<th className="text-nowrap">Name</th>
 								<th className="text-nowrap">Guard name</th>
 								<th className="text-nowrap">Description</th>
@@ -134,7 +134,7 @@ export const Roles = ( props ) =>
 								<tr>
 									<td colSpan={ 9 } style={ { textAlign: "center", backgroundColor: '#ffff' } }>
 										<img className="text-center" src={ EMPTY_IMG } style={ { width: "300px", height: "300px" } } />
-										<div style={ { color: "#9A9A9A" } }>Data empty</div>
+										<div style={ { color: "#9A9A9A" } }>Dữ liệu trống</div>
 									</td>
 								</tr>
 							}

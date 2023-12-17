@@ -6,6 +6,7 @@ import { CreateSlidesDto } from './dto/createSlide.dto';
 import { UpdateSlidesDto } from './dto/updateSlide.dto';
 import * as _ from 'lodash';
 import { JwtGuard } from 'src/modules/auth/guards/jwt/jwt.guard';
+import { RoleGuard } from 'src/modules/auth/guards/role/role.guard';
 
 @Controller('admin/slide')
 @ApiTags('Admin Slide')
@@ -38,6 +39,7 @@ export class SlideController {
 
     @Get('show/:id')
     @HttpCode(HttpStatus.OK)
+	@UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async getSlideById(@Param('id') id: number) {
         try {

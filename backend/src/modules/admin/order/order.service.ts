@@ -71,7 +71,7 @@ export class OrderService {
 		const [orders, total] = await this.orderRepo.findAndCount({
 			where: condition,
 			order: {
-				id: 'ASC'
+				created_at: 'DESC'
 			},
 			relations: {
 				user: true,
@@ -97,9 +97,9 @@ export class OrderService {
 	}
 
 	async update(id: number, updateOrderDto: UpdateOrderDto) {
-		if(updateOrderDto.receiver_email && !regexEmail.test(updateOrderDto.receiver_email.trim())) {
-			throw new BadRequestException({code: 'OR0003', message: 'Email invalid'});
-		}
+		// if(updateOrderDto. receiver_email&& !regexEmail.test(updateOrderDto.receiver_email.trim())) {
+		// 	throw new BadRequestException({code: 'OR0003', message: 'Email invalid'});
+		// }
 		await this.orderRepo.update(id, updateOrderDto);
 		return await this.findOne(id);
 	}

@@ -19,6 +19,6 @@ export const VOTE_SERVICE_CMS = {
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/admin/vote/${ id }` );
+		return await deleteMethod( `/admin/vote/delete/${ id }` );
 	}
 }

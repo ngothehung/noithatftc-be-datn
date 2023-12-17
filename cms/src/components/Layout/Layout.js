@@ -43,7 +43,7 @@ const Layout = ( props ) =>
 				<Header />
 				<Sidebar />
 				<main className={ s.content }>
-					<Breadcrumbs url={ props.location.pathname } />
+					{/* <Breadcrumbs url={ props.location.pathname } /> */}
 					<Switch>
 						{
 

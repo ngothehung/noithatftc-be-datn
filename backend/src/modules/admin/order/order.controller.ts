@@ -7,8 +7,10 @@ import { RoleGuard } from 'src/modules/auth/guards/role/role.guard';
 import * as _ from 'lodash';
 import { BadRequestException } from 'src/helpers/response/badRequest';
 import { BaseResponse, HTTP_STATUS, IPaging } from 'src/helpers/helper';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('admin/order')
+@ApiTags('Admin Order')
 @UseGuards(JwtGuard)
 export class OrderController {
 	constructor(private readonly orderService: OrderService) { }

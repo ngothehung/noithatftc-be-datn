@@ -98,13 +98,13 @@ const MyAccount = ( { location } ) =>
 		const response = await Auth_Service.updateProfile( formData );
 		if ( response?.status == 'success' )
 		{
-			message.success( 'Update profile successfully!' );
+			message.success( 'Cập nhật thành công!' );
 			setItem('name',formData.name);
 			setItem('email', formData.email);
 			setItem('phone', formData.phone);
 			setItem('gender', formData.gender);
 			setItem('avatar', formData.avatar);
-			
+
 		} else
 		{
 			message.error( response?.message || 'Error update profile' );
@@ -125,7 +125,7 @@ const MyAccount = ( { location } ) =>
 			const response = await Auth_Service.changePassword( { password: e.password } );
 			if ( response?.status == 'success' )
 			{
-				message.success( 'Change password successfully!' );
+				message.success( 'Đổi mật khẩu thành công!' );
 			} else
 			{
 				message.error( response.message || 'error' );
@@ -152,7 +152,7 @@ const MyAccount = ( { location } ) =>
 	return (
 		<Fragment>
 			<MetaTags>
-				<title>Cửa hàng Nội thất | My Account</title>
+				<title>[Cửa hàng nội thất] | My Account</title>
 				<meta
 					name="description"
 					content="Compare page of flone react minimalist eCommerce template."
@@ -160,7 +160,7 @@ const MyAccount = ( { location } ) =>
 			</MetaTags>
 			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/" }>Home</BreadcrumbsItem>
 			<BreadcrumbsItem to={ process.env.PUBLIC_URL + pathname }>
-				My Account
+				Thông tin cá nhân
 			</BreadcrumbsItem>
 			<LayoutOne headerTop="visible">
 				{/* breadcrumb */ }
@@ -175,17 +175,13 @@ const MyAccount = ( { location } ) =>
 											<Card.Header className="panel-heading">
 												<Accordion.Toggle variant="link" eventKey="0">
 													<h3 className="panel-title">
-														<span>1 .</span> Edit your account information{ " " }
+														<span>1 .</span> Xem và cập nhật thông tin{ " " }
 													</h3>
 												</Accordion.Toggle>
 											</Card.Header>
 											<Accordion.Collapse eventKey="0">
 												<Card.Body>
 													<div className="myaccount-info-wrapper">
-														<div className="account-info-wrapper">
-															<h4>My Account Information</h4>
-															<h5>Your Personal Details</h5>
-														</div>
 														<Form form={ form }
 															onFinish={ submitForm }
 															onFieldsChange={ ( e ) => onFieldsChange( e, form ) }
@@ -198,7 +194,7 @@ const MyAccount = ( { location } ) =>
 																		className=' d-block'
 																		label='Name'
 																	>
-																		<Input className='form-control mb-0' placeholder='Enter name' />
+																		<Input className='form-control mb-0' placeholder='Nhập dữ liệu' />
 																	</Form.Item>
 
 																	<Form.Item name="email"
@@ -206,7 +202,7 @@ const MyAccount = ( { location } ) =>
 																		className=' d-block'
 																		label='Email'
 																	>
-																		<Input className='form-control mb-0' placeholder='Enter email' />
+																		<Input className='form-control mb-0' placeholder='Nhập email' />
 																	</Form.Item>
 																</div>
 																<div className="col-md-3 h-100">
@@ -235,7 +231,7 @@ const MyAccount = ( { location } ) =>
 																		className=' d-block'
 																		label='Phone'
 																	>
-																		<Input className='form-control mb-0' placeholder='Enter phone' />
+																		<Input className='form-control mb-0' placeholder='Nhập số điện thoại' />
 																	</Form.Item>
 																</div>
 																<div className="col-3">
@@ -261,7 +257,7 @@ const MyAccount = ( { location } ) =>
 															</div>
 															<div className="billing-back-btn">
 																<div className="billing-btn">
-																	<button type="submit">Continue</button>
+																	<button type="submit">Cập nhật</button>
 																</div>
 															</div>
 														</Form>
@@ -274,17 +270,13 @@ const MyAccount = ( { location } ) =>
 											<Card.Header className="panel-heading">
 												<Accordion.Toggle variant="link" eventKey="1">
 													<h3 className="panel-title">
-														<span>2 .</span> Change your password
+														<span>2 .</span> Thay đổi mật khẩu
 													</h3>
 												</Accordion.Toggle>
 											</Card.Header>
 											<Accordion.Collapse eventKey="1">
 												<Card.Body>
 													<div className="myaccount-info-wrapper">
-														<div className="account-info-wrapper">
-															<h4>Change Password</h4>
-															<h5>Your Password</h5>
-														</div>
 														<Form
 															form={ formPassword }
 															onFinish={ submitPassword }
@@ -313,7 +305,7 @@ const MyAccount = ( { location } ) =>
 															</div>
 															<div className="billing-back-btn">
 																<div className="billing-btn">
-																	<button type="submit">Continue</button>
+																	<button type="submit">Cập nhật</button>
 																</div>
 															</div>
 														</Form>

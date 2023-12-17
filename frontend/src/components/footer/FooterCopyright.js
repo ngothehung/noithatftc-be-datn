@@ -3,18 +3,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
-  return (
-    <div
-      className={`copyright ${spaceBottomClass ? spaceBottomClass : ""} ${
-        colorClass ? colorClass : ""
-      }`}
-    >
-      <div className="footer-logo me-2">
-        <Link to={process.env.PUBLIC_URL + "/"}>
-		<h2 className="font-weight-bold">Cửa hàng Nội thất</h2>
-        </Link>
-      </div>
-      {/* <p>
+    return (
+        <div
+            className={`copyright ${spaceBottomClass ? spaceBottomClass : ""} ${colorClass ? colorClass : ""
+                }`}
+        >
+            <div className="footer-logo me-2">
+                <Link to={process.env.PUBLIC_URL + "/"}>
+                    <h2 className="font-weight-bold text-break">
+                        {/* <img src="/assets/logo.png" alt="" width="200px" /> */}
+						Cửa hàng nội thất
+                    </h2>
+                </Link>
+            </div>
+            {/* <p>
         &copy; {new Date().getFullYear()}{" "}
         <a
           href="https://hasthemes.com"
@@ -25,14 +27,14 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
         </a>
         .<br /> All Rights Reserved
       </p> */}
-    </div>
-  );
+        </div>
+    );
 };
 
 FooterCopyright.propTypes = {
-  footerLogo: PropTypes.string,
-  spaceBottomClass: PropTypes.string,
-  colorClass: PropTypes.string
+    footerLogo: PropTypes.string,
+    spaceBottomClass: PropTypes.string,
+    colorClass: PropTypes.string
 };
 
 export default FooterCopyright;

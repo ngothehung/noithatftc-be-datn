@@ -13,9 +13,9 @@ export class CreateCategoryDto {
     @ApiProperty()
 	description: string;
 
-    @IsString()
+    // @IsString()
     @ApiProperty()
-	avatar: string;
+	avatar: string | null;
 
     @IsString()
     @ApiProperty()

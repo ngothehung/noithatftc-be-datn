@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsInt, IsNotEmpty, IsNotEmptyObject, IsOptional, IsString, Min, MinLength, isNotEmptyObject } from "class-validator";
 import { TransactionOrderDto } from "./transactionOrder.dto";
+import { makeId } from "src/helpers/helper";
 
 export class CreateOrderDto {
 	
@@ -15,6 +16,10 @@ export class CreateOrderDto {
 	@ApiProperty()
 	@IsOptional()
 	total_price?: number | 0;
+
+	@ApiProperty()
+	@IsOptional()
+	payment_type?: number | 1;
 
 	@ApiProperty()
 	@IsString()

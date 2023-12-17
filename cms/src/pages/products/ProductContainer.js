@@ -1,10 +1,10 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProductsByFilter } from "../../services/productService.js";
+import { Product, getProductsByFilter } from "../../services/productService.js";
 import { Products } from "../../components/Products/Products.js";
-import { buildFilter } from "../../services/common.js";
-import { useHistory } from "react-router-dom"
+import Breadcrumbs from "../../components/Breadbrumbs/Breadcrumbs.js";
+import { message } from "antd";
 
 export const ProductContainer = () =>
 {
@@ -16,29 +16,53 @@ export const ProductContainer = () =>
 	} );
 	const [ params, setParams ] = useState( {} );
 	const dispatch = useDispatch();
-	const history = useHistory();
 
 	useEffect( () =>
 	{
 		getProductsByFilters( paging, setProducts, setPaging );
 	}, [] );
 
-	const getProductsByFilters = async ( filter, setProduct, setPage ) =>
+	const getProductsByFilters = ( filter, setProduct, setPage ) =>
 	{
-		filter = buildFilter( filter );
-		const paramSearch = new URLSearchParams( filter ).toString();
-		history.replace( { search: paramSearch } );
-		await getProductsByFilter( filter, setProducts, setPaging, dispatch );
+		getProductsByFilter( filter, setProducts, setPaging, dispatch );
 	}
 
+	const routes = [
+		{
+			name: 'Sản phẩm',
+			route: '/product/list'
+		},
+		{
+			name: 'Danh sách',
+			route: ''
+		}
+	];
 
-	return <Products
-		products={ products }
-		paging={ paging }
-		params={ params }
-		getProductsByFilters={ getProductsByFilters }
-		setParams={ setParams }
-		setPaging={ setPaging }
-		setProducts={ setProducts }
-	/>
+	const deleteById = async (id) => {
+		try {
+			const response = await Product.delete(id);
+			if(response?.status === 'success') {
+				message.success('Delete successfully');
+				await getProductsByFilters({...paging, ...params});
+			} else {
+				message.error(response?.message);
+			}
+
+		} catch (error) {
+			message.error(error?.message);
+		}
+	}
+
+	return (
+		<>
+			<Breadcrumbs routes={ routes } title={ "Sản phẩm" } /> <Products
+				products={ products }
+				paging={ paging }
+				params={ params }
+				deleteById={ deleteById }
+				getProductsByFilters={ getProductsByFilters }
+				setParams={ setParams }
+				setPaging={ setPaging }
+				setProducts={ setProducts }
+			/></> )
 };

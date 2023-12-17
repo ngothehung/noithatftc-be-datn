@@ -26,9 +26,9 @@ const LoginRegister = ( { location } ) =>
 
 	return (
 		<div>
-			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/" }>Home</BreadcrumbsItem>
+			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/" }>Trang chủ</BreadcrumbsItem>
 			<BreadcrumbsItem to={ process.env.PUBLIC_URL + pathname }>
-				{ type === 'login' ? 'Login' : 'Register' }
+				{ type === 'login' ? 'Đănh nhập' : 'Đăng ký' }
 			</BreadcrumbsItem>
 			<LayoutOne headerTop="visible">
 				{/* breadcrumb */ }
@@ -38,7 +38,8 @@ const LoginRegister = ( { location } ) =>
 						<div className="row">
 							<div className={type === 'login' ? 'col-lg-7 ml-auto mr-auto': 'col-md-12 ml-auto mr-auto'}>
 								<div className="login-register-wrapper">
-									<Tab.Container defaultActiveKey={ type ? type : 'login' }>
+								{ type === 'login' ? <LoginForm /> : <RegisterForm/> }
+									{/* <Tab.Container defaultActiveKey={ type ? type : 'login' }>
 										<Nav variant="pills" className="login-register-tab-list">
 											<Nav.Item>
 												<Nav.Link eventKey="login" className={ type === 'login' ? 'active' : '' }>
@@ -52,10 +53,10 @@ const LoginRegister = ( { location } ) =>
 											</Nav.Item>
 										</Nav>
 										<Tab.Content>
-											{ type === 'login' ? <LoginForm /> : <RegisterForm/> }
+											
 
 										</Tab.Content>
-									</Tab.Container>
+									</Tab.Container> */}
 								</div>
 							</div>
 						</div>

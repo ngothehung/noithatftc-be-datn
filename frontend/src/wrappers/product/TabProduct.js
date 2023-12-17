@@ -22,7 +22,7 @@ const TabProduct = ({
         <Tab.Container defaultActiveKey="bestSeller">
           <Nav
             variant="pills"
-            className="product-tab-list-2 pt-30 pb-55 text-center"
+            className="product-tab-list pt-30 pb-55 text-center"
           >
             <Nav.Item>
               <Nav.Link eventKey="newArrival">

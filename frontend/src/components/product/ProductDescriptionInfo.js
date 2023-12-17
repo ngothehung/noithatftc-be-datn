@@ -10,6 +10,8 @@ import { addToCompare } from "../../redux/actions/compareActions";
 import Rating from "./sub-components/ProductRating";
 import { checkTimeNow, customNumber } from "../../helpers/func";
 import { StarIcons } from "../common/star";
+import { getItem } from "../../services";
+import { ProductOptions } from "../../wrappers/product/ProductOptions";
 
 const ProductDescriptionInfo = ( {
 	product,
@@ -46,10 +48,23 @@ const ProductDescriptionInfo = ( {
 	{
 		vote_number = Number( Math.round( product?.total_stars / product?.total_reviews ) );
 	}
-	const checkTime =  (checkTimeNow(product?.sale_to) && product?.sale)
+	const checkTime = ( checkTimeNow( product?.sale_to ) && product?.sale );
+	const userId = getItem( 'id' );
 	return (
 		<div className="product-details-content ml-70">
 			<h2>{ product.name }</h2>
+			{ product.category ? (
+				<div className="pro-details-meta mt-4 d-flex align-items-center">
+					<h4 className="mb-0 mr-2">Danh mục :</h4>
+					<h4 className="mb-0">
+						<Link to={ process.env.PUBLIC_URL + "/shop" + '?category_id=' + product?.category?.id }>
+							{ product?.category?.name }
+						</Link>
+					</h4>
+				</div>
+			) : (
+				""
+			) }
 			<div className="product-details-price">
 				{ product.sale && checkTime ? (
 					<Fragment>
@@ -71,87 +86,7 @@ const ProductDescriptionInfo = ( {
 				<p>{ product.shortDescription }</p>
 			</div>
 
-			{/* {product.variation ? (
-        <div className="pro-details-size-color">
-          <div className="pro-details-color-wrap">
-            <span>Color</span>
-            <div className="pro-details-color-content">
-              {product.variation.map((single, key) => {
-                return (
-                  <label
-                    className={`pro-details-color-content--single ${single.color}`}
-                    key={key}
-                  >
-                    <input
-                      type="radio"
-                      value={single.color}
-                      name="product-color"
-                      checked={
-                        single.color === selectedProductColor ? "checked" : ""
-                      }
-                      onChange={() => {
-                        setSelectedProductColor(single.color);
-                        setSelectedProductSize(single.size[0].name);
-                        setQuantityCount(1);
-                      }}
-                    />
-                    <span className="checkmark"></span>
-                  </label>
-                );
-              })}
-            </div>
-          </div>
-          <div className="pro-details-size">
-            <span>Size</span>
-            <div className="pro-details-size-content">
-              {product.variation &&
-                product.variation.map(single => {
-                  return single.color === selectedProductColor
-                    ? single.size.map((singleSize, key) => {
-                        return (
-                          <label
-                            className={`pro-details-size-content--single`}
-                            key={key}
-                          >
-                            <input
-                              type="radio"
-                              value={singleSize.name}
-                              checked={
-                                singleSize.name === selectedProductSize
-                                  ? "checked"
-                                  : ""
-                              }
-                              onChange={() => {
-                                setSelectedProductSize(singleSize.name);
-                                setQuantityCount(1);
-                              }}
-                            />
-                            <span className="size-name">{singleSize.name}</span>
-                          </label>
-                        );
-                      })
-                    : "";
-                })}
-            </div>
-          </div>
-        </div>
-      ) : (
-        ""
-      )} */}
-			{/* {product.affiliateLink ? (
-        <div className="pro-details-quality">
-          <div className="pro-details-cart btn-hover ml-0">
-            <a
-              href={product.affiliateLink}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Buy Now
-            </a>
-          </div>
-        </div>
-      ) : 
-	  ( */}
+
 			<div className="pro-details-quality">
 				<div className="cart-plus-minus">
 					<button
@@ -196,56 +131,43 @@ const ProductDescriptionInfo = ( {
 							disabled={ productCartQty >= product.number }
 						>
 							{ " " }
-							Add to cart{ " " }
+							Thêm giỏ hàng{ " " }
 						</button>
 					) : (
 						<button disabled>Out of stock</button>
 					) }
 				</div>
-				{/* <div className="pro-details-wishlist">
-            <button
-              className={wishlistItem !== undefined ? "active" : ""}
-              disabled={wishlistItem !== undefined}
-              title={
-                wishlistItem !== undefined
-                  ? "Added to wishlist"
-                  : "Add to wishlist"
-              }
-              onClick={() => addToWishlist(product, addToast)}
-            >
-              <i className="pe-7s-like" />
-            </button>
-          </div>
-          <div className="pro-details-compare">
-            <button
-              className={compareItem !== undefined ? "active" : ""}
-              disabled={compareItem !== undefined}
-              title={
-                compareItem !== undefined
-                  ? "Added to compare"
-                  : "Add to compare"
-              }
-              onClick={() => addToCompare(product, addToast)}
-            >
-              <i className="pe-7s-shuffle" />
-            </button>
-          </div> */}
+				{/* {
+					userId != null &&
+					<div className="pro-details-wishlist btn-hover">
+						<button
+							className={ wishlistItem !== undefined ? "active" : "" }
+							disabled={ wishlistItem !== undefined }
+							title={
+								wishlistItem !== undefined
+									? "Added to wishlist"
+									: "Add to wishlist"
+							}
+							onClick={ () => addToWishlist( { ...product, user_like: userId }, addToast ) }
+						>
+							<i className="pe-7s-like" />
+						</button>
+					</div>
+				} */}
+
 			</div>
-			{/* )} */ }
-			{ product.category ? (
-				<div className="pro-details-meta">
-					<span>Categories :</span>
-					<ul>
-						<li >
-							<Link to={ process.env.PUBLIC_URL + "/shop" }>
-								{ product?.category?.name }
-							</Link>
-						</li>
-					</ul>
+
+			{
+				product?.options?.length > 0 &&
+				<div className=" my-3">
+					<h4>Thông tin sản phẩm</h4>
+					<div className="product-parameter">
+						<ProductOptions options={ product?.options } />
+					</div>
 				</div>
-			) : (
-				""
-			) }
+			}
+			{/* )} */ }
+
 			{/* {product.tag ? (
         <div className="pro-details-meta">
           <span>Tags :</span>

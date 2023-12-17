@@ -12,53 +12,52 @@ import TeamMemberOne from "../../wrappers/team-member/TeamMemberOne";
 import BrandLogoSliderOne from "../../wrappers/brand-logo/BrandLogoSliderOne";
 
 const About = ({ location }) => {
-  const { pathname } = location;
+    const { pathname } = location;
 
-  return (
-    <Fragment>
-      <MetaTags>
-        <title>About us</title>
-        <meta
-          name="description"
-          content="About page of flone react minimalist eCommerce template."
-        />
-      </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        About us
-      </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb />
+    return (
+        <Fragment>
+            <MetaTags>
+                <title>Giới thiệu</title>
+                <meta
+                    name="description"
+                    content="About page of flone react minimalist eCommerce template."
+                />
+            </MetaTags>
+            <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+            <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+                Giới thiệu
+            </BreadcrumbsItem>
+            <LayoutOne headerTop="visible">
+                {/* breadcrumb */}
+                <Breadcrumb />
+                <div
+                    className={`welcome-area  mt-5 mb-5`}
+                >
+                    <div className="container">
+                        <div className="welcome-content text-center">
+                            <h5>Giới thiệu</h5>
+                            <h1>Đây là trang giới thiệu của chúng tôi</h1>
+                        </div>
+                    </div>
+                    <div className={'container'}>
+                        <img src={`/assets/ab1.webp`} alt="" className={'w-100'} />
+                        <img src={`/assets/ab2.webp`} alt="" className={'w-100'} />
+                        <img src={`/assets/ab3.webp`} alt="" className={'w-100'} />
+                        <img src={`/assets/ab4.webp`} alt="" className={'w-100'} />
+                        <img src={`/assets/ab5.webp`} alt="" className={'w-100'} />
+                        <img src={`/assets/ab6.webp`} alt="" className={'w-100'} />
+                    </div>
+                </div>
 
-        {/* section title with text */}
-        <SectionTitleWithText spaceTopClass="pt-100" spaceBottomClass="pb-95" />
-
-        {/* banner */}
-        <BannerOne spaceBottomClass="pb-70" />
-
-        {/* text grid */}
-        <TextGridOne spaceBottomClass="pb-70" />
-
-        {/* fun fact */}
-        <FunFactOne
-          spaceTopClass="pt-100"
-          spaceBottomClass="pb-70"
-          bgClass="bg-gray-3"
-        />
-
-        {/* team member */}
-        <TeamMemberOne spaceTopClass="pt-95" spaceBottomClass="pb-70" />
-
-        {/* brand logo slider */}
-        <BrandLogoSliderOne spaceBottomClass="pb-70" />
-      </LayoutOne>
-    </Fragment>
-  );
+                {/* brand logo slider */}
+                <BrandLogoSliderOne spaceBottomClass="pb-70" />
+            </LayoutOne>
+        </Fragment>
+    );
 };
 
 About.propTypes = {
-  location: PropTypes.object
+    location: PropTypes.object
 };
 
 export default About;

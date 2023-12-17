@@ -17,12 +17,13 @@ export const removeItem = ( key ) =>
 
 export const buildFilter = ( values ) =>
 {
-	delete values.total;
-	delete values.total_pages;
-	delete values.count;
+
 	let params = {};
 	if ( values )
 	{
+		delete values.total;
+		delete values.total_pages;
+		delete values.count;
 		let arrCondition = Object.entries( values );
 
 		params = arrCondition.reduce( ( param, item ) =>
@@ -50,14 +51,14 @@ export const buildItemParam = ( key, value, params ) =>
 }
 
 export const validateMessages = {
-	required: '${label} is required!',
+	required: '${label} không được để trống!',
 	types: {
-		email: '${label} is not a valid email!',
-		number: '${label} is not a valid number!',
-		regexp: '${label} is invalid!'
+		email: '${label} không đúng định dạng email',
+		number: '${label} không đúng định dạng số',
+		regexp: '${label} không đúng định dạng!'
 	},
 	number: {
-		range: '${label} must be between ${min} and ${max}',
+		range: '${label} trong khoảng ${min} - ${max}',
 	},
 };
 
@@ -89,15 +90,17 @@ export const buildImage = ( img, is_user = false ) =>
 	{
 		return process.env.REACT_APP_URL_UPLOAD + "/upload/" + img;
 
-	} 
+	}
 	else return is_user ? DEFAULT_IMG : DEFAULT_IMAGE;
 }
 
-export const onErrorImage = (e)=> {
+export const onErrorImage = ( e ) =>
+{
 	e.currentTarget.src = DEFAULT_IMAGE;
 }
 
-export const onErrorUser = (e)=> {
+export const onErrorUser = ( e ) =>
+{
 	e.currentTarget.src = DEFAULT_IMG;
 }
 // }
@@ -106,12 +109,12 @@ export const onErrorUser = (e)=> {
 // }
 
 export const VALIDATE_FORM = {
-	required: '${label} is required!',
+	required: '${label} không được để trống!',
 	types: {
-		email: '${label} is not a valid email!',
-		number: '${label} is not a valid number!',
+		email: '${label} không đúng định dạng email',
+		number: '${label} không đúng định dạng số',
 	},
 	number: {
-		range: '${label} must be between ${min} and ${max}',
+		range: '${label} trong khoảng ${min} - ${max}',
 	},
 };
