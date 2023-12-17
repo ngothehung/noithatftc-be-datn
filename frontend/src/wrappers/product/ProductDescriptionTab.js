@@ -11,6 +11,7 @@ import TextArea from "antd/es/input/TextArea";
 import { toggleShowLoading } from "../../redux/actions/common";
 import { VOTE_SERVICE } from "../../services/shop/vote-service";
 import Paginator from "react-hooks-paginator";
+import { ProductOptions } from "./ProductOptions";
 
 const ProductDescriptionTab = ( props ) =>
 {
@@ -46,15 +47,15 @@ const ProductDescriptionTab = ( props ) =>
 			{
 				form.resetFields();
 				setVoteNumber( 0 );
-				props.getDataVotes({page: 1, page_size: 5, product_id: props.productFullDesc.id});
+				props.getDataVotes( { page: 1, page_size: 5, product_id: props.productFullDesc.id } );
 				window.location.reload();
-				message.success( 'Review product successfully' );
+				message.success( 'Đánh giá sản phẩm thành công' );
 			} else
-				message.error( 'Review product failed!' );
+				message.error( 'Đánh giá sản phẩm thất bại' );
 			dispatch( toggleShowLoading( false ) );
 		} catch ( error )
 		{
-			message.error( 'Review product failed!' );
+			message.error( 'Đánh giá sản phẩm thất bại' );
 			dispatch( toggleShowLoading( false ) );
 		}
 
@@ -75,7 +76,7 @@ const ProductDescriptionTab = ( props ) =>
 								<Nav.Link eventKey="productDescription">Description</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link eventKey="productReviews">Reviews {props?.paging?.total ? `(${props?.paging?.total})` : ''}</Nav.Link>
+								<Nav.Link eventKey="productReviews">Reviews { props?.paging?.total ? `(${ props?.paging?.total })` : '' }</Nav.Link>
 							</Nav.Item>
 						</Nav>
 						<Tab.Content className="description-review-bottom">
@@ -99,7 +100,10 @@ const ProductDescriptionTab = ( props ) =>
                 </div>
               </Tab.Pane> */}
 							<Tab.Pane eventKey="productDescription">
-								{ props.productFullDesc?.content }
+								
+								<p>
+									{ props.productFullDesc?.content }
+								</p>
 							</Tab.Pane>
 							<Tab.Pane eventKey="productReviews">
 								<div className="row">
@@ -110,18 +114,18 @@ const ProductDescriptionTab = ( props ) =>
 												props.reviews.map( ( item, index ) =>
 												{
 													return (
-														<div className="single-review" key={index}>
+														<div className="single-review" key={ index }>
 															<div className="review-img">
-																<img width={80} height={80}
-																	src={buildImage(item?.user?.avatar, true)}
-																	alt={item?.user?.avatar}
+																<img width={ 80 } height={ 80 }
+																	src={ buildImage( item?.user?.avatar, true ) }
+																	alt={ item?.user?.avatar }
 																/>
 															</div>
 															<div className="review-content">
 																<div className="review-top-wrap">
 																	<div className="review-left d-block">
 																		<div className="review-name">
-																			<h4>{item?.user?.name || 'N/A'}</h4>
+																			<h4>{ item?.user?.name || 'N/A' }</h4>
 																		</div>
 																		<div className="review-rating mt-2">
 																			<StarIcons vote_number={ item?.number } />
@@ -133,7 +137,7 @@ const ProductDescriptionTab = ( props ) =>
 																</div>
 																<div className="review-bottom">
 																	<p className="w-100">
-																		{item?.content}
+																		{ item?.content }
 																	</p>
 																</div>
 															</div>

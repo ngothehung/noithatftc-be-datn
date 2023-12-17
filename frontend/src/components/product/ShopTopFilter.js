@@ -8,32 +8,42 @@ import {
   setActiveSort
 } from "../../helpers/product";
 
-const ShopTopFilter = ({ products, getSortParams }) => {
-  const uniqueCategories = getIndividualCategories(products);
-  const uniqueColors = getIndividualColors(products);
-  const uniqueSizes = getProductsIndividualSizes(products);
-  const uniqueTags = getIndividualTags(products);
+const ShopTopFilter = (props) => {
+  const uniqueCategories = props.categories;
+  const uniqueColors = getIndividualColors(props.products);
+  const uniqueSizes = getProductsIndividualSizes(props.products);
+  const uniqueTags = getIndividualTags(props.products);
 
   return (
     <div className="product-filter-wrapper" id="product-filter-wrapper">
       <div className="product-filter-wrapper__inner">
         <div className="row">
           {/* Product Filter */}
-          <div className="col-md-3 col-sm-6 col-xs-12 mb-30">
+          <div className="col-md-12 col-sm-6 col-xs-12 mb-30">
             <div className="product-filter">
               <h5>Categories</h5>
               {uniqueCategories ? (
-                <ul>
-                  {uniqueCategories.map((category, key) => {
-                    return (
-                      <li key={key}>
+                <ul className="row">
+					<li className="col-2">
                         <button
                           onClick={e => {
-                            getSortParams("category", category);
+                            props.setParams({...props.params, category_id: null});
                             setActiveSort(e);
                           }}
                         >
-                          {category}
+                          Tất cả
+                        </button>
+                      </li>
+                  {uniqueCategories.map((category, key) => {
+                    return (
+                      <li key={key} className="col-2">
+                        <button
+                          onClick={e => {
+                            props.setParams({...props.params, category_id: category.id});
+                            setActiveSort(e);
+                          }}
+                        >
+                          {category.name}
                         </button>
                       </li>
                     );
@@ -46,7 +56,7 @@ const ShopTopFilter = ({ products, getSortParams }) => {
           </div>
 
           {/* Product Filter */}
-          <div className="col-md-3 col-sm-6 col-xs-12 mb-30">
+          {/* <div className="col-md-3 col-sm-6 col-xs-12 mb-30">
             <div className="product-filter">
               <h5>Color</h5>
               {uniqueColors ? (
@@ -56,7 +66,7 @@ const ShopTopFilter = ({ products, getSortParams }) => {
                       <li key={key}>
                         <button
                           onClick={e => {
-                            getSortParams("color", color);
+                            props.getSortParams("color", color);
                             setActiveSort(e);
                           }}
                         >
@@ -70,9 +80,9 @@ const ShopTopFilter = ({ products, getSortParams }) => {
                 "No colors found"
               )}
             </div>
-          </div>
+          </div> */}
           {/* Product Filter */}
-          <div className="col-md-3 col-sm-6 col-xs-12 mb-30">
+          {/* <div className="col-md-3 col-sm-6 col-xs-12 mb-30">
             <div className="product-filter">
               <h5>Size</h5>
               {uniqueSizes ? (
@@ -83,7 +93,7 @@ const ShopTopFilter = ({ products, getSortParams }) => {
                         <button
                           className="text-uppercase"
                           onClick={e => {
-                            getSortParams("size", size);
+                            props.getSortParams("size", size);
                             setActiveSort(e);
                           }}
                         >
@@ -97,9 +107,9 @@ const ShopTopFilter = ({ products, getSortParams }) => {
                 "No sizes found"
               )}
             </div>
-          </div>
+          </div> */}
           {/* Product Filter */}
-          <div className="col-md-3 col-sm-6 col-xs-12 mb-30">
+          {/* <div className="col-md-3 col-sm-6 col-xs-12 mb-30">
             <div className="product-filter product-filter--tag">
               <h5>Tag</h5>
               {uniqueTags ? (
@@ -109,7 +119,7 @@ const ShopTopFilter = ({ products, getSortParams }) => {
                       <li key={key}>
                         <button
                           onClick={e => {
-                            getSortParams("tag", tag);
+                            props.getSortParams("tag", tag);
                             setActiveSort(e);
                           }}
                         >
@@ -123,7 +133,7 @@ const ShopTopFilter = ({ products, getSortParams }) => {
                 "No tags found"
               )}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

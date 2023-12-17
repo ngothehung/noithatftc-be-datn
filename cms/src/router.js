@@ -1,4 +1,6 @@
 import { CategoryForm } from "./components/Category/CategoryForm";
+import { ContactPage } from "./components/Contact/Contact";
+import { DiscountForm } from "./components/Discount/DiscountForm";
 import { OrderForm } from "./components/Order/OrderForm";
 import { ProductForm } from "./components/Products/ProductForm";
 import { Permissions } from "./components/Settings/Permission/Permissions";
@@ -9,6 +11,7 @@ import { UserForm } from "./components/User/UserForm";
 import {PageVoting} from "./components/vote/voteList";
 import { CategoryContainer } from "./pages/category/CategoryContainer";
 import Dashboard from "./pages/dashboard/Dashboard";
+import { DiscountContainer } from "./pages/discount/DiscountContainer";
 import { OrderContainer } from "./pages/order/OrderContainer";
 import { ProductContainer } from "./pages/products/ProductContainer";
 import { ProfileContainer } from "./pages/profile/ProfileContainer";
@@ -44,27 +47,27 @@ export const ROUTERS = [
 		title: 'Edit product',
 		component: ProductForm,
 	},
-	// {
-	// 	path: '/user/list',
-	// 	exact: true,
-	// 	redirectFrom: '/user', 
-	// 	title: 'User',
-	// 	component: UserContainer,
-	// },
-	// {
-	// 	path: '/user/create',
-	// 	exact: true,
-	// 	redirectFrom: '/user', 
-	// 	title: 'Create',
-	// 	component: UserForm,
-	// },
-	// {
-	// 	path: '/user/edit/:id',
-	// 	exact: true,
-	// 	redirectFrom: '/user', 
-	// 	title: 'Edit',
-	// 	component: UserForm,
-	// },
+	{
+		path: '/user/list',
+		exact: true,
+		redirectFrom: '/user', 
+		title: 'User',
+		component: UserContainer,
+	},
+	{
+		path: '/user/create',
+		exact: true,
+		redirectFrom: '/user', 
+		title: 'Create',
+		component: UserForm,
+	},
+	{
+		path: '/user/edit/:id',
+		exact: true,
+		redirectFrom: '/user', 
+		title: 'Edit',
+		component: UserForm,
+	},
 	{
 		path: '/category/list',
 		exact: true,
@@ -174,5 +177,35 @@ export const ROUTERS = [
 		// redirectFrom: '/role', 
 		title: 'Reviews',
 		component: PageVoting,
+	},
+
+	{
+		path: '/contact',
+		exact: true,
+		// redirectFrom: '/role', 
+		title: 'Contacts',
+		component: ContactPage,
+	},
+
+	{
+		path: '/discount/list',
+		exact: true,
+		redirectFrom: '/discount', 
+		title: 'Discount',
+		component: DiscountContainer,
+	},
+	{
+		path: '/discount/create',
+		exact: true,
+		redirectFrom: null, 
+		title: 'Create Discount',
+		component: DiscountForm,
+	},
+	{
+		path: '/discount/edit/:id',
+		exact: true,
+		redirectFrom: null, 
+		title: 'Update Discount',
+		component: DiscountForm,
 	},
 ]

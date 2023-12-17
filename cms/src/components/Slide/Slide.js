@@ -13,6 +13,7 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
 import { DEFAUT_IMG, EMPTY_IMG } from "../../helpers/constant/image.js";
 import { SlideSearch } from "./SlideSearch.js";
 import { buildImage, onErrorImage } from "../../services/common.js";
+import { DeleteOutlined } from "@ant-design/icons";
 export const SlidesPage = ( props ) =>
 {
 
@@ -32,7 +33,7 @@ export const SlidesPage = ( props ) =>
 				<div className="p-5">
 					<div className="mb-3">
 						<Link to="/slide/create" className="btn btn-info">
-							<span className="d-flex align-items-center"><i className="eva eva-plus mr-2"></i> Create</span>
+							<span className="d-flex align-items-center"><i className="eva eva-plus mr-2"></i> Thêm mới</span>
 						</Link>
 					</div>
 					<SlideSearch { ...props } />
@@ -43,11 +44,11 @@ export const SlidesPage = ( props ) =>
 					<Table className={ `table-striped table-bordered table-hover ${ s.statesTable }` } responsive>
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th>#</th>
 								<th className="text-nowrap">Image</th>
 								<th className="text-nowrap">Name</th>
 								<th className="text-nowrap">Link</th>
-								{/* <th className="text-nowrap">Hot</th> */}
+								{/* <th className="text-nowrap">Hot</th> */ }
 								<th className="text-nowrap">Status</th>
 								<th className="text-nowrap">Time</th>
 								<th className="text-nowrap text-center">Action</th>
@@ -70,7 +71,7 @@ export const SlidesPage = ( props ) =>
 												<span className="text-break" style={ { minWidth: '100px' } }>{ item.name }</span>
 											</td>
 											<td className="text-gray-900">
-												<a href={item.link || '#'} target="_blank" className="text-break" style={ { minWidth: '100px' } }>{ item.link }</a>
+												<a href={ item.link || '#' } target="_blank" className="text-break" style={ { minWidth: '100px' } }>{ item.link }</a>
 											</td>
 											{/* <td className="text-gray-900">
 												{ item.hot === 1 && <span className="text-danger">Hot</span> }
@@ -80,9 +81,18 @@ export const SlidesPage = ( props ) =>
 												{ customDate( item.created_at, 'DD/MM/yyyy' ) }
 											</td>
 											<td>
-												<Link to={ `/slide/edit/${ item.id }` } className="d-flex justify-content-center">
-													<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
-												</Link>
+												<div className="d-flex">
+													<Link to={ `/slide/edit/${ item.id }` } className="d-flex justify-content-center">
+														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
+													</Link>
+													<DeleteOutlined
+														className="ml-2 cursor-pointer"
+														onClick={ () =>
+														{
+															props.deleteById( item.id );
+														} }
+														style={ { fontSize: "16px", color: "red" } } />
+												</div>
 											</td>
 										</tr>
 									)
@@ -94,7 +104,7 @@ export const SlidesPage = ( props ) =>
 								<tr>
 									<td colSpan={ 9 } style={ { textAlign: "center", backgroundColor: '#ffff' } }>
 										<img className="text-center" src={ EMPTY_IMG } style={ { width: "300px", height: "300px" } } />
-										<div style={ { color: "#9A9A9A" } }>Data empty</div>
+										<div style={ { color: "#9A9A9A" } }>Dữ liệu trống</div>
 									</td>
 								</tr>
 							}

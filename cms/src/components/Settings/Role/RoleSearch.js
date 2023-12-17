@@ -36,18 +36,18 @@ export const RoleSearch = ( props ) =>
 		>
 			<div className="row mb-1">
 				<div className="col-md-3 mb-2 form-group">
-					<Form.Item name="name" label="name" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter name' />
+					<Form.Item name="name" label="Tên" className='mb-0 d-block'>
+						<Input className='form-control' placeholder='Nhập dữ liệu' />
 					</Form.Item>
 				</div>
 			</div>
 
 			<button type="submit" className="btn btn-primary" style={ { marginRight: 10, padding: '10px 10px' } }>
-				<i className="nc-icon nc-zoom-split mr-2"></i>Search
+				<i className="nc-icon nc-zoom-split mr-2"></i>Tìm kiếm
 			</button>
 
 			<button type="button" className="btn btn-secondary" style={ { marginLeft: 10, padding: '10px 10px' } } onClick={ resetForm }>
-				<i className="nc-icon nc-refresh-02 mr-2"></i>Reset
+				<i className="nc-icon nc-refresh-02 mr-2"></i> Hoàn tác
 			</button>
 		</Form>
 	);

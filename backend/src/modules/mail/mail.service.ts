@@ -37,7 +37,7 @@ export class MailService {
 			const result = await this.transporter.sendMail({
 				from: `[Nội thất] ${this.config.get('MAIL_USER')}`,
 				to: data.email,
-				cc: ['letxhe140798@fpt.edu.vn'],
+				cc: ['ngothehung2110@gmail.com'],
 				subject: `[Nội thất] Chào mừng bạn đến với trang web`,
 				html: `
 			  <div style="background-color: #003375; margin: 0 auto; max-width: 600px; ">
@@ -66,7 +66,7 @@ export class MailService {
 			const result = await this.transporter.sendMail({
 				from: `[Nội thất] ${this.config.get('MAIL_USER')}`,
 				to: data.email,
-				cc: ['letxhe140798@fpt.edu.vn'],
+				cc: ['ngothehung2110@gmail.com'],
 				subject: `[Nội thất] Đặt hàng thành công`,
 				html: `
                 <div style='margin-left: 20px; font-size: 14px; overflow: auto; height: 400px; display: block;'>

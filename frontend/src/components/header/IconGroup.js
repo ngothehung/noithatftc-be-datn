@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
 import { DEFAULT_IMG } from "../../helpers/constant";
+import { getItem } from "../../services";
 
 const IconGroup = ( {
 	currency,
@@ -20,6 +21,12 @@ const IconGroup = ( {
 	const [ activeCart, setActiveCart ] = useState( false );
 	let avatar = localStorage.getItem( 'avatar' ) || null;
 	let token = localStorage.getItem( 'access_token' ) || null;
+
+	if ( wishlistData?.length > 0 && token )
+	{
+		const userId = getItem( 'id' );
+		wishlistData = wishlistData.filter( item => item.user_like === userId );
+	}
 
 	const handleClick = ( type ) =>
 	{
@@ -53,7 +60,7 @@ const IconGroup = ( {
 					className="account-setting-active"
 					onClick={ e => handleClick( 1 ) }
 				>
-					<i className="pe-7s-user-female" />
+					<i className="pe-7s-user" />
 				</button>
 				<div className={ `account-dropdown ${ activeAccount ? 'active' : '' }` }>
 					<ul className="mb-0">
@@ -61,10 +68,13 @@ const IconGroup = ( {
 							!token &&
 							<>
 								<li>
-									<a href="/auth/login">Login</a>
+									<a href="/auth/login">Đăng nhập</a>
 								</li>
 								<li>
-									<a href="/auth/register">Register</a>
+									<a href="/auth/register">Đăng ký</a>
+								</li>
+								<li>
+									<a className="text-nowrap" href="/order">Tra cứu đơn hàng</a>
 								</li>
 							</>
 						}
@@ -72,33 +82,45 @@ const IconGroup = ( {
 							<>
 								<li>
 									<Link to={ "/my-account" }>
-										My account
+										Tài khoản
 									</Link>
 								</li>
 								<li>
 									<Link to={ "/my-order" }>
-										My order
+										Đơn hàng
 									</Link>
 								</li>
 								<li>
 									<a href="javascript:void(0)" onClick={ e =>
 									{
-										localStorage.removeItem('access_token');
-										localStorage.removeItem('name');
-										localStorage.removeItem('email');
-										localStorage.removeItem('avatar');
-										localStorage.removeItem('gender');
-										localStorage.removeItem('phone');
-										localStorage.removeItem('id');
+										localStorage.removeItem( 'access_token' );
+										localStorage.removeItem( 'name' );
+										localStorage.removeItem( 'email' );
+										localStorage.removeItem( 'avatar' );
+										localStorage.removeItem( 'gender' );
+										localStorage.removeItem( 'phone' );
+										localStorage.removeItem( 'id' );
 										setActiveAccount( false );
 										window.location.href = '/';
-									} }>Logout</a>
+									} }>Đăng xuất</a>
 								</li>
 							</>
 						}
 					</ul>
 				</div>
 			</div>
+
+			{/* { token &&
+				<div className="same-style header-wishlist">
+					<Link to={ process.env.PUBLIC_URL + "/wishlist" }>
+						<i className="pe-7s-like" />
+						<span className="count-style">
+							{ wishlistData && wishlistData.length ? wishlistData.length : 0 }
+						</span>
+					</Link>
+				</div>
+			} */}
+
 
 			<div className="same-style cart-wrap d-none d-lg-block">
 				<button className="icon-cart" onClick={ e => handleClick( 2 ) }>

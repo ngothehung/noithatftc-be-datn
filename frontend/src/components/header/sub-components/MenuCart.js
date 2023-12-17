@@ -29,7 +29,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart, activeCart }) => {
                             return (
                                 <li className="single-shopping-cart" key={key}>
                                     <div className="shopping-cart-img">
-                                        <Link to={process.env.PUBLIC_URL + "/product/" + single.id}>
+                                        <Link to={process.env.PUBLIC_URL + "/product/" + single.slug + '-' +single.id}>
                                             <img
                                                 alt={single.avatar}
                                                 src={buildImage(single.avatar)}
@@ -41,13 +41,13 @@ const MenuCart = ({ cartData, currency, deleteFromCart, activeCart }) => {
                                     <div className="shopping-cart-title">
                                         <h4>
                                             <Link
-                                                to={process.env.PUBLIC_URL + "/product/" + single.id}
+                                                to={process.env.PUBLIC_URL + "/product/" + single.slug + '-' +single.id}
                                             >
                                                 {" "}
                                                 {single.name}{" "}
                                             </Link>
                                         </h4>
-                                        <h6>Qty: {single.quantity}</h6>
+                                        <h6>Số lượng: {single.quantity}</h6>
                                         <span>
                                             {discountedPrice !== null
                                                 ? customNumber(finalDiscountedPrice)
@@ -74,7 +74,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart, activeCart }) => {
                     </ul>
                     <div className="shopping-cart-total">
                         <h4>
-                            Total :{" "}
+                            Tổng giá :{" "}
                             <span className="shop-total">
                                 {customNumber(cartTotalPrice.toFixed(2))}
                             </span>
@@ -82,18 +82,24 @@ const MenuCart = ({ cartData, currency, deleteFromCart, activeCart }) => {
                     </div>
                     <div className="shopping-cart-btn btn-hover text-center">
                         <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
-                            view cart
+                            Xem giỏ hàng
                         </Link>
-                        <Link
+                        {/* <Link
                             className="default-btn"
                             to={localStorage.getItem('access_token') ? process.env.PUBLIC_URL + "/checkout" : process.env.PUBLIC_URL + "auth/login"}
                         >
                             checkout
+                        </Link> */}
+						<Link
+                            className="default-btn"
+                            to={process.env.PUBLIC_URL + "/checkout"}
+                        >
+                            Mua hàng
                         </Link>
                     </div>
                 </Fragment>
             ) : (
-                <p className="text-center">No items added to cart</p>
+                <p className="text-center">Không có sản phẩm trong giỏ hàng</p>
             )}
         </div>
     );

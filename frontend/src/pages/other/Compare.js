@@ -130,13 +130,13 @@ const Compare = ({
                                         title={
                                           compareItem !== undefined
                                             ? "Added to cart"
-                                            : "Add to cart"
+                                            : "Thêm giỏ hàng"
                                         }
                                       >
                                         {cartItem !== undefined &&
                                         cartItem.quantity > 0
                                           ? "Added"
-                                          : "Add to cart"}
+                                          : "Thêm giỏ hàng"}
                                       </button>
                                     ) : (
                                       <button disabled className="active">

@@ -17,10 +17,11 @@ import { extractIdBySlug } from "../../helpers/func";
 const Product = ( { location } ) =>
 {
 	const { pathname } = location;
-	const { id: param } = useParams()
+	const { id } = useParams();
 
 	const [ productData, setProductData ] = useState( null );
 	const [ reviews, setReviews ] = useState( [] );
+	const [ productId, setProductId ] = useState( null );
 	const [ currentPage, setCurrentPage ] = useState( 1 );
 	const [ paging, setPaging ] = useState( {
 		page: 1,
@@ -30,14 +31,14 @@ const Product = ( { location } ) =>
 	const dispatch = useDispatch();
 	useEffect( () =>
 	{
-		if(param) {
-			console.log(param);
-			let id = extractIdBySlug(param);
-			console.log(id);
-			showProductDetail( id, setProductData, dispatch );
-			getDataVotes({...paging, product_id: id});
+		if ( id )
+		{
+			let productIdData = extractIdBySlug(id);
+			setProductId(productIdData);
+			showProductDetail( productIdData, setProductData, dispatch );
+			getDataVotes( { ...paging, product_id: productIdData } );
 		}
-	}, [ param ] );
+	}, [ id ] );
 
 	useEffect( () =>
 	{
@@ -45,15 +46,19 @@ const Product = ( { location } ) =>
 	}, [ productData ] );
 
 
-	const getDataVotes = async (filters) => {
-		try {
-			const response = await VOTE_SERVICE.getList(filters);
-			if(response?.status === 'success') {
-				setPaging(response?.data?.meta);
-				setReviews(response?.data?.votes);
+	const getDataVotes = async ( filters ) =>
+	{
+		try
+		{
+			const response = await VOTE_SERVICE.getList( filters );
+			if ( response?.status === 'success' )
+			{
+				setPaging( response?.data?.meta );
+				setReviews( response?.data?.votes );
 			}
-		} catch (error) {
-			
+		} catch ( error )
+		{
+
 		}
 	}
 
@@ -62,16 +67,19 @@ const Product = ( { location } ) =>
 	return (
 		<Fragment>
 			<MetaTags>
-				<title>Cửa hàng Nội thất | Product Page</title>
+				<title>[Cửa hàng nội thất] | Chi tiết Sản phẩm</title>
 				<meta
 					name="description"
 					content="Product page of flone react minimalist eCommerce template."
 				/>
 			</MetaTags>
 
-			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/" }>Home</BreadcrumbsItem>
+			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/" }>Trang chủ</BreadcrumbsItem>
+			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/shop" }>
+				Sản phẩm
+			</BreadcrumbsItem>
 			<BreadcrumbsItem to={ process.env.PUBLIC_URL + pathname }>
-				Product
+				{productData?.name}
 			</BreadcrumbsItem>
 			<LayoutOne headerTop="visible">
 				{ productData ?
@@ -87,10 +95,10 @@ const Product = ( { location } ) =>
 						<ProductDescriptionTab
 							spaceBottomClass="pb-90"
 							productFullDesc={ productData }
-							reviews={reviews}
-							paging={paging}
-							setPaging={setPaging}
-							getDataVotes={getDataVotes}
+							reviews={ reviews }
+							paging={ paging }
+							setPaging={ setPaging }
+							getDataVotes={ getDataVotes }
 						/>
 
 						<RelatedProductSlider

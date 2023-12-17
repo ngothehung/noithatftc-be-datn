@@ -8,7 +8,7 @@ const BlogPost = () => {
         <div className="blog-details-img">
           <img
             alt=""
-            src={process.env.PUBLIC_URL + "/assets/img/blog/blog-5.jpg"}
+            src={process.env.PUBLIC_URL + "/assets/img/blog/tin_tuc_trong_3.webp"}
           />
         </div>
         <div className="blog-details-content">
@@ -22,31 +22,30 @@ const BlogPost = () => {
               </li>
             </ul>
           </div>
-          <h3>14 Emerging Fashion Influencers Who Are Going to Own 2018</h3>
+          <h3>Na Đài Loan - Vua của các loại Na: Cách nhận biết và cách ăn đúng cách</h3>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprhendit
-            in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qei
-            officia deser mollit anim id est laborum. Sed ut perspiciatis unde
-            omnis iste natus error sit voluptatem accusantium doloremque
-            laudantium, totam rem aperiam.{" "}
+            Na Đài Loan được mệnh danh là trái cây cho giới nhà giàu - đây là loại trái cây nên thưởng thức một lần. Không chỉ là loại trái cây nhập khẩu đắt đỏ, mà đặc điểm dễ nhận biết nhất đó Na Đài Loan có kích thước rất lớn và có mùi vị đặc biệt thơm ngon mà hiếm có loại trái cây nào có thể so sánh được. Hãy cùng FS tìm hiểu về Na Đài Loan nhé
           </p>
           <blockquote>
-            Lorem ipsum dolor sit amet, consecte adipisicing elit, sed do
-            eiusmod tempor incididunt labo dolor magna aliqua. Ut enim ad minim
-            veniam quis nostrud.
+         
           </blockquote>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehendrit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur.
-          </p>
+          
+          - Những đặc điểm chính về Na Đài Loan bạn cần biết
+    <br/>
+          *Đặc điểm đầu tiên về ngoại hình dễ nhận thấy nhất đó là Na Đài Loan có trọng lượng to gấp 2 - 3 lần so với các loại na truyền thống khác - Mắt na rời nhau không ghép sát 
+          <br/>
+          *Trọng lượng trung bình của một trái từ 700gram - 1kg. Trái dài có hình nón , không tròn và ngắn như na ta.
+          <br/>
+          *Khi trái Chín sẽ có hương thơm nhẹ như mùi của trái dứa, các tép thịt dính liền với nhau không rời
+          <br/>
+          *Thịt Na có màu trắng ngà ăn dai và ngọt không gắt, ăn có cảm giác mát ở đầu lưỡi
+          <br/>
+          *Đặc biệt, của giống Na này là có hạt rất bé và rất ít hạt - Tỉ lệ thịt rất cao.
+          <br/>
+          *Mãng cầu dai đài loan khi chín lớp vỏ vẫn giữ được màu xanh hoặc chỉ hơi ngả vàng có thể vẫn chuyển đi xa rất dễ dàng mà không bị dập nát.
+          <br/>
+          *Nếu sử dụng lạnh hoặc làm sinh tố với một chút sữa, thạch, trân châu thì chắc chắn sẽ là món ngon giải nhiệt tuyệt vời trong những ngày nắng nóng nhé.
+
         </div>
       </div>
       <div className="dec-img-wrapper">
@@ -56,7 +55,7 @@ const BlogPost = () => {
               <img
                 alt=""
                 src={
-                  process.env.PUBLIC_URL + "/assets/img/blog/blog-details.jpg"
+                  process.env.PUBLIC_URL + "/assets/img/blog/tin_tuc_trong_1.webp"
                 }
               />
             </div>
@@ -66,71 +65,17 @@ const BlogPost = () => {
               <img
                 alt=""
                 src={
-                  process.env.PUBLIC_URL + "/assets/img/blog/blog-details-2.jpg"
+                  process.env.PUBLIC_URL + "/assets/img/blog/tin_tuc_trong_2.webp"
                 }
               />
             </div>
           </div>
         </div>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehendrit
-          in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        - Khi ăn Na Đài Loan bạn cần phải dùng dao sắc nhọn để gọt vỏ do lớp vỏ khá mỏng.
+<br/>
+- Bạn nên cắt Na thành các miếng nhỏ để trong tủ lạnh từ 15 - 20p trước khi thưởng thức để có thể tăng thêm hương vị của Na Đài Loan
         </p>
-      </div>
-      <div className="tag-share">
-        <div className="dec-tag">
-          <ul>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                lifestyle ,
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                interior ,
-              </Link>
-            </li>
-            <li>
-              <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
-                outdoor
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="blog-share">
-          <span>share :</span>
-          <div className="share-social">
-            <ul>
-              <li>
-                <a className="facebook" href="//facebook.com">
-                  <i className="fa fa-facebook" />
-                </a>
-              </li>
-              <li>
-                <a className="twitter" href="//twitter.com">
-                  <i className="fa fa-twitter" />
-                </a>
-              </li>
-              <li>
-                <a className="instagram" href="//instagram.com">
-                  <i className="fa fa-instagram" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="next-previous-post">
-        <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-          {" "}
-          <i className="fa fa-angle-left" /> prev post
-        </Link>
-        <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-          next post <i className="fa fa-angle-right" />
-        </Link>
       </div>
     </Fragment>
   );

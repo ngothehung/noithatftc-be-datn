@@ -10,7 +10,7 @@ export const ROLE_SERVICE = {
 			let filter = buildFilter( params );
 			// dispatch( toggleShowLoading( true ) );
 			const response = await getMethod( '/admin/role', filter );
-			await timeDelay( 2000 );
+			await timeDelay( 500 );
 			if ( response?.status === 'success' )
 			{
 				return response?.data;

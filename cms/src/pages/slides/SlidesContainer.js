@@ -6,7 +6,9 @@ import { Categories } from "../../components/Category/Category";
 import { timeDelay } from "../../services/common";
 import { toggleShowLoading } from "../../redux/actions/common";
 import { SlidesPage } from "../../components/Slide/Slide";
-import { getDataByFilter } from "../../services/slideService";
+import { SlideService, getDataByFilter } from "../../services/slideService";
+import Breadcrumbs from "../../components/Breadbrumbs/Breadcrumbs";
+import { message } from "antd";
 
 export const SlidesContainer = () =>
 {
@@ -27,8 +29,8 @@ export const SlidesContainer = () =>
 	const getDatasByFilter = async ( filter ) =>
 	{
 		const rs = await getDataByFilter( filter, dispatch );
-		await timeDelay(1000 );
-		
+		await timeDelay( 1000 );
+
 		dispatch( toggleShowLoading( false ) );
 		if ( rs )
 		{
@@ -37,14 +39,42 @@ export const SlidesContainer = () =>
 		}
 	}
 
+	const routes = [
+		{
+			name: 'Slide',
+			route: '/slide/list'
+		},
+		{
+			name: 'Danh sách',
+			route: ''
+		}
+	];
 
-	return <SlidesPage
-		datas={ datas }
-		paging={ paging }
-		params={ params }
-		getDatasByFilter={ getDatasByFilter }
-		setParams={ setParams }
-		setPaging={ setPaging }
-		setDatas={ setDatas }
-	/>
+	const deleteById = async (id) => {
+		try {
+			const response = await SlideService.delete(id);
+			if(response?.status === 'success') {
+				message.success('Delete successfully');
+				await getDatasByFilter({...paging, ...params});
+			} else {
+				message.error(response?.message);
+			}
+
+		} catch (error) {
+			message.error(error?.message);
+		}
+	}
+
+	return (
+		<>
+			<Breadcrumbs routes={ routes } title={ "Slide" } /> <SlidesPage
+				datas={ datas }
+				paging={ paging }
+				params={ params }
+				deleteById={ deleteById }
+				getDatasByFilter={ getDatasByFilter }
+				setParams={ setParams }
+				setPaging={ setPaging }
+				setDatas={ setDatas }
+			/></> )
 };

@@ -22,14 +22,14 @@ const Layout = ( props ) =>
 {
 	const [ accessToken, setAccessToken ] = useState( localStorage.getItem( 'access_token_cms' ) || null );
 
-	// useEffect(() => {
-	// 	if ( !accessToken )
-	// 	{
-	// 		localStorage.clear();
-	// 		console.log(1);
-	// 		window.location.href = '/login';
-	// 	}
-	// }, [])
+	useEffect(() => {
+		if ( !accessToken )
+		{
+			localStorage.clear();
+			console.log(1);
+			window.location.href = '/login';
+		}
+	}, [])
 	// useEffect(() => {
 	// 	if(!getItem('access_token_cms')) {
 	// 		localStorage.clear();
@@ -43,7 +43,7 @@ const Layout = ( props ) =>
 				<Header />
 				<Sidebar />
 				<main className={ s.content }>
-					<Breadcrumbs url={ props.location.pathname } />
+					{/* <Breadcrumbs url={ props.location.pathname } /> */}
 					<Switch>
 						{
 

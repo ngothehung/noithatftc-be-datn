@@ -54,13 +54,13 @@ export const ProfileSetting = (props) => {
     }, [data]);
 
     const validateMessages = {
-        required: '${label} is required!',
+        required: '${label} không được để trống!',
         types: {
-            email: '${label} is not a valid email!',
-            number: '${label} is not a valid number!',
+            email: '${label} không đúng định dạng email',
+            number: '${label} không đúng định dạng số',
         },
         number: {
-            range: '${label} must be between ${min} and ${max}',
+            range: '${label} trong khoảng ${min} - ${max}',
         },
     };
 
@@ -136,7 +136,7 @@ export const ProfileSetting = (props) => {
                                         rules={[{ required: true }]}
                                         className=' d-block'
                                     >
-                                        <Input className='form-control' placeholder='Enter name' />
+                                        <Input className='form-control' placeholder='Nhập dữ liệu' />
                                     </Form.Item>
                                 </div>
 
@@ -155,7 +155,7 @@ export const ProfileSetting = (props) => {
                                     <Form.Item name="email" label="Email"
                                         rules={[{ required: true }]}
                                         className='d-block'>
-                                        <Input className='form-control' placeholder='Enter email' disabled/>
+                                        <Input className='form-control' placeholder='Nhập email' disabled/>
                                     </Form.Item>
                                 </div>
 
@@ -185,7 +185,7 @@ export const ProfileSetting = (props) => {
                                 <div className='col-md-3'>
                                     <Form.Item name="birthDay" label="Birthday"
                                         className='d-block'>
-                                        <Input type='date' className='form-control' placeholder='Enter quantity' />
+                                        <Input type='date' className='form-control' />
                                     </Form.Item>
                                 </div>
 
@@ -219,16 +219,16 @@ export const ProfileSetting = (props) => {
                     <div className='row'>
 
                         <div className='col-md-5'>
-                            <Form.Item name="address" label="Address"
+                            <Form.Item name="address" label="Địa chỉ"
                                 className=' d-block'>
-                                <Input className='form-control' placeholder='Enter address' />
+                                <Input className='form-control' placeholder='Nhập địa chỉ' />
                             </Form.Item>
                         </div>
 
                         <div className='col-md-4'>
                             <Form.Item name="phone" label="Phone"
                                 className='required d-block'>
-                                <Input className='form-control' placeholder='Enter phone' />
+                                <Input className='form-control' placeholder='Nhập số điện thoại' />
                             </Form.Item>
                         </div>
 

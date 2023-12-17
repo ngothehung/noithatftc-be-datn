@@ -131,17 +131,17 @@ export const RoleForm = ( props ) =>
 				>
 					<div className='mb-3'>
 
-						<Form.Item name="name" label="Name"
+						<Form.Item name="name" label="Tên"
 							rules={ [ { required: true } ] }
 							className=' d-block'>
-							<Input className='form-control' placeholder='Enter name' />
+							<Input className='form-control' placeholder='Nhập dữ liệu' />
 						</Form.Item>
 						<Form.Item name="guard_name" label="Guard name"
 							rules={ [ { required: true } ] }
 							className=' d-block'>
 							<Input className='form-control' placeholder='Enter guard name' />
 						</Form.Item>
-						<Form.Item name="description" label="Description"
+						<Form.Item name="description" label="Mô tả chi tiết"
 							className=' d-block'>
 							<Input.TextArea className='form-control' placeholder='Enter description' cols={12} rows={4} />
 						</Form.Item>
@@ -162,7 +162,7 @@ export const RoleForm = ( props ) =>
 
 					<div className='d-flex justify-content-center'>
 						<button type="submit" className="btn btn-primary text-center" style={ { marginRight: 10, padding: '10px 10px' } }>
-							{ !id && 'Create' || 'Update' }
+							{ !id && 'Tạo mới' || 'Cập nhật' }
 						</button>
 
 						{ !id && <button type="button" className="btn btn-secondary text-center" style={ { marginLeft: 10, padding: '10px 10px' } } onClick={ resetForm }>

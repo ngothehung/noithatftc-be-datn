@@ -11,6 +11,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { showCategoryDetail, submitForms } from '../../services/categoryService';
 import { buildImage } from '../../services/common';
+import Breadcrumbs from '../Breadbrumbs/Breadcrumbs';
 export const CategoryForm = ( props ) =>
 {
 	const [ form ] = useForm();
@@ -72,13 +73,13 @@ export const CategoryForm = ( props ) =>
 	}
 
 	const validateMessages = {
-		required: '${label} is required!',
+		required: '${label} không được để trống!',
 		types: {
-			email: '${label} is not a valid email!',
-			number: '${label} is not a valid number!',
+			email: '${label} không đúng định dạng email',
+			number: '${label} không đúng định dạng số',
 		},
 		number: {
-			range: '${label} must be between ${min} and ${max}',
+			range: '${label} trong khoảng ${min} - ${max}',
 		},
 	};
 
@@ -119,7 +120,20 @@ export const CategoryForm = ( props ) =>
 		return e?.fileList;
 	}
 
+	const routes = [
+		{
+			name: 'Danh mục',
+			route: '/category/list'
+		},
+		{
+			name: id ? 'Cập nhật' : 'Tạo mới',
+			route:''
+		}
+	]
+
 	return (
+		<>
+		<Breadcrumbs routes={routes} title={"Danh mục"} />
 		<div className="w-75 mx-auto">
 			<Widget>
 				<Form
@@ -131,16 +145,16 @@ export const CategoryForm = ( props ) =>
 					validateMessages={ validateMessages }
 				>
 					<div className='mb-3'>
-						<Form.Item name="name" label="Category name"
+						<Form.Item name="name" label="Tên danh mục"
 							rules={ [ { required: true } ] }
 							className=' d-block'>
-							<Input className='form-control' placeholder='Enter name' />
+							<Input className='form-control' placeholder='Nhập dữ liệu' />
 						</Form.Item>
 
-						<Form.Item name="slug" label="Category Slug"
+						<Form.Item name="slug" label="Slug"
 							rules={ [ { required: true } ] }
 							className=' d-block'>
-							<Input className='form-control' placeholder='Enter slug' />
+							<Input className='form-control' placeholder='Nhập dữ liệu' />
 						</Form.Item>
 						<Form.Item
 							label="Avatar"
@@ -159,16 +173,16 @@ export const CategoryForm = ( props ) =>
 							</Upload>
 						</Form.Item>
 
-						<Form.Item name="description" label="Description"
+						<Form.Item name="description" label="Mô tả chi tiết"
 
 							className='d-block'>
 							<Input.TextArea className='form-control'
 								placeholder='Enter description' cols={ 10 } rows={ 5 } />
 						</Form.Item>
-						<Form.Item name="status" label="Status"
+						<Form.Item name="status" label="Trạng thái"
 							rules={ [ { required: true } ] } className='d-block'>
 							<Select
-								placeholder="Select status"
+								placeholder="Chọn trạng thái"
 								style={ { width: '100%' } }
 								options={ status }
 							/>
@@ -182,7 +196,7 @@ export const CategoryForm = ( props ) =>
 
 					<div className='d-flex justify-content-center'>
 						<button type="submit" className="btn btn-primary text-center" style={ { marginRight: 10, padding: '10px 10px' } }>
-							{ !id && 'Create' || 'Update' }
+							{ !id && 'Tạo mới' || 'Cập nhật' }
 						</button>
 
 						{ !id && <button type="button" className="btn btn-secondary text-center" style={ { marginLeft: 10, padding: '10px 10px' } } onClick={ resetForm }>
@@ -192,6 +206,8 @@ export const CategoryForm = ( props ) =>
 				</Form>
 			</Widget >
 		</div>
+		</>
+		
 
 	)
 }

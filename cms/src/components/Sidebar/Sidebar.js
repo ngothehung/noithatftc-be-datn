@@ -79,8 +79,10 @@ const Sidebar = ( props ) =>
 	return (
 		<nav className={ cn( s.root, { [ s.sidebarOpen ]: burgerSidebarOpen } ) } >
 			<header className={ s.logo }>
-				<SofiaLogo />
-				<span className={ s.title }>Cửa hàng Nội thất</span>
+				{/*<SofiaLogo />*/}
+				<h2>ftc</h2>
+				<img src={''} style={{ width:"120px"}} />
+				{/*<span className={ s.title }>[Cửa hàng nội thất]</span>*/}
 			</header>
 			<ul className={ s.nav }>
 				{

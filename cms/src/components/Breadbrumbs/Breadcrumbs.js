@@ -14,41 +14,24 @@ import s from "./Breadcrumbs.module.scss";
 const Breadcrumbs = (props) => {
 
   const renderBreadcrumbs = () => {
-    let url = props.url;
-    let route = props.url.split('/')
-      .slice(1)
-      .map(route => route
-        .split('-')
-        .map(word => word.length < 3
-          ? word.toUpperCase()
-          : word[0].toUpperCase() + word.slice(1))
-        .join(' ')
-      );
-    const length = route.length
-
-    return route.map((item, index) => {
-      let middlewareUrl = "/" + url.split("/").slice(1, index + 2).join("/");
+    
+    return props.routes.map((item, index) => {
+      
       return (
         <BreadcrumbItem key={uuidv4()}>
-          {(index !== 0)
-            ? item
-            :  <Link to={middlewareUrl}>
-              {item}
+          {(index !== 0) ? item.name
+            :  <Link to={item.route}>
+              {item.name}
             </Link>
           }
         </BreadcrumbItem>
       )
     })
   }
-
-  let routeArr = props.url.split('/');
-  let title = routeArr[1];
-  let breadcrumbTitle = title[0].toUpperCase() + title.slice(1);
-
   return (
     <div className={s.breadcrumbs}>
-      <div className="headline-2">{breadcrumbTitle}</div>
-      {breadcrumbTitle !== "Dashboard" &&
+      <div className="headline-2">{props.title}</div>
+      {props.title !== "Dashboard" && props.routes?.length > 0 &&
       <Breadcrumb tag="nav" listTag="div">
         {renderBreadcrumbs()}
       </Breadcrumb>

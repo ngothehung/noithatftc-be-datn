@@ -29,7 +29,7 @@ export const Product = {
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/admin/product/${ id }` );
+		return await deleteMethod( `/admin/product/delete/${ id }` );
 	}
 }
 
@@ -59,7 +59,7 @@ export const getProductsByFilter = async ( params, setProducts, setPaging, dispa
 	{
 		dispatch( toggleShowLoading( true ) )
 		const response = await getProducts( params );
-		await timeDelay( 2000 );
+		await timeDelay( 500 );
 		if ( response?.status === 'success' )
 		{
 			setProducts( response?.data.products );
@@ -87,10 +87,10 @@ export const submitFormProduct = async ( id = null, files, e, dispatch, history 
 		dispatch( toggleShowLoading( true ) );
 		let avatar  = await uploadApi.uploadFile(files);
 		let fileImg = await uploadApi.uploadMultiFile(files);
-		await timeDelay( 2000 );
+		await timeDelay( 500 );
 		// return;
 		let formValue = { ...e };
-		
+
 		delete formValue.image;
 		formValue.avatar = avatar;
 		formValue.products_images = fileImg;
@@ -98,7 +98,6 @@ export const submitFormProduct = async ( id = null, files, e, dispatch, history 
 		formValue.category_id = Number( formValue.category_id );
 		formValue.price = Number( formValue.price );
 		formValue.number = Number( formValue.number );
-		formValue.sale = Number( formValue.sale || 0 );
 		let response;
 		if ( id )
 		{
@@ -109,7 +108,7 @@ export const submitFormProduct = async ( id = null, files, e, dispatch, history 
 		}
 		if ( response?.status === 'success' )
 		{
-			message.success( `${id && 'Update'|| 'Create'} product successfully!`);
+			message.success( `${id && 'Cập nhật'|| 'Tạo mới'} product successfully!`);
 			history.push( '/product' );
 		} else if ( response?.status === 'fail' && response?.data )
 		{

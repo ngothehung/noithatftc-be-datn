@@ -62,7 +62,7 @@ const Login = ( props ) =>
 								<p className="auth-header mb-0">Login</p>
 								<div className="logo-block">
 									<SofiaLogo />
-									<p className="mb-0">Cửa hàng Nội thất ftc</p>
+									<p className="mb-0">[Cửa hàng nội thất] FTC</p>
 								</div>
 							</div>
 							<Form
@@ -76,7 +76,7 @@ const Login = ( props ) =>
 									<Form.Item name="username" label="Email"
 										rules={ [ { required: true } ] }
 										className=' d-block'>
-										<Input className='form-control' style={ { height: '40px', borderRadius: '10px' } } placeholder='Enter Email' />
+										<Input className='form-control' style={ { height: '40px', borderRadius: '10px' } } placeholder='Nhập email' />
 									</Form.Item>
 									<Form.Item name="password" label="Password"
 										rules={ [ { required: true } ] }

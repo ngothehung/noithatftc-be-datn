@@ -87,7 +87,7 @@ export const submitForms = async ( id = null, files, e, dispatch, history ) =>
 	{
 		dispatch( toggleShowLoading( true ) );
 		let avatar = await uploadApi.uploadFile(files)
-		await timeDelay( 2000 );
+		await timeDelay( 500 );
 		let formValue = { ...e };
 		delete formValue.image;
 		formValue.avatar = avatar;
@@ -102,7 +102,7 @@ export const submitForms = async ( id = null, files, e, dispatch, history ) =>
 		}
 		if ( response?.status === 'success' )
 		{
-			message.success( `${id && 'Update' || 'Create'} slide successfully!` );
+			message.success( `${id && 'Cập nhật' || 'Tạo mới'} slide successfully!` );
 			await timeDelay( 500 );
 			history.push( '/slide/list' );
 		} else if ( response?.status === 'fail' && response?.data )

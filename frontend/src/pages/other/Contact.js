@@ -1,150 +1,200 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import LocationMap from "../../components/contact/LocationMap";
+import {ContactService} from "../../services/shop/contact-service";
+import { useDispatch } from "react-redux";
+import { toggleShowLoading } from "../../redux/actions/common";
+import { message } from "antd";
+import { timeDelay } from "../../helpers/constant";
 
 const Contact = ({ location }) => {
-  const { pathname } = location;
+    const { pathname } = location;
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
-  return (
-    <Fragment>
-      <MetaTags>
-        <title>Cửa hàng Nội thất Contact</title>
-        <meta
-          name="description"
-          content="Contact of flone react minimalist eCommerce template."
-        />
-      </MetaTags>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Contact
-      </BreadcrumbsItem>
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb />
-        <div className="contact-area pt-100 pb-100">
-          <div className="container">
-            <div className="contact-map mb-10">
-              <LocationMap latitude="47.444" longitude="-122.176" />
-            </div>
-            <div className="custom-row-2">
-              <div className="col-lg-4 col-md-5">
-                <div className="contact-info-wrap">
-                  <div className="single-contact-info">
-                    <div className="contact-icon">
-                      <i className="fa fa-phone" />
+	const dispatch = useDispatch();
+
+    const loginSubmit = (e) => {
+        e.preventDefault();
+        handleValidation().then(r => {});
+    }
+
+    const handleValidation = async (event)  => {
+
+        try {
+			let data = {
+				name: name,
+				email: email,
+				title: title,
+				content: content
+			};
+			
+			console.log('--------- data: ', data);
+			dispatch(toggleShowLoading(true));
+			let results = await ContactService.store(data);
+			dispatch(toggleShowLoading(false));
+
+			if (results.status === 'success') {
+				message.success(
+					'Gửi thành công!',1, () => {window.location.href = '/lien-he'});
+				
+				// window.location.reload();
+			} else {
+				message.error(results?.message)
+			}
+		} catch (error) {
+			message.error('Có lỗi xảy ra!')
+			dispatch(toggleShowLoading(false));
+		}
+    }
+
+    return (
+        <Fragment>
+            <MetaTags>
+                <title>Website bán hoa quả</title>
+                <meta
+                    name="description"
+                    content="Contact of flone react minimalist eCommerce template."
+                />
+            </MetaTags>
+            <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
+            <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+                Liên hệ
+            </BreadcrumbsItem>
+            <LayoutOne headerTop="visible">
+                {/* breadcrumb */}
+                <Breadcrumb />
+                <div className="contact-area pt-100 pb-100">
+                    <div className="container">
+                        <div className="custom-row-2">
+                            <div className="col-lg-4 col-md-5">
+                                <div className="contact-info-wrap">
+                                    <div className="single-contact-info">
+                                        <div className="contact-icon">
+                                            <i className="fa fa-phone" />
+                                        </div>
+                                        <div className="contact-info-dec">
+                                            <p>+012 345 678 102</p>
+                                            <p>+012 345 678 102</p>
+                                        </div>
+                                    </div>
+                                    <div className="single-contact-info">
+                                        <div className="contact-icon">
+                                            <i className="fa fa-globe" />
+                                        </div>
+                                        <div className="contact-info-dec">
+                                            <p>
+                                                <a href="mailto:yourname@email.com">
+                                                    yourname@email.com
+                                                </a>
+                                            </p>
+                                            <p>
+                                                <a href="https://yourwebsitename.com">
+                                                    yourwebsitename.com
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="single-contact-info">
+                                        <div className="contact-icon">
+                                            <i className="fa fa-map-marker" />
+                                        </div>
+                                        <div className="contact-info-dec">
+                                            <p>Address goes here, </p>
+                                            <p>street, Crossroad 123.</p>
+                                        </div>
+                                    </div>
+                                    <div className="contact-social text-center">
+                                        <h3>Follow Us</h3>
+                                        <ul>
+                                            <li>
+                                                <a href="//facebook.com">
+                                                    <i className="fa fa-facebook" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="//pinterest.com">
+                                                    <i className="fa fa-pinterest-p" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="//thumblr.com">
+                                                    <i className="fa fa-tumblr" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="//vimeo.com">
+                                                    <i className="fa fa-vimeo" />
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="//twitter.com">
+                                                    <i className="fa fa-twitter" />
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-8 col-md-7">
+                                <div className="contact-form">
+                                    <div className="contact-title mb-30">
+                                        <h2>Thông tin liên hệ</h2>
+                                    </div>
+                                    <form className="contact-form-style" method={'POST'} onSubmit={loginSubmit}>
+                                        <div className="row">
+                                            <div className="col-lg-6">
+                                                <input name="name" required 
+												placeholder="Name*" type="text" 
+												onChange={(event) => setName(event.target.value)} />
+                                            </div>
+                                            <div className="col-lg-6">
+                                                <input name="email" required placeholder="Email*" 
+												type="email" onChange={(event) => setEmail(event.target.value)}/>
+                                            </div>
+                                            <div className="col-lg-12">
+                                                <input
+                                                    required
+                                                    name="title"
+                                                    placeholder="Title*"
+                                                    type="text"
+													
+                                                    onChange={(event) => setTitle(event.target.value)}
+                                                />
+                                            </div>
+                                            <div className="col-lg-12">
+                                                    <textarea
+                                                        required
+                                                        name="message"
+                                                        placeholder="Your Message*"
+														maxLength={300}
+                                                        defaultValue={""}
+                                                        onChange={(event) => setContent(event.target.value)}
+                                                    />
+                                                <button className="submit" type="submit">
+                                                    Send
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <p className="form-message" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="contact-info-dec">
-                      <p>+012 345 678 102</p>
-                      <p>+012 345 678 102</p>
-                    </div>
-                  </div>
-                  <div className="single-contact-info">
-                    <div className="contact-icon">
-                      <i className="fa fa-globe" />
-                    </div>
-                    <div className="contact-info-dec">
-                      <p>
-                        <a href="mailto:yourname@email.com">
-                          yourname@email.com
-                        </a>
-                      </p>
-                      <p>
-                        <a href="https://yourwebsitename.com">
-                          yourwebsitename.com
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="single-contact-info">
-                    <div className="contact-icon">
-                      <i className="fa fa-map-marker" />
-                    </div>
-                    <div className="contact-info-dec">
-                      <p>Address goes here, </p>
-                      <p>street, Crossroad 123.</p>
-                    </div>
-                  </div>
-                  <div className="contact-social text-center">
-                    <h3>Follow Us</h3>
-                    <ul>
-                      <li>
-                        <a href="//facebook.com">
-                          <i className="fa fa-facebook" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//pinterest.com">
-                          <i className="fa fa-pinterest-p" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//thumblr.com">
-                          <i className="fa fa-tumblr" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//vimeo.com">
-                          <i className="fa fa-vimeo" />
-                        </a>
-                      </li>
-                      <li>
-                        <a href="//twitter.com">
-                          <i className="fa fa-twitter" />
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
-              </div>
-              <div className="col-lg-8 col-md-7">
-                <div className="contact-form">
-                  <div className="contact-title mb-30">
-                    <h2>Get In Touch</h2>
-                  </div>
-                  <form className="contact-form-style">
-                    <div className="row">
-                      <div className="col-lg-6">
-                        <input name="name" placeholder="Name*" type="text" />
-                      </div>
-                      <div className="col-lg-6">
-                        <input name="email" placeholder="Email*" type="email" />
-                      </div>
-                      <div className="col-lg-12">
-                        <input
-                          name="subject"
-                          placeholder="Subject*"
-                          type="text"
-                        />
-                      </div>
-                      <div className="col-lg-12">
-                        <textarea
-                          name="message"
-                          placeholder="Your Message*"
-                          defaultValue={""}
-                        />
-                        <button className="submit" type="submit">
-                          SEND
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  <p className="form-message" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </LayoutOne>
-    </Fragment>
-  );
+            </LayoutOne>
+        </Fragment>
+    );
 };
 
 Contact.propTypes = {
-  location: PropTypes.object
+    location: PropTypes.object
 };
 
 export default Contact;

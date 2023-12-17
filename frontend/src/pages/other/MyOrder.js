@@ -12,7 +12,7 @@ const MyOrder = ({ location }) => {
     return (
 		<Fragment>
 		<MetaTags>
-			<title>Cake Shop Order</title>
+			<title>[Cửa hàng nội thất] | Order</title>
 			<meta
 				name="description"  
 				content="Checkout page of shop react minimalist eCommerce template."
@@ -20,7 +20,7 @@ const MyOrder = ({ location }) => {
 		</MetaTags>
 		<BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
 		<BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-			My Order
+			Danh sách đơn hàng
 		</BreadcrumbsItem>
 		<LayoutOne headerTop="visible">
 			{/* breadcrumb */}

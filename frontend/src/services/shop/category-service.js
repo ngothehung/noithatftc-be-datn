@@ -1,8 +1,9 @@
-import { getMethod } from '../index'
+import { buildFilter, getMethod } from '../index'
 
 export const getCategoryList = async ( params ) =>
 {
-	return await getMethod( 'category', params );
+	let filter = buildFilter( params );
+	return await getMethod( 'category', filter );
 }
 
 export const showCateGory = async ( id ) =>

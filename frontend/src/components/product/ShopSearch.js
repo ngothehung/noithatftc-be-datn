@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchParamsProduct } from "../../redux/actions/productActions";
+import { Form } from "react-bootstrap";
 
-const ShopSearch = (props
+const ShopSearch = ( props
 ) =>
 {
 	const [ name, setName ] = useState( '' );
-	
+
 	return (
 		<div className="sidebar-widget">
-			<h4 className="pro-sidebar-title">Search </h4>
-			<div className="pro-sidebar-search mb-50 mt-25">
-				<form className="pro-sidebar-search-form" action="#">
-					<input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Search here..." />
-					<button onClick={() => props.setParams({...props.params, name: name})}>
+			<div className="pro-sidebar-search">
+				<div className="pro-sidebar-search-form">
+					<input type="text" value={ name }
+						className="form-control"
+						onChange={ ( e ) => setName( e.target.value ) }
+						placeholder="Search product name..." />
+						<button type="submit" onClick={ () => props.setParams( { ...props.params, name: name } ) }>
 						<i className="pe-7s-search" />
 					</button>
-				</form>
+				</div>
+				{/* <Form className="pro-sidebar-search-form">
+					<Form.Control type="text" value={ name }
+						className="form-control"
+						onChange={ ( e ) => setName( e.target.value ) }
+						placeholder="Search product name..." />
+					
+				</Form> */}
 			</div>
 		</div>
 	);

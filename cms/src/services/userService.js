@@ -13,7 +13,7 @@ export const USER_SERVICE = {
 			let filter = buildFilter( params );
 			dispatch( toggleShowLoading( true ) );
 			const response = await getMethod( '/admin/user', filter );;
-			await timeDelay( 2000 );
+			await timeDelay( 500 );
 			dispatch( toggleShowLoading( false ) );
 			if ( response?.status === 'success' )
 			{
@@ -27,7 +27,7 @@ export const USER_SERVICE = {
 			return null;
 		}
 	},
-	async showData ( id, dispatch ) 
+	async showData ( id, dispatch )
 	{
 		try
 		{
@@ -58,7 +58,7 @@ export const USER_SERVICE = {
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/admin/user/${ id }` );
+		return await deleteMethod( `/admin/user/delete/${ id }` );
 	}
 }
 export const submitFormUser = async ( id = null, files, e, dispatch, history ) =>
@@ -67,8 +67,8 @@ export const submitFormUser = async ( id = null, files, e, dispatch, history ) =
 	{
 		dispatch( toggleShowLoading( true ) );
 		let avatar = await uploadApi.uploadFile(files);
-		
-		await timeDelay( 2000 );
+
+		await timeDelay( 500 );
 		let formValue = { ...e };
 		delete formValue.image;
 		formValue.avatar = avatar;
@@ -83,7 +83,7 @@ export const submitFormUser = async ( id = null, files, e, dispatch, history ) =
 		dispatch( toggleShowLoading( false ) );
 		if ( response?.status === 'success' )
 		{
-			message.success( `${ id && 'Update' || 'Create' } user successfully!` );
+			message.success( `${ id && 'Cập nhật' || 'Tạo mới' } user successfully!` );
 			history.push( '/user' );
 		} else if ( response?.status === 'fail' && response?.data )
 		{

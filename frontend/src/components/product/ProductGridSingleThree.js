@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../helpers/product";
 import ProductModal from "./ProductModal";
-import { buildImage } from "../../services";
+import { buildImage, onErrorImage } from "../../services";
 import { checkTimeNow } from "../../helpers/func";
 
 const ProductGridSingleThree = ( {
@@ -39,18 +39,18 @@ const ProductGridSingleThree = ( {
 						}` }
 				>
 					<div className="product-img">
-						{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
-						<Link to={ `/product/${ product?.slug }-${ product.id }` }>
+						<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 							<img
 								className="default-img"
 								src={ buildImage( product.avatar ) }
 								alt=""
 							/>
-							{ product?.products_images?.length > 0 ? (
+							{ product?.product_images?.length > 0 ? (
 								<img
 									className="hover-img"
-									src={ product.products_images[ 0 ].path }
-									alt=""
+									src={buildImage(product.product_images[ 0 ].path)}
+									alt={buildImage(product.product_images[ 0 ].path)}
+									onError={ onErrorImage}
 								/>
 							) : (
 								""
@@ -97,7 +97,7 @@ const ProductGridSingleThree = ( {
 									}
 									disabled={ cartItem !== undefined && cartItem.quantity > 0 }
 									title={
-										cartItem !== undefined ? "Added to cart" : "Add to cart"
+										cartItem !== undefined ? "Added to cart" : "Thêm giỏ hàng"
 									}
 								>
 									{ " " }
@@ -130,8 +130,7 @@ const ProductGridSingleThree = ( {
 					<div className="product-content-2">
 						<div className="title-price-wrap-2">
 							<h3>
-								{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
-								<Link to={ `/product/${ product?.slug }-${ product.id }` }>
+								<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 									{ product.name }
 								</Link>
 							</h3>
@@ -150,20 +149,7 @@ const ProductGridSingleThree = ( {
 								) }
 							</div>
 						</div>
-						{/* <div className="pro-wishlist-2">
-              <button
-                className={wishlistItem !== undefined ? "active" : ""}
-                disabled={wishlistItem !== undefined}
-                title={
-                  wishlistItem !== undefined
-                    ? "Added to wishlist"
-                    : "Add to wishlist"
-                }
-                onClick={() => addToWishlist(product, addToast)}
-              >
-                <i className="fa fa-heart-o" />
-              </button>
-            </div> */}
+						
 					</div>
 				</div>
 			</div>

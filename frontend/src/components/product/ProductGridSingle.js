@@ -7,7 +7,7 @@ import { getDiscountPrice } from "../../helpers/product";
 import Rating from "./sub-components/ProductRating";
 import ProductModal from "./ProductModal";
 import { checkTimeNow, customNumber } from "../../helpers/func";
-import { buildImage, onErrorImage } from "../../services";
+import { buildImage, getItem, onErrorImage } from "../../services";
 
 const ProductGridSingle = ( {
 	product,
@@ -25,11 +25,13 @@ const ProductGridSingle = ( {
 	const [ modalShow, setModalShow ] = useState( false );
 	const { addToast } = useToasts();
 
-	const discountedPrice = ( checkTimeNow( product?.sale_to ) && product?.sale ) ? getDiscountPrice( product.price, product.sale ) : 0;
+	const discountedPrice = (checkTimeNow(product?.sale_to) && product?.sale) ? getDiscountPrice( product.price, product.sale ) : null;
 	const finalProductPrice = +( product.price * currency.currencyRate ).toFixed( 2 );
 	const finalDiscountedPrice = +(
 		discountedPrice * currency.currencyRate
 	).toFixed( 2 );
+
+	const userId = getItem('id');
 
 	return (
 		product &&
@@ -42,19 +44,18 @@ const ProductGridSingle = ( {
 					className={ `product-wrap ${ spaceBottomClass ? spaceBottomClass : "" }` }
 				>
 					<div className="product-img">
-						{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
-						<Link to={ `/product/${ product?.slug }-${ product.id }` }>
+						<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 							<img
 								className="default-img"
 								src={ buildImage( product.avatar ) }
 								alt={ buildImage( product.avatar ) }
 								onError={ onErrorImage }
 							/>
-							{ product?.products_images?.length > 0 ? (
+							{ product?.product_images?.length > 0 ? (
 								<img
 									className="hover-img"
-									src={ product.products_images[ 0 ].path }
-									alt={ buildImage( product.products_images[ 0 ].path ) }
+									src={buildImage(product.product_images[ 0 ].path)}
+									alt={buildImage(product.product_images[ 0 ].path)}
 									onError={ onErrorImage }
 								/>
 							) : (
@@ -63,7 +64,7 @@ const ProductGridSingle = ( {
 						</Link>
 						{ product.sale || product.hot === 1 ? (
 							<div className="product-img-badges">
-								{ product.sale && ( checkTimeNow( product?.sale_to ) && product?.sale ) ? (
+								{ product.sale && (checkTimeNow(product?.sale_to) && product?.sale) ? (
 									<span className="pink">-{ product.sale }%</span>
 								) : (
 									""
@@ -75,7 +76,8 @@ const ProductGridSingle = ( {
 						) }
 
 						<div className="product-action">
-							{/* <div className="pro-same-action pro-wishlist">
+							{/* {
+								userId != null && <div className="pro-same-action pro-wishlist">
 								<button
 									className={ wishlistItem !== undefined ? "active" : "" }
 									disabled={ wishlistItem !== undefined }
@@ -84,11 +86,12 @@ const ProductGridSingle = ( {
 											? "Added to wishlist"
 											: "Add to wishlist"
 									}
-									onClick={ () => addToWishlist( product, addToast ) }
+									onClick={ () => addToWishlist( {...product, user_like: userId}, addToast ) }
 								>
 									<i className="pe-7s-like" />
 								</button>
-							</div> */}
+							</div>
+							} */}
 							<div className="pro-same-action pro-cart">
 								{ product.affiliateLink ? (
 									<a
@@ -113,14 +116,14 @@ const ProductGridSingle = ( {
 										}
 										disabled={ cartItem !== undefined && cartItem.quantity > 0 }
 										title={
-											cartItem !== undefined ? "Added to cart" : "Add to cart"
+											cartItem !== undefined ? "Added to cart" : "Thêm giỏ hàng"
 										}
 									>
 										{ " " }
 										<i className="pe-7s-cart"></i>{ " " }
 										{ cartItem !== undefined && cartItem.quantity > 0
 											? "Added"
-											: "Add to cart" }
+											: "Thêm giỏ hàng" }
 									</button>
 								) : (
 									<button disabled className="active">
@@ -137,8 +140,7 @@ const ProductGridSingle = ( {
 					</div>
 					<div className="product-content text-center">
 						<h3>
-							{/* <Link to={ process.env.PUBLIC_URL + "/product/" + product.id }> */ }
-							<Link to={ `/product/${ product?.slug }-${ product.id }` }>
+							<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 								{ product.name }
 							</Link>
 						</h3>

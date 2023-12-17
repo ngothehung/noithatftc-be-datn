@@ -45,64 +45,18 @@ const TabProductFourteen = ( {
 				} ${ extraClass ? extraClass : "" }` }
 		>
 			<div className={ `${ containerClass ? containerClass : "container" }` }>
-				{/* <SectionTitleThree
-					titleText="Featured Products"
+				<SectionTitleThree
+					titleText={ props.title || "Sản phẩm mới"}
 					positionClass="text-center"
-				/> */}
+				/>
 				<Tab.Container defaultActiveKey="newArrival">
-					<Nav
-						variant="pills"
-						className="product-tab-list-2 pt-30 pb-55 text-center"
-					>
-						<Nav.Item>
-							<Nav.Link eventKey="newArrival" onSelect={ ( e ) =>
-							{
-								handleChangeTab( 0 )
-							} }>
-								<h4>Product new</h4>
-							</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Nav.Link eventKey="bestSeller" onSelect={ ( e ) =>
-							{
-								handleChangeTab( 1 )
-							} }>
-								<h4>Product Hot</h4>
-							</Nav.Link>
-						</Nav.Item>
-						{/* <Nav.Item>
-							<Nav.Link className="">
-								<h4>Giảm giá</h4>
-							</Nav.Link>
-						</Nav.Item> */}
-					</Nav>
 					<Tab.Content>
 						<Tab.Pane eventKey="newArrival">
-							<div className="row">
+							<div className="row mt-5">
 								<ProductGridTwo
 									category={ category }
 									products={ props.products }
 									type="new"
-									spaceBottomClass="mb-25"
-								/>
-							</div>
-						</Tab.Pane>
-						<Tab.Pane eventKey="bestSeller">
-							<div className="row">
-								<ProductGridTwo
-									category={ category }
-									products={ props.products }
-									type="bestSeller"
-									spaceBottomClass="mb-25"
-								/>
-							</div>
-						</Tab.Pane>
-						<Tab.Pane eventKey="saleItems">
-							<div className="row">
-								<ProductGridTwo
-									category={ category }
-									products={ props.products }
-									type="saleItems"
 									spaceBottomClass="mb-25"
 								/>
 							</div>

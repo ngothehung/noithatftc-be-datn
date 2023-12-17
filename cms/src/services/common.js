@@ -25,12 +25,13 @@ export const setField = ( form, field, value, setForm ) =>
 
 export const buildFilter = ( values ) =>
 {
-	delete values.total;
-	delete values.total_pages;
-	delete values.count;
+
 	let params = {};
 	if ( values != null )
 	{
+		delete values.total;
+		delete values.total_pages;
+		delete values.count;
 		let arrCondition = Object.entries( values );
 
 		params = arrCondition.reduce( ( param, item ) =>
@@ -63,13 +64,14 @@ export const timeDelay = async ( delay ) =>
 }
 
 
-export const RESPONSE_API = async (response, message, id = null, history, route = '') => {
+export const RESPONSE_API = async ( response, message, id = null, history, route = '' ) =>
+{
 	if ( response?.status === 'success' )
-		{
-			message.success( `${ id && 'Update' || 'Create' } successfully!`, 1 );
-			await timeDelay( 500 );
-			window.location.href = `/${route}`;
-		} else 
+	{
+		message.success( `${ id && 'Cập nhật' || 'Tạo mới' } successfully!`, 1 );
+		await timeDelay( 500 );
+		window.location.href = `/${ route }`;
+	} else
 		if ( response?.status === 'fail' && response?.data )
 		{
 			let error = Object.entries( response?.data ) || [];
@@ -96,24 +98,26 @@ export const buildImage = ( img ) =>
 	{
 		return process.env.REACT_APP_URL_UPLOAD + "/upload/" + img;
 
-	} 
+	}
 	else return DEFAUT_IMG
 }
 
-export const onErrorImage = (e)=> {
+export const onErrorImage = ( e ) =>
+{
 	e.currentTarget.src = DEFAUT_IMG;
 }
-export const onErrorUser = (e)=> {
+export const onErrorUser = ( e ) =>
+{
 	e.currentTarget.src = DEFAULT_USER;
 }
 
 export const VALIDATE_FORM = {
-	required: '${label} is required!',
+	required: '${label} không được để trống!',
 	types: {
-		email: '${label} is not a valid email!',
-		number: '${label} is not a valid number!',
+		email: '${label} không đúng định dạng email',
+		number: '${label} không đúng định dạng số',
 	},
 	number: {
-		range: '${label} must be between ${min} and ${max}',
+		range: '${label} trong khoảng ${min} - ${max}',
 	},
 };

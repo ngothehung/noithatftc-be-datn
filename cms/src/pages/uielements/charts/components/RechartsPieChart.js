@@ -7,10 +7,10 @@ import Dot from "../../../../components/Dot/Dot";
 const chartsSettings = {
 	donut: {
 		data: [
-			{ name: 'Pending', key: 0, value: 0, color: '#FFC405' },
-			{ name: 'Approved', key: 1, value: 0, color: '#4D53E0' },
-			{ name: 'Success', key: 2, value: 0, color: '#43BC13' },
-			{ name: 'Reject/Cancel', key: 3, value: 0, color: '#FF5668' },
+			{ name: "Chờ duyệt", key: 0, value: 0, color: '#FFC405' },
+			{ name: 'Đã duyệt', key: 1, value: 0, color: '#4D53E0' },
+			{ name: "Hoàn thành", key: 2, value: 0, color: '#43BC13' },
+			{ name: 'Hủy bỏ', key: 3, value: 0, color: '#FF5668' },
 		],
 	}
 };
@@ -49,6 +49,7 @@ const RechartsPieChart = ( props ) =>
 						outerRadius={ 80 }
 						fill="gradient"
 						// tooltipType=""
+						
 						dataKey="value"
 					>
 						{ data.map( ( entry, index ) => (
