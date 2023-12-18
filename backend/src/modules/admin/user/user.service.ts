@@ -23,7 +23,7 @@ export class UserService {
 	public selectColumn = [
 		"id", "avatar", "created_at", 'birthDay',
 		'username',
-		'roles', 'gender', 'email', 'gender',
+		'roles', 'gender', 'email', 'gender', 'address',
 		'name', 'phone', 'status', 'type', 'updated_at']
 	constructor(
 		@InjectRepository(User) private readonly admUserRepo: Repository<User>,
@@ -63,7 +63,7 @@ export class UserService {
 				roles: true
 			},
 			order: {
-				id: 'ASC'
+				created_at: 'DESC'
 			},
 			take: paging.page_size,
 			skip: (paging.page - 1) * paging.page_size
@@ -123,24 +123,21 @@ export class UserService {
 		if (userDto.birthDay) {
 			userDto.birthDay = new Date(userDto.birthDay);
 		}
-		if (!_.isEmpty(userDto.roles)) {
-			roles = userDto.roles;
-			delete userDto.roles;
-		}
+		// if (!_.isEmpty(userDto.roles)) {
+		// 	roles = userDto.roles;
+
+		// }
+		// delete userDto.roles;
 
 		if(userDto.password) {
 			userDto.password = await bcrypt.hash(userDto.password.trim(), 10);
 		}
+		console.log(userDto);
+		await this.admUserRepo.update(id, userDto)
 
-
-		await this.admUserRepo.createQueryBuilder()
-			.update(User)
-			.set({ ...userDto as any })
-			.where("id = :id", { id: id })
-			.execute();
-		if (!_.isEmpty(roles)) {
-			await this.syncRolesByUser(roles, id);
-		}
+		// if (!_.isEmpty(roles)) {
+		// 	await this.syncRolesByUser(roles, id);
+		// }
 		return await this.show(id);
 	}
 
@@ -168,6 +165,10 @@ export class UserService {
 			},
 			select: [].concat(this.selectColumn)
 		});
+	}
+
+	async deleteUser(id: number): Promise<void> {
+		await this.admUserRepo.delete(id)
 	}
 
 	async activeUser(id: number, admin: any) {

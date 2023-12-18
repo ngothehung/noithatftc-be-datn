@@ -8,6 +8,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import * as Joi from '@hapi/joi';
 import { UploadModule } from './modules/upload/upload.module';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
 	imports: [
@@ -31,10 +32,11 @@ import { UploadModule } from './modules/upload/upload.module';
             })
         }),
 		DatabaseModule,
-		AdminModule, 
-		ShopModule, 
-		DatabaseModule, 
+		AdminModule,
+		ShopModule,
+		DatabaseModule,
 		AuthModule,
+		MailModule,
 		UploadModule
 	],
 	providers: [

@@ -33,6 +33,24 @@ export class AuthController {
 		}
 	}
 
+	@Post('reset-password')
+	@ApiResponse({ status: 200, description: 'success' })
+	async resetPassword(
+		@Body() formDto: any
+	) {
+		try {
+			if (_.isEmpty(formDto)) {
+				throw new BadRequestException({ code: 'F0001' });
+			}
+			const result = await this.authService.resetPassword(formDto);
+
+			return BaseResponse(HTTP_STATUS.success, result, '', 'successfully');
+		} catch (error) {
+			console.log('e@resetpass----> ', error);
+			return BaseResponse(error.status, error.response, error.code || 'E0001', error.message);
+		}
+	}
+
 
 	@Post('refresh')
 	@ApiResponse({ status: 200, description: 'success' })
@@ -92,6 +110,28 @@ export class AuthController {
 				throw new BadRequestException({ code: 'F0001' });
 			}
 			const result = await this.authService.updateProfile(user_id, formDto);
+
+			return BaseResponse(HTTP_STATUS.success, result, '', 'successfully');
+		} catch (error) {
+			console.log('e@UpdateProfile----> ', error);
+			return BaseResponse(error.status, error.response, error.code || 'E0001', error.message);
+		}
+	}
+
+
+	@Put('/password/reset')
+	@ApiResponse({ status: 200, description: 'success' })
+	async reset(
+		@Request() req: any,
+		@Body() formDto: any
+	) {
+		try {
+			
+			if (_.isEmpty(formDto)) {
+				throw new BadRequestException({ code: 'F0001' });
+			}
+			
+			const result = await this.authService.reset(formDto);
 
 			return BaseResponse(HTTP_STATUS.success, result, '', 'successfully');
 		} catch (error) {

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class PermissionDto {
@@ -23,6 +23,8 @@ export class PermissionDto {
     @ApiProperty()
     group: string;
 
-	created_at = new Date();
-	updated_at = new Date();
+	@IsOptional()
+	created_at? = new Date();
+	@IsOptional()
+	updated_at? = new Date();
 }

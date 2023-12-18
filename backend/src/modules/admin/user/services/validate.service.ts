@@ -17,52 +17,58 @@ export class ValidateService {
 			throw new BadRequestException({ code: 'F0001' });
 		}
 		let errorData: any = {};
-		
+
+		let message = null;
+
 		if (isCreated) {
-			if (!userDto.username || userDto.username?.trim() == '') {
-				errorData.username = newArrayError(errorData.email, 'User name is required');
-			} else if (!regexUserName.test(userDto.username)) {
-				console.log(userDto.username);
-				errorData.username = newArrayError(errorData.username, 'User name is invalid');
-			} else {
-				let user = await this.userRepository.findOne({
-					where: {
-						username: userDto.username.trim()
-					}
-				});
-				if (!_.isEmpty(user)) {
-					errorData.username = newArrayError(errorData.username, 'User name is existed');
-				}
-			}
+			// if (!userDto.username || userDto.username?.trim() == '') {
+			// 	errorData.username = newArrayError(errorData.email, 'User name is required');
+			// } else if (!regexUserName.test(userDto.username)) {
+			// 	errorData.username = newArrayError(errorData.username, 'User name is invalid');
+			// } else {
+			// 	let user = await this.userRepository.findOne({
+			// 		where: {
+			// 			username: userDto.username.trim()
+			// 		}
+			// 	});
+			// 	if (!_.isEmpty(user)) {
+			// 		errorData.username = newArrayError(errorData.username, 'User name is existed');
+			// 	}
+			// }
 			if (!regexPass.test(userDto.password)) {
-				errorData.password = newArrayError(errorData.password, 'Password is invalid!');
+				errorData.password = newArrayError(errorData.password, 'Password không đúng định dạng!, bao gồm cả số và chữ');
+				message = 'Password không đúng định dạng!, bao gồm cả số và chữ';
 			}
 			if(userDto.password_cf && userDto.password_cf.trim() != '') {
 				if(userDto.password.trim() !== userDto.password_cf.trim()) {
 					errorData.password_cf = newArrayError(errorData.password_cf, 'Password does not match!');
+					message = 'Password không khớp!';
 				}
 			}
 		}
 
 		if (userDto.email) {
-			if (!regexEmail.test(userDto.email)) {
-				errorData.email = newArrayError(errorData.email, 'Email is invalid');
-			} else {
+			// if (!regexEmail.test(userDto.email)) {
+			// 	errorData.email = newArrayError(errorData.email, 'Email is invalid');
+			// } else {
 				let userEmail: any = await this.userRepository.findOne({ where: { email: userDto.email } });
 				if (!_.isEmpty(userEmail)) {
 					if(isCreated) {
 						errorData.email =  newArrayError(errorData.email, 'Email is existed');
+						message = 'Email đã được sử dụng!';
 					}
 					else if(userEmail.id === user_id) {
 						errorData.email =  newArrayError(errorData.email, 'Email is existed');
+						message = 'Email đã được sử dụng!';
 					}
 				}
-			}
+			// }
 		}
 
 		if (userDto.phone) {
 			if (!regexPhone.test(userDto.phone)) {
 				errorData.phone = newArrayError(errorData.phone, 'Phone is invalid');
+				message = 'Số điện thoại không đúng định dạng!';
 			} else if(isCreated || user_id){
 				let user: any = this.userRepository.findOne({
 					where: {
@@ -72,16 +78,18 @@ export class ValidateService {
 				if (!_.isEmpty(user)) {
 					if(isCreated) {
 						errorData.phone =  newArrayError(errorData.phone, 'Phone is existed');
+						message = 'Số điện thoại đã được sử dụng!';
 					}
 					else if(user.id === user_id) {
 						errorData.phone =  newArrayError(errorData.phone, 'Phone is existed');
+						message = 'Số điện thoại đã được sử dụng!';
 					}
 				}
 			}
 		}
 
 		if (!_.isEmpty(errorData)) {
-			throw new BadRequestException({ code: 'F0002', message: null, data: errorData });
+			throw new BadRequestException({ code: 'F0002', message: message, data: errorData });
 		}
 	}
 

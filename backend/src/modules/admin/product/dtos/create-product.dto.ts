@@ -71,7 +71,7 @@ export default class CreateProductDto {
 	// ward_id?: number;
 
 	@ApiProperty()
-	@Max(100)
+	// @Max(100)
 	sale?: number;
 
 	@ApiProperty()

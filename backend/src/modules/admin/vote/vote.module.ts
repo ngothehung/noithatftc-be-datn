@@ -7,14 +7,14 @@ import { User } from 'src/entities/user.entity';
 import { Products } from 'src/entities/product.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([
-        Vote,
-        User,
-        Products
-    ])
-    ],
-    controllers: [VoteController],
-    providers: [VoteService],
-    exports: [TypeOrmModule]
+	imports: [TypeOrmModule.forFeature([
+		Vote,
+		User,
+		Products
+	])
+	],
+	controllers: [VoteController],
+	providers: [VoteService],
+	exports: [TypeOrmModule]
 })
 export class VoteModule { }

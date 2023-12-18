@@ -4,16 +4,18 @@ import { PermissionService } from "../services/permission.service";
 import { BaseResponse, GROUP_TYPE } from "src/helpers/helper";
 import { PermissionDto } from "../dtos/permission.dto";
 import { JwtGuard } from "src/modules/auth/guards/jwt/jwt.guard";
+import { RoleGuard } from "src/modules/auth/guards/role/role.guard";
 
 @Controller('admin/permission')
 @ApiTags('Admin Permission')
-// @UseGuards(JwtGuard)
+@UseGuards(JwtGuard)
 export class PermissionController {
 	constructor(
 		private permissionService: PermissionService
 	) {
 	}
 	@Get('')
+	@UseGuards(RoleGuard)
 	@ApiResponse({ status: 200, description: 'success' })
 	async getListsPermissions(
 		@Req() request: any
@@ -43,8 +45,21 @@ export class PermissionController {
 		@Body() permissionData: PermissionDto
 	) {
 		try {
-			const permission = await this.permissionService.create(permissionData);
-			return BaseResponse('success', permission,'',  'success');
+			// const permission = await this.permissionService.create(permissionData);
+			return BaseResponse('success', [],'',  'success');
+		} catch (e) {
+			console.log('-------------- acl/permission@:create ', e);
+			return BaseResponse(e.status, e.response, e.code || 'E0001', e.message);
+		}
+	}
+
+	@Post('seed')
+	@ApiResponse({ status: 200, description: 'success' })
+	async seed(
+	) {
+		try {
+			const permission = await this.permissionService.seed();
+			return BaseResponse('success', [],'',  'success');
 		} catch (e) {
 			console.log('-------------- acl/permission@:create ', e);
 			return BaseResponse(e.status, e.response, e.code || 'E0001', e.message);

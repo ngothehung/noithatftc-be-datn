@@ -12,6 +12,7 @@ import { Vote } from './vote.entity';
 // import { Article } from './article.entity';
 import { Role } from './role.entity';
 import { Orders } from './orders.entity';
+import { Contact } from './contact.entity';
 
 @Index('users_email_unique', ['email'], { unique: true })
 @Entity('users', { schema: 'public' })
@@ -78,7 +79,6 @@ export class User {
 
 	@OneToMany(() => Orders, o => o.user)
 	orders: Orders[];
-
 	@ManyToMany(type => Role)
 	@JoinTable({
 		name: 'user_roles',

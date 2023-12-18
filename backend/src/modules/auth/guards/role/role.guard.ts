@@ -15,13 +15,13 @@ export class RoleGuard implements CanActivate {
 
 		const request = context.switchToHttp().getRequest();
 		let userInfo = request.user || null;
-		return true;
-		if(_.isEmpty(userInfo)) {
+		if(_.isEmpty(userInfo) || (userInfo?.type !== 1 && userInfo?.status !== 1)) {
 			throw new BadRequestException({ code: 'LG0401' });
 		}
-		if(_.isEmpty(userInfo.roles)) {
-			throw new BadRequestException({ code: 'LG0403' });
-		}
+		return true;
+		// if(_.isEmpty(userInfo.roles)) {
+		// 	throw new BadRequestException({ code: 'LG0403' });
+		// }
 		let roles = userInfo.roles.map((item: any) => item.guard_name);
 		if(roles.includes('SUPER_ADMIN')) {
 			return true;
@@ -30,6 +30,8 @@ export class RoleGuard implements CanActivate {
 
 		let url = request.url.replace(/\?.*/, '').split('/');
 		let moduleUrl = `${url[url.length - 2]}/${url[url.length - 1]}`;
+		const path = request.path;
+		// let 
 
 		let permissionRoute = PERMISSION_ROUTE.find(item => item.route.includes(moduleUrl));
 		

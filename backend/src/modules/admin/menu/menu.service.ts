@@ -19,7 +19,7 @@ export class MenuService {
 
         const [menus, total] = await this.menuRepo.findAndCount({
             where: conditions,
-            order: { id: 'ASC' },
+            order: { created_at: 'DESC' },
             take: paging.page_size,
             skip: ((paging.page - 1) * paging.page_size)
         });

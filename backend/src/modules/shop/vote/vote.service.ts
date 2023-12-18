@@ -22,7 +22,7 @@ export class VoteService {
 
         const [votes, total] = await this.voteRepo.findAndCount({
             where: conditions,
-            order: { id: 'ASC' },
+            order: { created_at: 'DESC' },
             take: paging.page_size,
             relations: {
                 user: true,

@@ -41,7 +41,7 @@ export const RegisterForm = ( props ) =>
 		{
 			resetForm(form)
 			message.success("Tạo tài khoản thành công")
-			// window.location.href = 'login';
+			window.location.href = 'login';
 		} else if ( result?.status === 'failed' )
 		{
 			setError( result.data );

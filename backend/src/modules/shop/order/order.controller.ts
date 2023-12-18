@@ -16,7 +16,7 @@ export class OrderController {
 	constructor(private readonly orderService: OrderService) { }
 
 	@Post('store')
-	@UseGuards(JwtGuard)
+	// @UseGuards(JwtGuard)
 	async create(@Request() req: any, @Body() createOrderDto: CreateOrderDto) {
 		try {
 			if(_.isEmpty(createOrderDto)) {
@@ -44,13 +44,39 @@ export class OrderController {
 			};
 			let filter = {
 				product_name: req.query.product_name || null,
-				user_id: req.user?.id,
+				user_id: req.user?.id || null,
+				code: req.query.code || null,
 				receiver_name: req.query.receiver_name || null,
 				receiver_email: req.query.receiver_email || null,
 				receiver_phone: req.query.receiver_phone || null,
 				status: req.query.status || null,
 				shipping_status: req.query.shipping_status || null,
 			}
+			return BaseResponse(HTTP_STATUS.success, await this.orderService.findAll(paging, filter),'', 'successfully');
+		} catch (error) {
+			console.log('e@createProduct----> ', error);
+			return BaseResponse(error.status, error.response, error.code || 'E0001', error.message);
+		}
+	}
+
+	@Get('/show-code')
+	async findAllByCode(@Request() req: any) {
+		
+		try {
+			let paging: IPaging = {
+				page: req.query.page || 1,
+				page_size: req.query.page_size || 20,
+			};
+			if(req.query.code == null || req.query.code?.trim() == '') {
+				return BaseResponse(HTTP_STATUS.success, {
+					orders: [],
+					meta: {...paging, total: 0}
+				},'', 'successfully');
+			}
+			let filter = {
+				code: req.query.code || null
+			}
+		
 			return BaseResponse(HTTP_STATUS.success, await this.orderService.findAll(paging, filter),'', 'successfully');
 		} catch (error) {
 			console.log('e@createProduct----> ', error);
