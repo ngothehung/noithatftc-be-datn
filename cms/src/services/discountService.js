@@ -28,7 +28,7 @@ export const DiscountService = {
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/admin/discount/${ id }` );
+		return await deleteMethod( `/admin/discount/delete/${ id }` );
 	}
 }
 export const submitDiscountForm = async ( id = null, e, dispatch, history ) =>

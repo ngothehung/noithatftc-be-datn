@@ -13,7 +13,7 @@ import { Pagination } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
 import { DEFAUT_IMG, EMPTY_IMG } from "../../helpers/constant/image.js";
 import { buildImage, onErrorImage } from "../../services/common.js";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined, LockOutlined, UnlockOutlined } from "@ant-design/icons";
 export const Products = ( props ) =>
 {
 	const errorImg = ( e ) =>
@@ -77,7 +77,7 @@ export const Products = ( props ) =>
 												</td>
 												<td className="text-gray-900">
 													<div className="d-flex">
-														<div className="font-weight-bold " style={ { minWidth: "80px" } }>Tên Sp: { item.hot ? <span className="text-danger">Hot</span> : '' }</div>
+														<div className="font-weight-bold " style={ { minWidth: "80px" } }>Tên Sp: { item.hot == 1 ? <span className="text-danger">Hot</span> : '' }</div>
 														<div className="ml-2 text-break" style={ { minWidth: '100px' } }>{ item.name }</div>
 													</div>
 													<div className="d-flex my-2">
@@ -94,7 +94,7 @@ export const Products = ( props ) =>
 													{ customDate( item.created_at, 'DD/MM/yyyy' ) }
 												</td>
 												<td>
-													<div className="d-flex">
+													<div className="d-flex justify-content-center align-items-center">
 														<Link to={ `/product/edit/${ item.id }` } className="d-flex justify-content-center">
 															<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 														</Link>
@@ -105,6 +105,23 @@ export const Products = ( props ) =>
 																props.deleteById( item.id );
 															} }
 															style={ { fontSize: "16px", color: "red" } } />
+															
+														{/* {
+															item.status == 1 ?
+																<LockOutlined className="ml-3 cursor-pointer"
+																	style={ { fontSize: "16px", color: "red" } }
+																	onClick={ () =>
+																	{
+																		props.updateStatus( item );
+																	} } />
+																:
+																<UnlockOutlined className="ml-3 cursor-pointer text-success"
+																	style={ { fontSize: "16px" } }
+																	onClick={ () =>
+																	{
+																		props.updateStatus( item );
+																	} } />
+														} */}
 													</div>
 												</td>
 											</tr>

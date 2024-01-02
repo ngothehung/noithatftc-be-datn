@@ -6,8 +6,8 @@ const Logo = ({ imageUrl, logoClass }) => {
     return (
         <div className={`${logoClass ? logoClass : ""}`}>
             <Link to={process.env.PUBLIC_URL + "/"}>
-                <h2 className="font-weight-bold">
-                    {/* <img className={'w-100'} src="/assets/logo.jpg" alt="logo"/> */}
+                <h2 className="font-weight-bold" style={{ marginTop:"20px"}}>
+                     {/* <img className={'w-100'} src="/assets/logo.png" alt="logo"/> */}
 					Cửa hàng nội thất
                 </h2>
             </Link>

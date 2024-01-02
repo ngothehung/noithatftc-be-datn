@@ -61,7 +61,8 @@ export class AuthService {
 			username: user.username,
 			id: user.id,
 			roles: user.roles,
-			type: user.type
+			type: user.type,
+			email: user.email
 		};
 		const expIn = Number(process.env.JWT_EXPIRATION_TIME) || 86000;
 		payload.expires_at = getSecond() + expIn;

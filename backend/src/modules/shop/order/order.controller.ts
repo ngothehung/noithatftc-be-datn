@@ -22,8 +22,8 @@ export class OrderController {
 			if(_.isEmpty(createOrderDto)) {
 				throw new BadRequestException({code: 'F0001'});
 			}
-			const user = req.user;
-			
+			const user = req?.user;
+			console.log(createOrderDto);
 			return BaseResponse(HTTP_STATUS.success, 
 				await this.orderService.create(createOrderDto, user)
 				,'', 'successfully');
@@ -88,6 +88,22 @@ export class OrderController {
 	@UseGuards(JwtGuard)
 	findOne(@Param('id') id: string) {
 		return this.orderService.findOne(+id);
+	}
+
+
+	@Put('update/:id')
+	// @UseGuards(RoleGuard)
+	async update(@Param('id') id: string, @Body() updateOrderDto: any) {
+		try {
+			let order = await this.orderService.findOne(Number(id));
+			if(_.isEmpty(order)) {
+				throw new BadRequestException({code: 'OR0002', message:'Không tìm thấy đơn hàng tương ứng'});
+			}
+			return BaseResponse(HTTP_STATUS.success, await this.orderService.update(Number(id), updateOrderDto),'', 'successfully');
+		} catch (error) {
+			console.log('e@findOne Order----> ', error);
+			return BaseResponse(error.status, error.response, error.code || 'E0001', error.message);
+		}
 	}
 
 	@Get('/callback')

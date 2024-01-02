@@ -50,7 +50,7 @@ export const DiscountContainer = () =>
 			const response = await DiscountService.delete( id );
 			if ( response?.status === 'success' )
 			{
-				message.success( 'Delete successfully' );
+				message.success( 'Xóa thành công' );
 				await getDatasByFilter( { ...paging, ...params } );
 			} else
 			{

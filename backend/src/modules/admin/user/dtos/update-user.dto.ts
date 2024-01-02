@@ -41,10 +41,15 @@ export default class UpdateUserDto {
 	@IsOptional()
 	status?: number | 1;
 
-	// @ApiProperty()
-	// @IsOptional()
-	// @IsArray()
-	// roles?: number[];
+	@ApiProperty()
+	@IsInt()
+	@IsOptional()
+	type?: number | 1;
+
+	@ApiProperty()
+	@IsOptional()
+	@IsArray()
+	roles?: number[];
 
 	updated_at = new Date();
 }

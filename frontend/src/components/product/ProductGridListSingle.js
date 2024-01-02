@@ -23,6 +23,7 @@ const ProductGridListSingle = ( {
 	spaceBottomClass,
 	removeWishList,
 	deleteFromWishlist,
+	cartItems
 } ) =>
 {
 	const [ modalShow, setModalShow ] = useState( false );
@@ -82,15 +83,15 @@ const ProductGridListSingle = ( {
 						) }
 
 						<div className="product-action">
-							{/* {
+							{
 								userId != null && <div className="pro-same-action pro-wishlist">
 									<button
 										className={ wishlistItem !== undefined ? "active" : "" }
 										disabled={ wishlistItem !== undefined && !removeWishList }
 										title={
 											wishlistItem !== undefined
-												? ( removeWishList ? 'Remove from wishlist' : "Added to wishlist" )
-												: "Add to wishlist"
+												? ( removeWishList ? 'Xóa khỏi yêu thích' : "Đã thêm vào yêu thích" )
+												: "Yêu thích"
 										}
 										onClick={ () => actionWishList() }
 									>
@@ -98,7 +99,7 @@ const ProductGridListSingle = ( {
 
 									</button>
 								</div>
-							} */}
+							}
 							<div className="pro-same-action pro-cart">
 								{ product.affiliateLink ? (
 									<a
@@ -117,24 +118,24 @@ const ProductGridListSingle = ( {
 									<button
 										onClick={ () => addToCart( product, addToast ) }
 										className={
-											cartItem !== undefined && cartItem.quantity > 0
+											cartItem?.quantity >= 5
 												? "active"
 												: ""
 										}
-										disabled={ cartItem !== undefined && cartItem.quantity > 0 }
+										disabled={ cartItem?.quantity >= 5 }
 										title={
-											cartItem !== undefined ? "Added to cart" : "Thêm giỏ hàng"
+											cartItem?.quantity >= 5 ? "Quá số lượng giỏ hàng" : "Thêm giỏ hàng"
 										}
 									>
 										{ " " }
 										<i className="pe-7s-cart"></i>{ " " }
-										{ cartItem !== undefined && cartItem.quantity > 0
-											? "Added"
+										{ cartItem?.quantity >= 5
+											? "Quá số lượng giỏ hàng"
 											: "Thêm giỏ hàng" }
 									</button>
 								) : (
 									<button disabled className="active">
-										Out of Stock
+										Hết hàng
 									</button>
 								) }
 							</div>

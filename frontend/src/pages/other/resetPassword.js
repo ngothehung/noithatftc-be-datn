@@ -105,7 +105,7 @@ const LoginRegister = ( { location } ) =>
 													<Form.Item name="email" label="Email"
 														rules={ [ { required: true } ] }
 														className=' d-block'>
-														<Input className='mb-0' placeholder='Enter email ...' />
+														<Input className='mb-0' placeholder='Nhập email' />
 													</Form.Item>
 												</div>
 												{
@@ -115,27 +115,27 @@ const LoginRegister = ( { location } ) =>
 															<Form.Item name="old_password"
 																rules={ [ { required: true } ] }
 																className=' d-block'
-																label="Old password"
+																label="Mật khẩu cũ"
 															>
-																<Input.Password type="password" className=' mb-0' placeholder='Enter old password' />
+																<Input.Password type="password" className=' mb-0' placeholder='Nhập mật khẩu cũ' />
 															</Form.Item>
 														</div>
 														<div className="mt-5 mb-3 w-50 mx-auto">
 															<Form.Item name="password"
 																rules={ [ { required: true } ] }
 																className=' d-block'
-																label="New password"
+																label="Mật khẩu mới"
 															>
-																<Input.Password type="password" className=' mb-0' placeholder='Enter new password' />
+																<Input.Password type="password" className=' mb-0' placeholder='Nhập mật khẩu mới' />
 															</Form.Item>
 														</div>
 														<div className="mt-5 mb-3 w-50 mx-auto">
 															<Form.Item name="retypeNewPassword"
 																rules={ [ { required: true } ] }
 																className="d-block"
-																label="Confirm new password"
+																label="Nhập lại mật khẩu mới"
 															>
-																<Input.Password type="password" className={ ` mb-0 ${ error == true ? "borderError" : "" }` } placeholder='Re-enter new password' onChange={ () => setError( false ) } />
+																<Input.Password type="password" className={ ` mb-0 ${ error == true ? "borderError" : "" }` } placeholder='Nhập lại mật khẩu mới' onChange={ () => setError( false ) } />
 															</Form.Item>
 														</div>
 													</>

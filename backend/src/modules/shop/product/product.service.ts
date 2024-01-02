@@ -37,27 +37,21 @@ export class ProductService {
 		if (filters?.category_id) condition.category_id = filters.category_id;
 		if (filters?.is_hot) condition.hot = 1;
 		if (filters?.is_sale) condition.sale = MoreThan(0);
-		console.log(condition);
-		let order: any = {
-			updated_at: 'ASC'
-		};
-		if(filters?.order == "1") {
-			order = {
-				price: 'DESC'
-			}
-		} else if(filters?.order == "2") {
-			order = {
-				price: 'ASC'
-			}
+		let order: any = {};
+		
+		if(filters?.order_by && filters?.order_value) {
+			order[`${filters?.order_by}`] = filters?.order_value
 		}
-		else if(filters?.order == "3") {
-			order = {
-				updated_at: 'DESC'
-			}
-		}
+
+		order.updated_at = "DESC";
+
 		const [products, total] = await this.productRepo.findAndCount({
 			where: condition,
-			order: order,
+			order: {
+				// hot: "DESC",
+				...order,
+				
+			},
 			relations: {
 				product_images: true,
 				category: true

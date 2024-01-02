@@ -14,7 +14,10 @@ export const postMethod =  (path, data) => {
 			if(error?.response?.data?.code === 'LG0401') {
 				window.location.href = '/login'
 			} else 
-			throw error;
+			return {
+				status: "error",
+				message: error?.response?.data?.message || "Error Data"
+			}
 		});
 }
 
@@ -25,7 +28,10 @@ export const getMethod =  async (path, params) => {
 			if(error?.response?.data?.code === 'LG0401') {
 				window.location.href = '/login'
 			} else 
-			throw error;
+			return {
+				status: "error",
+				message: error?.response?.data?.message || "Error Data"
+			}
 		});
 }
 
@@ -36,7 +42,10 @@ export const putMethod =  (path, data) => {
 			if(error?.response?.data?.code === 'LG0401') {
 				window.location.href = '/login'
 			} else 
-			throw error;
+			return {
+				status: "error",
+				message: error?.response?.data?.message || "Error Data"
+			}
 		});
 }
 
@@ -47,6 +56,9 @@ export const deleteMethod =  (path) => {
 			if(error?.response?.data?.code === 'LG0401') {
 				window.location.href = '/login'
 			} else 
-			throw error;
+			return {
+				status: "error",
+				message: error?.response?.data?.message || "Error Data"
+			}
 		});
 }

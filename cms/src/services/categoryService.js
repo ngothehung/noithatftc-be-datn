@@ -59,7 +59,7 @@ export const getCategoriesByFilter = async ( params, dispatch ) =>
 	{
 		dispatch( toggleShowLoading( true ) )
 		const response = await getCategories( params );
-
+		
 		if ( response?.status === 'success' )
 		{
 			return response?.data;

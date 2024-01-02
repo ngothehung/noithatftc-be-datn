@@ -197,7 +197,8 @@ const ProductDescriptionInfoSlider = ( {
 										selectedProductSize
 									)
 								}
-								disabled={ productCartQty >= productStock }
+								disabled={ (productCartQty >= productStock || productCartQty >= 5) }
+								// disabled={ productCartQty >= productStock }
 							>
 								{ " " }
 								Thêm giỏ hàng{ " " }

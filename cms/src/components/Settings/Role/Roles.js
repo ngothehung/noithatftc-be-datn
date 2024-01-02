@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { ROLE_SERVICE } from "../../../services/rolePermissionService.js";
 import { toggleShowLoading } from "../../../redux/actions/common.js";
 import { DeleteOutlined } from "@ant-design/icons";
+import Breadcrumbs from "../../Breadbrumbs/Breadcrumbs.js";
 export const Roles = ( props ) =>
 {
 	const [ listData, setListData ] = useState( [] );
@@ -52,7 +53,7 @@ export const Roles = ( props ) =>
 			const rs = await ROLE_SERVICE.delete( id );
 			if ( rs && rs.status === 'success' )
 			{
-				message.success( 'Delete successfully!' );
+				message.success( 'Xóa thành công!' );
 				await getListData( { page: 1, page_size: 20 } );
 
 			} else
@@ -64,8 +65,20 @@ export const Roles = ( props ) =>
 			message.error( error.message );
 		}
 	}
+
+	const routes = [
+		{
+			name: 'Role',
+			route: '/setting/role'
+		},
+		{
+			name: 'Danh sách',
+			route: '/setting/role/list'
+		}
+	];
 	return (
 		<>
+			<Breadcrumbs routes={ routes } title={ "Role" } />
 			<Widget>
 				<div className="px-5 pt-5">
 					<Link to="/setting/role/create" className="btn btn-info">
@@ -77,12 +90,12 @@ export const Roles = ( props ) =>
 						<thead>
 							<tr>
 								<th>#</th>
-								<th className="text-nowrap">Name</th>
+								<th className="text-nowrap">Tên</th>
 								<th className="text-nowrap">Guard name</th>
-								<th className="text-nowrap">Description</th>
-								<th className="text-nowrap">Permission</th>
-								<th className="text-nowrap">Time</th>
-								<th className="text-nowrap">Action</th>
+								<th className="text-nowrap">Mô tả</th>
+								<th className="text-nowrap">Phân quyền</th>
+								<th className="text-nowrap">Thời gian tạo</th>
+								<th className="text-nowrap">Thao tác</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -104,7 +117,10 @@ export const Roles = ( props ) =>
 												{ item.permissions && item.permissions.map( ( per, key ) =>
 												{
 													return (
-														<span key={ key }>{ per.guard_name } { key < item.permissions.length - 1 ? ', ' : '' }</span>
+														<>
+															<span className="" key={ key }>{ per.name } </span>
+															<span>{ key < item.permissions.length - 1 ? ', ' : '' }</span>
+														</>
 													)
 												} )
 												}

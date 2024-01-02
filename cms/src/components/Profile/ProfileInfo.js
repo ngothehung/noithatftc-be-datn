@@ -13,7 +13,7 @@ export const ProfileInfo = (props) => {
                                 <li className='row pt-2 pb-2 border-bottom'>
                                     <span className='d-flex align-items-center min-w-25 col-12 col-md-3'>
                                         <i className="eva eva-info mr-1"></i>
-                                        Fullname:
+                                        Họ và tên:
                                     </span>
                                     <span className='col-12 col-md-9'>
                                         {props.profileData?.name || ''}
@@ -31,7 +31,7 @@ export const ProfileInfo = (props) => {
                                 <li className='row pt-2 pb-2 border-bottom'>
                                     <span className='d-flex align-items-center min-w-25 col-12 col-md-3'>
                                         <i className="eva eva-star mr-1"></i>
-                                        Gender:
+                                        Giới tính:
                                     </span>
                                     <span className='col-12 col-md-9'>
                                         {props.profileData?.gender || ''}
@@ -49,7 +49,7 @@ export const ProfileInfo = (props) => {
                                 <li className='row pt-2 pb-2 border-bottom'>
                                     <span className='d-flex align-items-center min-w-25 col-12 col-md-3'>
                                         <i className="eva eva-phone mr-1"></i>
-                                        Phone:
+                                        SĐT:
                                     </span>
                                     <span className='col-12 col-md-9'>
                                         {props.profileData?.phone || ''}
@@ -58,7 +58,7 @@ export const ProfileInfo = (props) => {
                                 <li className='row pt-2 pb-2'>
                                     <span className='d-flex align-items-center min-w-25 col-12 col-md-3'>
                                         <i className="eva eva-map mr-1"></i>
-                                        Address:
+                                        Địa chỉ:
                                     </span>
                                     <span className='col-12 col-md-9'>
                                         {props.profileData?.address || ''}

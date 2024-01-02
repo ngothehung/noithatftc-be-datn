@@ -37,7 +37,7 @@ export const PermissionSearch = ( props ) =>
 			<div className="row mb-1">
 				<div className="col-md-3 mb-2 form-group">
 					<Form.Item name="name" label="Tên" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Nhập dữ liệu' />
+						<Input className='form-control' placeholder='Nhập tên' />
 					</Form.Item>
 				</div>
 				{/* <div className="col-md-3 mb-2">

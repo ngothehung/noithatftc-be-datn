@@ -16,8 +16,12 @@ const HomeCakeShop = () =>
 {
 
 	const [ slides, setSlides ] = useState( null );
+	const [ productsHot, setProductsHot ] = useState( null );
 	const [ products, setProducts ] = useState( null );
-	const [ categories, setCategories ] = useState( null )
+	const [ categories, setCategories ] = useState( null );
+	const [ loadingSlideStatus, setLoadingSlideStatus ] = useState( true );
+	const [ loadingCategoryStatus, setLoadingCategoryStatus ] = useState( true );
+	const [ loadingProductStatus, setLoadingProductStatus ] = useState( true );
 	const [ params, setParams ] = useState( {
 		is_hot: null,
 		is_sale: null,
@@ -26,16 +30,31 @@ const HomeCakeShop = () =>
 		status: 1
 	} );
 
+	const getData = async () => {
+		await getSlidesByFilters( { page: 1, page_size: 20, status: 1 }, setSlides );
+		await getCategories( { page: 1, page_size: 6, status: 1 }, setCategories );
+		setLoadingSlideStatus(false);
+		setLoadingCategoryStatus(false);
+	}
+
 	useState( () =>
 	{
-		getSlidesByFilters( { page: 1, page_size: 20, status: 1 }, setSlides );
-		getCategories( { page: 1, page_size: 3, status: 1 }, setCategories );
+		getData()
 	}, [] );
+
+	
 
 	useEffect( () =>
 	{
-		getProductsByFilter( params, setProducts );
-	}, [ params ] )
+		productList()
+	}, [ params ] );
+
+	const productList = async () => {
+		await getProductsByFilter( {...params, order_by: 'created_at', order_value: 'DESC'}, setProducts );
+		await getProductsByFilter( {...params, is_hot: 1}, setProductsHot );
+
+		setLoadingProductStatus(false);
+	}
 
 	return (
 		<Fragment>
@@ -51,20 +70,20 @@ const HomeCakeShop = () =>
 				{ slides && <HeroSliderTwentyTwo slides={ slides } /> }
 				{/* tab product */ }
 
-				<BannerPage />
+				<BannerPage categories={ categories } loading={loadingCategoryStatus} />
 				<TabProductFourteen
 					category="cakes"
-					products={ products }
+					loading={loadingProductStatus}
+					products={ productsHot }
 					setParams={ setParams }
 					params={ params }
 					spaceBottomClass="pb-100"
 					spaceTopClass="pt-100"
 					title={ 'Sản phẩm nổi bật' }
 				/>
-				{/* banner */ }
-				<BannerTwenty categories={ categories } />
 				<TabProductFourteen
 					category="cakes"
+					loading={loadingProductStatus}
 					products={ products }
 					setParams={ setParams }
 					params={ params }
@@ -73,7 +92,6 @@ const HomeCakeShop = () =>
 					title={ 'Sản phẩm mới' }
 				/>
 				{/* blog featured */ }
-				{/* <BlogFeaturedThree spaceTopClass="pt-70" spaceBottomClass="pb-70" /> */ }
 			</LayoutOne>
 		</Fragment>
 	);

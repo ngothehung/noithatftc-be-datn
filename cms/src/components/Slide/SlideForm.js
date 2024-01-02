@@ -27,7 +27,7 @@ export const SlideForm = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 	}, [] );
 
@@ -145,13 +145,13 @@ export const SlideForm = ( props ) =>
 						<Form.Item name="name" label="Tên"
 							rules={ [ { required: true } ] }
 							className=' d-block'>
-							<Input className='form-control' placeholder='Nhập dữ liệu' />
+							<Input className='form-control' placeholder='Nhập tên' />
 						</Form.Item>
 
 						<Form.Item name="link" label="Link"
 							rules={ [ { required: true } ] }
 							className=' d-block'>
-							<Input className='form-control' placeholder='Enter link' />
+							<Input className='form-control' placeholder='Nhập link' />
 						</Form.Item>
 						<Form.Item
 							label="Avatar"

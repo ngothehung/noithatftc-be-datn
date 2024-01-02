@@ -27,7 +27,7 @@ export const CategoryForm = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 	}, [] );
 
@@ -177,7 +177,7 @@ export const CategoryForm = ( props ) =>
 
 							className='d-block'>
 							<Input.TextArea className='form-control'
-								placeholder='Enter description' cols={ 10 } rows={ 5 } />
+								placeholder='Nhập mô tả' cols={ 10 } rows={ 5 } />
 						</Form.Item>
 						<Form.Item name="status" label="Trạng thái"
 							rules={ [ { required: true } ] } className='d-block'>

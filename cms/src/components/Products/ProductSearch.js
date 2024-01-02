@@ -15,12 +15,12 @@ export const ProductSearch = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 
 		setHot( [
 			{ value: 1, label: "Hot" },
-			{ value: 0, label: "Not hot" }
+			{ value: -1, label: "Not hot" }
 		] );
 	}, [] )
 
@@ -48,6 +48,7 @@ export const ProductSearch = ( props ) =>
 			name: null,
 			category_id: null,
 			status: null,
+			quantity: null,
 			hot: null
 		} );
 		form.resetFields();
@@ -67,6 +68,11 @@ export const ProductSearch = ( props ) =>
 				<div className="col-md-3 mb-2 form-group">
 					<Form.Item name="name" label="Tên sản phẩm" className='mb-0 d-block'>
 						<Input className='form-control' placeholder='Nhập tên sản phẩm' />
+					</Form.Item>
+				</div>
+				<div className="col-md-3 mb-2 form-group">
+					<Form.Item name="quantity" label="Số lượng sản phẩm" className='mb-0 d-block'>
+						<Input className='form-control' placeholder='Nhập số lượng sản phẩm' />
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2">

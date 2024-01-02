@@ -15,7 +15,7 @@ export const UserSearch = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 
 		setType( [
@@ -77,15 +77,15 @@ export const UserSearch = ( props ) =>
 						/>
 					</Form.Item>
 				</div>
-				{/* <div className="col-md-3 mb-2">
-					<Form.Item name="type" label="User type" className='mb-0 d-block'>
+				 <div className="col-md-3 mb-2">
+					<Form.Item name="type" label="Loại tài khoản" className='mb-0 d-block'>
 						<Select
-							placeholder="Select type"
+							placeholder="Chọn loại tài khoản"
 							style={ { width: '100%' } }
 							options={ type }
 						/>
 					</Form.Item>
-				</div> */}
+				</div> 
 			</div>
 
 			<button type="submit" className="btn btn-primary" style={ { marginRight: 10, padding: '10px 10px' } }>

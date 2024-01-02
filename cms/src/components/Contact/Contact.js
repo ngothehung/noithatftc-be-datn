@@ -95,11 +95,11 @@ export const ContactPage = () =>
 						<thead>
 							<tr>
 								<th>#</th>
-								<th className="text-nowrap">Title</th>
-								<th className="text-nowrap">Name</th>
+								<th className="text-nowrap">Tiêu đề</th>
+								<th className="text-nowrap">Tên</th>
 								<th className="text-nowrap">Email</th>
-								<th className="">Content</th>
-								<th className="">Created At</th>
+								<th className="">Nội dung</th>
+								<th className="">Thời gian tạo</th>
 							</tr>
 						</thead>
 						<tbody>

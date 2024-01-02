@@ -34,7 +34,7 @@ export const SlideService = {
 
 	async delete ( id )
 	{
-		return await deleteMethod( `/admin/slide/${ id }` );
+		return await deleteMethod( `/admin/slide/delete/${ id }` );
 	}
 }
 

@@ -48,11 +48,11 @@ export const UserCpn = ( props ) =>
 		<>
 			<Widget>
 				<div className="p-5">
-					{/* <div className="mb-3">
+					<div className="mb-3">
 						<Link to="/user/create" className="btn btn-info">
 							<span className="d-flex align-items-center"><i className="eva eva-plus mr-2"></i> Thêm mới</span>
 						</Link>
-					</div> */}
+					</div>
 					<UserSearch { ...props } />
 				</div>
 			</Widget >
@@ -64,8 +64,8 @@ export const UserCpn = ( props ) =>
 								<th>#</th>
 								<th className="text-nowrap">Avatar</th>
 								<th className="text-nowrap">Thông tin</th>
-								{/* <th className="text-nowrap">User name</th> */ }
 								<th className="text-nowrap">Email</th>
+								{/* <th className="text-nowrap">Vai trò</th> */}
 								<th className="text-nowrap">Loại tài khoản</th>
 								<th className="text-nowrap">Trạng thái</th>
 								<th className="text-nowrap">Thời gian</th>
@@ -102,21 +102,18 @@ export const UserCpn = ( props ) =>
 													</div>
 												</div>
 												<div className="d-flex mt-2">
-													<div className="font-weight-bold" style={ { minWidth: "100px" } }>Số điện thoại:</div>
+													<div className="font-weight-bold" style={ { minWidth: "100px" } }>SĐT:</div>
 													<div className="ml-2 text-break" style={ { minWidth: '100px' } }>{ item.phone || 'N/A' }</div>
 												</div>
 											</td>
-											{/* <td className="text-gray-900">
-												{ item.username }
-											</td> */}
 											<td className="text-gray-900">
 												{ item.email }
 											</td>
 											{/* <td className="text-gray-900 text-break" style={ { minWidth: "100px" } }>
-												{ item.roles?.length > 0 &&
-													<div className="d-flex">
+												{ item.roles?.length > 0 ?
+													<div className="d-flex flex-wrap">
 														{ renderRole( item.roles ) }
-													</div>
+													</div> : 'KHÁCH HÀNG'
 												}
 											</td> */}
 											<td className="text-gray-900 text-nowrap ">
@@ -127,17 +124,17 @@ export const UserCpn = ( props ) =>
 												{ item.created_at ? customDate( item.created_at, 'DD/MM/yyyy' ) : '' }
 											</td>
 											<td>
-												<div className="d-flex">
+												<div className="d-flex justify-content-center align-items-center">
 													<Link to={ `/user/edit/${ item.id }` } className="d-flex justify-content-center">
 														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 													</Link>
-													<DeleteOutlined
+													{/* <DeleteOutlined
 														className="ml-2 cursor-pointer"
 														onClick={ () =>
 														{
 															props.deleteById( item.id );
 														} }
-														style={ { fontSize: "16px", color: "red" } } />
+														style={ { fontSize: "16px", color: "red" } } /> */}
 												</div>
 											</td>
 										</tr>

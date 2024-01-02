@@ -43,4 +43,10 @@ export const PAYMENT_TYPE = [
 export const PAYMENT_STATUS = [
 	{ value: 0, label: "Chưa thanh toán" },
 	{ value: 1, label: "Đã thanh toán" },
-]
+];
+
+export const INIT_PAGING = {
+	page: 1,
+	page_size: 10,
+	total: 0
+}

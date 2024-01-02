@@ -23,7 +23,7 @@ export class UserService {
 	public selectColumn = [
 		"id", "avatar", "created_at", 'birthDay',
 		'username',
-		'roles', 'gender', 'email', 'gender', 'address',
+		'roles', 'gender', 'email', 'gender', 'address', 
 		'name', 'phone', 'status', 'type', 'updated_at']
 	constructor(
 		@InjectRepository(User) private readonly admUserRepo: Repository<User>,
@@ -60,7 +60,7 @@ export class UserService {
 			where: condition,
 			select: [].concat(this.selectColumn),
 			relations: {
-				roles: true
+				// roles: true
 			},
 			order: {
 				created_at: 'DESC'
@@ -78,7 +78,7 @@ export class UserService {
 	async getByUserNameOrEmail(account: string) {
 		const user = await this.admUserRepo.findOne({
 			relations: {
-				roles: true
+				// roles: true
 			},
 			where: [
 				{ email: account },
@@ -110,9 +110,9 @@ export class UserService {
 		const newUser = await this.admUserRepo.create({ ...userDto as any });
 
 		const account: any = await this.admUserRepo.save(newUser);
-		if (account && !_.isEmpty(roles)) {
-			await this.syncRolesByUser(roles, account.id);
-		}
+		// if (account && !_.isEmpty(roles)) {
+		// 	await this.syncRolesByUser(roles, account.id);
+		// }
 
 		return account;
 	}
@@ -123,18 +123,19 @@ export class UserService {
 		if (userDto.birthDay) {
 			userDto.birthDay = new Date(userDto.birthDay);
 		}
-		// if (!_.isEmpty(userDto.roles)) {
-		// 	roles = userDto.roles;
-
-		// }
-		// delete userDto.roles;
+		if (!_.isEmpty(userDto.roles)) {
+			roles = userDto.roles;
+			
+		}
+		delete userDto.roles;
 
 		if(userDto.password) {
 			userDto.password = await bcrypt.hash(userDto.password.trim(), 10);
 		}
-		console.log(userDto);
-		await this.admUserRepo.update(id, userDto)
+		const data: any = {...userDto};
 
+		await this.admUserRepo.update(id, data);
+		
 		// if (!_.isEmpty(roles)) {
 		// 	await this.syncRolesByUser(roles, id);
 		// }
@@ -156,19 +157,14 @@ export class UserService {
 	}
 
 	async findById(id: number) {
+		console.log(id);
 		return await this.admUserRepo.findOne({
 			where: {
 				id: id
 			},
-			relations: {
-				roles: true
-			},
+			relations: ["roles", "roles.permissions"],
 			select: [].concat(this.selectColumn)
 		});
-	}
-
-	async deleteUser(id: number): Promise<void> {
-		await this.admUserRepo.delete(id)
 	}
 
 	async activeUser(id: number, admin: any) {

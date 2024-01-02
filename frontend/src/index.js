@@ -11,6 +11,7 @@ import rootReducer from "./redux/rootReducer";
 import products from "./data/products.json";
 import App from "./App";
 import "./assets/scss/style.scss";
+import 'react-loading-skeleton/dist/skeleton.css';
 import "antd/dist/reset.css";
 import * as serviceWorker from "./serviceWorker";
 

@@ -45,7 +45,7 @@ export class CategoryService {
     }
 
     async deleteCategory(cateId: number): Promise<void> {
-        await this.cateRepo.delete(cateId)
+        await this.cateRepo.delete(cateId);
     }
 
     async buildConditions(filters: any)

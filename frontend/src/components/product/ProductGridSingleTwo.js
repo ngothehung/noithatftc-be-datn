@@ -20,7 +20,9 @@ const ProductGridSingleTwo = ( {
 	sliderClassName,
 	spaceBottomClass,
 	colorClass,
-	titlePriceClass
+	titlePriceClass,
+	loading,
+	cartItems
 } ) =>
 {
 	const [ modalShow, setModalShow ] = useState( false );
@@ -54,6 +56,7 @@ const ProductGridSingleTwo = ( {
 								className="default-img"
 								style={ { width: "100%", height: "270px", objectFit: "cover" } }
 								src={ buildImage( product.avatar ) }
+								onError={ onErrorImage }
 								alt=""
 							/>
 							{ product?.product_images?.length > 0 ? (
@@ -89,9 +92,10 @@ const ProductGridSingleTwo = ( {
 											? "active"
 											: ""
 									}
-									disabled={ cartItem !== undefined && cartItem.quantity > 0 }
+									disabled={ cartItem?.quantity >= 5 }
 									title={
-										cartItem !== undefined ? "Đã thêm giỏ hàng" : "Thêm giỏ hàng"
+										// cartItem !== undefined ? "Đã thêm giỏ hàng" : 
+										"Thêm giỏ hàng"
 									}
 								>
 									{ " " }

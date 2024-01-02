@@ -16,6 +16,7 @@ const uploadApi = {
 					const res = await axios.post( `${ process.env.REACT_APP_URL_UPLOAD }/upload/image`,
 						formData, { headers: { 'Accept': 'multipart/form-data' } } );
 					let data = res.data;
+					console.log(data);
 					if ( data?.status === 'success' )
 					{
 						avatar = data?.data?.filename;
@@ -56,8 +57,8 @@ const uploadApi = {
 							if ( data?.status === 'success' )
 							{
 								fileImg.push({
-									name: data?.data.originalname,
-									path: data?.data.filename
+									name: data?.data?.filename,
+									path: data?.data?.filename
 								});
 							}
 						} else {

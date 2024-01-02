@@ -7,8 +7,7 @@ const ShopTopbar = (props) => {
   return (
     <Fragment>
       {/* shop top actions */}
-      <ShopTopActionFilter
-       {...props}
+      <ShopTopActionFilter {...props}
       />
     </Fragment>
   );

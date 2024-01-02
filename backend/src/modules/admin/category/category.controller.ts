@@ -20,7 +20,7 @@ export class CategoryController {
 
     @Get('')
     @HttpCode(HttpStatus.OK)
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async getCategories(@Request() req: any) {
         try {
@@ -41,13 +41,13 @@ export class CategoryController {
 
     @Get('show/:id')
     @HttpCode(HttpStatus.OK)
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async getCategoryById(@Param('id') id: number) {
         try {
             const res = await this.cateService.getCategoryById(id);
             if (!res)
-                return BaseResponse(HTTP_STATUS.fail, {}, 'E0001', 'category does not exist');
+                return BaseResponse(HTTP_STATUS.fail, {}, 'E0001', 'Phân loại không tồn tại');
             else
                 return BaseResponse(HTTP_STATUS.success, res, '', 'Successful!');
         } catch (e) {
@@ -57,7 +57,7 @@ export class CategoryController {
 
     @Post('store')
     @HttpCode(HttpStatus.OK)
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async createCategory(@Body() createCate: CreateCategoryDto) {
         try {
@@ -80,12 +80,12 @@ export class CategoryController {
 
     @Put('update/:id')
     @HttpCode(HttpStatus.OK)
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async updateCategory(@Param('id') cateId: number, @Body() updateCate: UpdateCategoryDto) {
         try {
             const check = await this.cateService.getCategoryById(cateId);
-            if (!check) return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','category does not exist');
+            if (!check) return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','Phân loại không tồn tại');
             if (_.isEmpty(updateCate)) throw new BadRequestException({code: 'F0001'});
             else {
                 updateCate.updated_at = new Date();
@@ -99,19 +99,20 @@ export class CategoryController {
 
     @Delete('delete/:id')
     @HttpCode(HttpStatus.OK)
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async deleteCategory(@Param('id') cateId: number) {
         try {
             let category = await this.cateService.getCategoryById(cateId);
 
             if (!category) {
-                return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','category does not exist!');
+                return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','Phân loại không tồn tại!');
             } else {
                 await this.cateService.deleteCategory(cateId);
                 return BaseResponse(HTTP_STATUS.success, {}, '','Deleted successfully!');
             }
         } catch (e) {
+			console.log(e);
             return BaseResponse(e.status, e.response, e.code || 'E0001', e.message);
         }
     }
@@ -128,7 +129,7 @@ export class CategoryController {
 
     @Get('list/hot')
     @HttpCode(HttpStatus.OK)
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async getCategoriesHot(@Request() req: any) {
         try {

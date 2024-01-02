@@ -1,11 +1,12 @@
-import { IsString, IsInt } from 'class-validator'
+import { IsString, IsInt, IsOptional } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateSlidesDto {
 
     @IsString()
     @ApiProperty()
-	avatar: string;
+	@IsOptional()
+	avatar?: string;
 
     @IsString()
     @ApiProperty()

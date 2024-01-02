@@ -100,9 +100,7 @@ const ProductDescriptionTab = ( props ) =>
                 </div>
               </Tab.Pane> */}
 							<Tab.Pane eventKey="productDescription">
-								
-								<p>
-									{ props.productFullDesc?.content }
+								<p dangerouslySetInnerHTML={ { __html: props.productFullDesc?.content } }>
 								</p>
 							</Tab.Pane>
 							<Tab.Pane eventKey="productReviews">

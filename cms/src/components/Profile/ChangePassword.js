@@ -79,14 +79,14 @@ export const ChangePassword = (props) => {
             >
                 <div className='mb-3'>
 
-                    <Form.Item name="password" label="New password"
+                    <Form.Item name="password" label="Mật khảu mới"
                         className='d-block' rules={[{ required: true }]}>
-                        <Input type='password' className='form-control' placeholder='Enter new password' />
+                        <Input type='password' className='form-control' placeholder='Nhập mật khẩu mới' />
                     </Form.Item>
 
-                    <Form.Item name="retypeNewPassword" label="Retype new password"
+                    <Form.Item name="retypeNewPassword" label="Nhập lại mật khẩu"
                         className="d-block" rules={[{ required: true }]}>
-                        <Input type='password' className={`form-control ${error == true ? "borderError" : ""}`} placeholder='Re-enter new password' onChange={() => setError(false)}/>
+                        <Input type='password' className={`form-control ${error == true ? "borderError" : ""}`} placeholder='Nhập lại mật khẩu' onChange={() => setError(false)}/>
                     </Form.Item>
 
                 </div>

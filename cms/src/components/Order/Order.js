@@ -54,6 +54,8 @@ export const Orders = ( props ) =>
 	{
 		if ( status === 1 ) return <div className="badge bg-warning">Chờ lấy hàng</div>;
 		else if ( status === 2 ) return <div className="badge bg-primary">Đang giao</div>;
+		else if ( status === 4 ) return <div className="badge bg-success">Đã nhận hàng</div>;
+
 		else return <div className="badge bg-success">Đã giao</div>;
 	}
 
@@ -92,8 +94,8 @@ export const Orders = ( props ) =>
 											< tr key={ key } className="table-product">
 												<td>{ item.code || item.id }</td>
 												<td>
-													<span className="font-weight-bold">Username:</span><span> { item.receiver_name } <br /></span>
-													<span className="font-weight-bold">Phone:</span><span> { item.receiver_phone } <br /></span>
+													<span className="font-weight-bold">Tên tài khoản:</span><span> { item.receiver_name } <br /></span>
+													<span className="font-weight-bold">SĐT:</span><span> { item.receiver_phone } <br /></span>
 												</td>
 												<td className="text-right">{ customNumber( item.total_price, ',', '₫' ) }</td>
 												<td className="text-right">{ customNumber( item.total_discount, ',', '₫' ) }</td>

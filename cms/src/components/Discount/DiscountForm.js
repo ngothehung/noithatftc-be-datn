@@ -25,7 +25,7 @@ export const DiscountForm = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 	}, [] );
 
@@ -142,25 +142,25 @@ export const DiscountForm = ( props ) =>
 						validateMessages={ validateMessages }
 					>
 						<div className='mb-3'>
-							<Form.Item name="name" label="Name"
+							<Form.Item name="name" label="Tên"
 								rules={ [ { required: true } ] }
 								className=' d-block'>
-								<Input className='form-control' placeholder='Enter name' />
+								<Input className='form-control' placeholder='Nhập tên' />
 							</Form.Item>
 
 							<div className='row'>
 								<div className='col-12 col-md-6'>
-									<Form.Item name="code" label="Code"
+									<Form.Item name="code" label="Mã"
 										rules={ [ { required: true } ] }
 										className=' d-block'>
-										<Input className='form-control' placeholder='Enter code' />
+										<Input className='form-control' placeholder='Nhập mã' />
 									</Form.Item>
 								</div>
 								<div className='col-12 col-md-6'>
-									<Form.Item name="price" label="Price"
+									<Form.Item name="price" label="Giảm giá"
 										rules={ [ { required: true } ] }
 										className=' d-block'>
-										<Input type="number" className='form-control' placeholder='Enter price' />
+										<Input type="number" className='form-control' placeholder='Nhập giá giảm' />
 									</Form.Item>
 								</div>
 
@@ -173,10 +173,10 @@ export const DiscountForm = ( props ) =>
 							</div> */}
 
 								<div className='col-12 col-md-6'>
-									<Form.Item name="status" label="Status"
+									<Form.Item name="status" label="Tình trạng"
 										rules={ [ { required: true } ] } className='d-block'>
 										<Select
-											placeholder="Select status"
+											placeholder="Chọn tình trạng"
 											style={ { width: '100%' } }
 											options={ status }
 										/>

@@ -14,15 +14,15 @@ export const RegisterForm = ( props ) =>
 	const [ genderConfig, setGenderConfig ] = useState( [
 		{
 			value: 'male',
-			label: 'Male'
+			label: 'Nam'
 		},
 		{
 			value: 'female',
-			label: 'Female'
+			label: 'Nữ'
 		},
 		{
 			value: 'other',
-			label: 'Other'
+			label: 'Khác'
 		}
 	] );
 	const [ error, setError ] = useState( [] );
@@ -33,7 +33,6 @@ export const RegisterForm = ( props ) =>
 		{
 			message.error( 'Password does not match' );
 		}
-		
 		dispatch( toggleShowLoading( true ) );
 		e.username = e.email;
 		const result = await Auth_Service.register( { ...e, type: 2 } );
@@ -41,7 +40,7 @@ export const RegisterForm = ( props ) =>
 		{
 			resetForm(form)
 			message.success("Tạo tài khoản thành công")
-			window.location.href = 'login';
+			// window.location.href = 'login';
 		} else if ( result?.status === 'failed' )
 		{
 			setError( result.data );
@@ -86,31 +85,31 @@ export const RegisterForm = ( props ) =>
 							</Form.Item>
 						</div>
 						<div className="col-md-6">
-							<Form.Item name="password" label="Password"
+							<Form.Item name="password" label="Mật khẩu"
 								rules={ [ { required: true } ] }
 								className=' d-block '>
-								<Input.Password type="password" className=' mb-0' placeholder='Enter password' />
+								<Input.Password type="password" className=' mb-0' placeholder='Nhập mật khẩu' />
 							</Form.Item>
 						</div>
 						<div className="col-md-6">
-							<Form.Item name="password_cf" label="Password confirmed"
+							<Form.Item name="password_cf" label="Nhập lại mật khẩu"
 								rules={ [ { required: true } ] }
 								className=' d-block '>
-								<Input.Password type="password" className=' mb-0' placeholder='Confirm password' />
+								<Input.Password type="password" className=' mb-0' placeholder='Nhập lại mật khẩu' />
 							</Form.Item>
 						</div>
 						<div className="col-md-6">
-							<Form.Item name="phone" label="Phone"
+							<Form.Item name="phone" label="SĐT"
 								rules={ [ { required: true } ] }
 								className=' d-block '>
 								<Input className=' mb-0' placeholder='Nhập số điện thoại' />
 							</Form.Item>
 						</div>
 						<div className="col-md-6">
-							<Form.Item name="gender" label="Gender"
+							<Form.Item name="gender" label="Giới tính"
 								rules={ [ { required: true } ] } className='d-block'>
 								<Select
-									placeholder="Select gender"
+									placeholder="Chọn giới tính"
 									size="large"
 									style={ { width: '100%' } }
 									options={ genderConfig }

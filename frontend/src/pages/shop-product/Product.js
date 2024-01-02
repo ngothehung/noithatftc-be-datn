@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { getProducts, showProduct, showProductDetail } from "../../services";
 import { VOTE_SERVICE } from "../../services/shop/vote-service";
 import { extractIdBySlug } from "../../helpers/func";
+import { LoadingList } from "../../components/loading/LoadingList";
 
 const Product = ( { location } ) =>
 {
@@ -22,7 +23,7 @@ const Product = ( { location } ) =>
 	const [ productData, setProductData ] = useState( null );
 	const [ reviews, setReviews ] = useState( [] );
 	const [ productId, setProductId ] = useState( null );
-	const [ currentPage, setCurrentPage ] = useState( 1 );
+	const [ loading, setLoading ] = useState( true );
 	const [ paging, setPaging ] = useState( {
 		page: 1,
 		page_size: 5,
@@ -33,17 +34,18 @@ const Product = ( { location } ) =>
 	{
 		if ( id )
 		{
-			let productIdData = extractIdBySlug(id);
-			setProductId(productIdData);
-			showProductDetail( productIdData, setProductData, dispatch );
-			getDataVotes( { ...paging, product_id: productIdData } );
+			getDetail( id );
 		}
 	}, [ id ] );
 
-	useEffect( () =>
+	const getDetail = async ( id ) =>
 	{
-
-	}, [ productData ] );
+		let productIdData = extractIdBySlug( id );
+		setProductId( productIdData );
+		await showProductDetail( productIdData, setProductData, dispatch );
+		await getDataVotes( { ...paging, product_id: productIdData } );
+		setLoading( false );
+	}
 
 
 	const getDataVotes = async ( filters ) =>
@@ -67,7 +69,7 @@ const Product = ( { location } ) =>
 	return (
 		<Fragment>
 			<MetaTags>
-				<title>[Cửa hàng nội thất] | Chi tiết Sản phẩm</title>
+				<title>[Cửa hàng Nội thất] | Chi tiết Sản phẩm</title>
 				<meta
 					name="description"
 					content="Product page of flone react minimalist eCommerce template."
@@ -79,35 +81,33 @@ const Product = ( { location } ) =>
 				Sản phẩm
 			</BreadcrumbsItem>
 			<BreadcrumbsItem to={ process.env.PUBLIC_URL + pathname }>
-				{productData?.name}
+				{ productData?.name }
 			</BreadcrumbsItem>
 			<LayoutOne headerTop="visible">
-				{ productData ?
-					<>
-						<Breadcrumb />
+				
+				<Breadcrumb />
 
-						<ProductImageDescription
-							spaceTopClass="pt-100"
-							spaceBottomClass="pb-100"
-							product={ productData }
-						/>
+				<ProductImageDescription
+					spaceTopClass="pt-100"
+					spaceBottomClass="pb-100"
+					loading={loading}
+					product={ productData }
+				/>
 
-						<ProductDescriptionTab
-							spaceBottomClass="pb-90"
-							productFullDesc={ productData }
-							reviews={ reviews }
-							paging={ paging }
-							setPaging={ setPaging }
-							getDataVotes={ getDataVotes }
-						/>
+				<ProductDescriptionTab
+					spaceBottomClass="pb-90"
+					productFullDesc={ productData }
+					reviews={ reviews }
+					paging={ paging }
+					loading={loading}
+					setPaging={ setPaging }
+					getDataVotes={ getDataVotes }
+				/>
 
-						<RelatedProductSlider
-							spaceBottomClass="pb-95"
-							category={ productData.category_id }
-						/>
-					</> :
-					<span className="text-center fw-700">No data product detail</span>
-				}
+				<RelatedProductSlider
+					spaceBottomClass="pb-95"
+					category={ productData?.category_id }
+				/>
 			</LayoutOne>
 
 
@@ -123,4 +123,4 @@ const mapStateToProps = ( state, ownProps ) =>
 {
 };
 
-export default connect( mapStateToProps )( Product );
+export default connect(  )( Product );

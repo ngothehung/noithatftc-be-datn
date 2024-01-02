@@ -30,15 +30,15 @@ const MyAccount = ( { location } ) =>
 	const [ genderConfig, setGenderConfig ] = useState( [
 		{
 			value: 'male',
-			label: 'Male'
+			label: 'Nam'
 		},
 		{
 			value: 'female',
-			label: 'Female'
+			label: 'Nữ'
 		},
 		{
 			value: 'other',
-			label: 'Other'
+			label: 'Khác'
 		}
 	] );
 
@@ -133,7 +133,7 @@ const MyAccount = ( { location } ) =>
 		} else
 		{
 			setError( true );
-			message.error( 'Password does not match!' );
+			message.error( 'Mật khẩu không phù hợp' );
 		}
 		dispatch(toggleShowLoading(false));
 
@@ -152,7 +152,7 @@ const MyAccount = ( { location } ) =>
 	return (
 		<Fragment>
 			<MetaTags>
-				<title>[Cửa hàng nội thất] | My Account</title>
+				<title>[Cửa hàng Nội thất] | My Account</title>
 				<meta
 					name="description"
 					content="Compare page of flone react minimalist eCommerce template."
@@ -192,9 +192,9 @@ const MyAccount = ( { location } ) =>
 																	<Form.Item name="name"
 																		rules={ [ { required: true } ] }
 																		className=' d-block'
-																		label='Name'
+																		label='Tên'
 																	>
-																		<Input className='form-control mb-0' placeholder='Nhập dữ liệu' />
+																		<Input className='form-control mb-0' placeholder='Nhập Tên' />
 																	</Form.Item>
 
 																	<Form.Item name="email"
@@ -237,21 +237,21 @@ const MyAccount = ( { location } ) =>
 																<div className="col-3">
 																	<Form.Item
 																		name="gender"
-																		label="Gender"
+																		label="Giới tính"
 																		rules={ [ { required: true } ] }
 																		className='d-block'
 																	>
 																		<Select
-																			placeholder="Select gender"
+																			placeholder="Chọn giới tính"
 																			style={ { width: '100%' } }
 																			options={ genderConfig }
 																		/>
 																	</Form.Item>
 																</div>
 																<div className='col-3'>
-																	<Form.Item name="birthDay" label="Birthday"
+																	<Form.Item name="birthDay" label="Sinh nhật"
 																		className='d-block'>
-																		<Input type='date' className='form-control' placeholder='Enter birthday' />
+																		<Input type='date' className='form-control' placeholder='Nhập ngày sinh naajt' />
 																	</Form.Item>
 																</div>
 															</div>
@@ -288,16 +288,16 @@ const MyAccount = ( { location } ) =>
 																	<Form.Item name="password"
 																		rules={ [ { required: true } ] }
 																		className=' d-block'
-																		label="New password"
+																		label="Mật khẩu"
 																	>
-																		<Input type="password" className='form-control mb-0' placeholder='Enter new password' />
+																		<Input type="password" className='form-control mb-0' placeholder='Nhập mật khẩu mới' />
 																	</Form.Item>
 																</div>
 																<div className="col-6">
 																	<Form.Item name="retypeNewPassword"
 																		rules={ [ { required: true } ] }
 																		className="d-block"
-																		label="Confirm new password"
+																		label="Các sản phẩm,mới xuất hiện"
 																	>
 																		<Input type="password" className={ `form-control mb-0 ${ error == true ? "borderError" : "" }` } placeholder='Re-enter new password' onChange={ () => setError( false ) } />
 																	</Form.Item>

@@ -21,10 +21,12 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 	const [ layout, setLayout ] = useState( 'grid three-column' );
 	const [ products, setProducts ] = useState( [] );
 	const [ categories, setCategories ] = useState( [] );
+	const [ loadingProductStatus, setLoadingProductStatus ] = useState( true );
 	const [ params, setParams ] = useState( {
 		name: null,
 		category_id: null,
-		order: null
+		order_by: null,
+		order_value: null,
 	} );
 	const [ paging, setPaging ] = useState( { page: 1, page_size: 20, total: 0 } );
 
@@ -43,6 +45,7 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 		dispatch( toggleShowLoading( true ) );
 		try
 		{
+			setLoadingProductStatus(true);
 			const params = buildFilter( filter );
 			const response = await getProducts( params );
 			const paramSearch = new URLSearchParams( params ).toString();
@@ -51,11 +54,13 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 			{
 				setProducts( response?.data?.products );
 				setPaging( { ...response?.data?.meta } );
+				setLoadingProductStatus(false);
 			}
 		} catch ( error )
 		{
 			console.log( error );
 		}
+		
 		dispatch( toggleShowLoading( false ) );
 	}
 
@@ -77,23 +82,12 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 	useEffect( () =>
 	{
 
-		// console.log(queryString());
 		getProductList( { ...paging, ...params } );
-		console.log( params );
-	}, [ params.name, params.category_id, params.order ] );
-
-	// addToast("Added To Wishlist", {
-    //     appearance: "success",
-    //     autoDismiss: true
-    //   });
+	}, [ params.name, params.category_id, params.order_by, params.order_value ] );
 
 
 	return (
 		<Fragment>
-			{/* <MetaTags>
-                <title>Flone | Shop Page</title>
-                <meta name="description" content="Shop page of flone react minimalist eCommerce template." />
-            </MetaTags> */}
 
 			<BreadcrumbsItem to={ '/' }>Trang chủ</BreadcrumbsItem>
 			<BreadcrumbsItem to={ pathname }>Sản phẩm</BreadcrumbsItem>
@@ -135,7 +129,7 @@ const ShopGridStandard = ( { location, dispatch } ) =>
 									sortedProductCount={ products.length } /> */}
 
 								{/* shop page content default */ }
-								<ShopProducts layout={ layout } products={ products } />
+								<ShopProducts layout={ layout } products={ products } loading={loadingProductStatus} />
 
 								{/* shop product pagination */ }
 								{

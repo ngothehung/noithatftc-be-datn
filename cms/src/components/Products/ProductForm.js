@@ -15,6 +15,8 @@ import { buildImage, timeDelay } from '../../services/common';
 import { toggleShowLoading } from '../../redux/actions/common';
 import moment from 'moment';
 import Breadcrumbs from '../Breadbrumbs/Breadcrumbs';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const initOptions = [ {
 	key: "",
@@ -40,14 +42,14 @@ export const ProductForm = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 		getListCategories();
 	}, [] );
 
 	useEffect( () =>
 	{
-		
+
 		if ( params.id )
 		{
 			setId( Number( params.id ) );
@@ -218,13 +220,13 @@ export const ProductForm = ( props ) =>
 							<Form.Item name="name" label="Tên sản phẩm"
 								rules={ [ { required: true } ] }
 								className=' d-block'>
-								<Input className='form-control' placeholder='Nhập dữ liệu' />
+								<Input className='form-control' placeholder='Nhập tên' />
 							</Form.Item>
 
 							<Form.Item name="slug" label="Slug"
 								rules={ [ { required: true } ] }
 								className=' d-block'>
-								<Input className='form-control' placeholder='Nhập dữ liệu' />
+								<Input className='form-control' placeholder='Nhập slug' />
 							</Form.Item>
 
 							<Form.Item name="category_id" label="Phân loại"
@@ -254,17 +256,24 @@ export const ProductForm = ( props ) =>
 									</div> }
 								</Upload>
 							</Form.Item>
-							<Form.Item name="content" label="Mô tả ngắn"
-								className='d-block'>
-								<Input.TextArea className='form-control'
-									placeholder='Enter content'
-									cols={ 10 } rows={ 5 } />
-							</Form.Item>
-							<Form.Item name="description" label="Mô tả chi tiết"
 
+							<Form.Item name="description" label="Mô tả ngắn"
+								rules={ [ { required: true } ] }
+								className=' d-block'>
+								<Input.TextArea rows={ 5 } className='form-control' placeholder='Mô tả ngắn' />
+							</Form.Item>
+
+							<Form.Item name="content" label="Mô tả"
+								rules={ [ { required: true } ] }
 								className='d-block'>
-								<Input.TextArea className='form-control'
-									placeholder='Enter description' cols={ 10 } rows={ 5 } />
+								<CKEditor
+									editor={ ClassicEditor }
+									data={ form.getFieldValue( 'content' ) }
+									onChange={ ( e, editor ) =>
+									{
+										form.setFieldValue( 'content', editor?.getData() || null )
+									} }
+								/>
 							</Form.Item>
 
 							<div className='form-group'>
@@ -292,7 +301,7 @@ export const ProductForm = ( props ) =>
 																	if ( e )
 																	{
 																		attributes[ key ].key = e?.target?.value;
-																		console.log("------> ", attributes);
+																		console.log( "------> ", attributes );
 																		setAttributes( attributes );
 																	}
 																} } />
@@ -304,7 +313,7 @@ export const ProductForm = ( props ) =>
 																	if ( e )
 																	{
 																		attributes[ key ].value = e?.target?.value;
-																		console.log("------> value", attributes);
+																		console.log( "------> value", attributes );
 																		setAttributes( attributes );
 																	}
 																} } />

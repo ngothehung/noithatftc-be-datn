@@ -84,18 +84,18 @@ const MenuCart = ({ cartData, currency, deleteFromCart, activeCart }) => {
                         <Link className="default-btn" to={process.env.PUBLIC_URL + "/cart"}>
                             Xem giỏ hàng
                         </Link>
-                        {/* <Link
+                        <Link
                             className="default-btn"
                             to={localStorage.getItem('access_token') ? process.env.PUBLIC_URL + "/checkout" : process.env.PUBLIC_URL + "auth/login"}
                         >
-                            checkout
-                        </Link> */}
-						<Link
+                            Mua hàng
+                        </Link>
+						{/* <Link
                             className="default-btn"
                             to={process.env.PUBLIC_URL + "/checkout"}
                         >
                             Mua hàng
-                        </Link>
+                        </Link> */}
                     </div>
                 </Fragment>
             ) : (

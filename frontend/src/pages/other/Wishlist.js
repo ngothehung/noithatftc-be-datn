@@ -49,6 +49,8 @@ const Wishlist = ( {
 	}, [isReload] );
 	const getProductList = ( filter ) =>
 	{
+		console.log(userId);
+		console.log(wishlistItems);
 		if ( !userId || userId === undefined || userId === "undefined" )
 		{
 			setProducts( [] );
@@ -56,15 +58,18 @@ const Wishlist = ( {
 		} else if ( wishlistItems?.length > 0 )
 		{
 			let data = wishlistItems.filter( ( item, index ) => item && index < ( paging.page * paging.page_size ) );
+			console.log(data);
 			setProducts( data );
 			setPaging( { ...paging, total: wishlistItems?.length } )
 		}
 		setIsReload(false)
-	}
+	};
+
+	console.log("products-------> ", products);
 	return (
 		<Fragment>
 			<MetaTags>
-				<title>[Cửa hàng nội thất] | Sản phẩm yêu thích</title>
+				<title>[Cửa hàng Nội thất] | Sản phẩm yêu thích</title>
 				<meta
 					name="description"
 					content="Wishlist page of flone react minimalist eCommerce template."

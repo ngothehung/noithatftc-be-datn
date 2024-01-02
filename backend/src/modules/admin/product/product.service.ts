@@ -37,6 +37,7 @@ export class ProductService {
 			if (filters.category_id) condition.category_id = filters.category_id;
 			if (filters.hot) condition.hot = filters.hot;
 			if (filters.id) condition.id = filters.id;
+			if (filters.quantity) condition.number = filters.quantity;
 		}
 		const [products, total] = await this.adminProdRepo.findAndCount({
 			where: condition,
@@ -67,22 +68,29 @@ export class ProductService {
 		};
 	}
 
-
-	async update(id: number, product: any) {
+	async validateProduct(id: number, product: any) {
 		let errorData: any = {};
+		let message = null;
 		if (!id) {
 			errorData.id = ['Id sản phẩm không đúng định dạng'];
+			message = 'Id sản phẩm không đúng định dạng';
 		}
 		if (_.isEmpty(product)) {
 			errorData.form = ['Form không đúng định dạng'];
+			message = 'Form không đúng định dạng';
 		}
 		let show = await this.show(id);
 		if (_.isEmpty(show)) {
 			errorData.product = ['Không tìm thấy sản phẩm'];
+			message = 'Không tìm thấy sản phẩm';
 		}
 		if (!_.isEmpty(errorData)) {
-			throw new BadRequestException({ code: 'F0002', message: null, data: errorData });
+			throw new BadRequestException({ code: 'F0002', message: message, data: errorData });
 		}
+	}
+
+	async update(id: number, product: any) {
+		await this.validateProduct(id, product);
 		const newProducts: any = await this.adminProdRepo.create({ ...product, updated_at: new Date() });
 		await this.adminProdRepo.update(id, newProducts);
 		if (product.products_images) {
@@ -91,7 +99,7 @@ export class ProductService {
 		}
 		return await this.show(id);
 	}
-
+	
 	async saveProductImage(productId: number, productImages: any) {
 		const images = productImages.reduce( (newImg: any, img: any) => {
 			let obj = {

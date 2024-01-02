@@ -47,7 +47,7 @@ export const ContactSearch = ( props ) =>
 				
 				<div className="col-md-3 mb-2 form-group">
 					<Form.Item name="name" label="Tên" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Nhập dữ liệu' />
+						<Input className='form-control' placeholder='Nhập tên' />
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2 form-group">
@@ -56,8 +56,8 @@ export const ContactSearch = ( props ) =>
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2 form-group">
-					<Form.Item name="title" label="Title" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter title' />
+					<Form.Item name="title" label="Tiêu đề" className='mb-0 d-block'>
+						<Input className='form-control' placeholder='Nhập tiêu đề' />
 					</Form.Item>
 				</div>
 			</div>

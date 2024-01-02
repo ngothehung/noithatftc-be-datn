@@ -14,7 +14,7 @@ const RelatedProductSlider = ( { spaceBottomClass, category } ) =>
 		loop: false,
 		slidesPerView: 4,
 		grabCursor: true,
-		with:100,
+		with: 100,
 		breakpoints: {
 			1024: {
 				slidesPerView: 4
@@ -31,14 +31,21 @@ const RelatedProductSlider = ( { spaceBottomClass, category } ) =>
 		}
 	};
 	const [ products, setProducts ] = useState( null );
+	const [ loading, setLoading ] = useState( true );
 
 	useEffect( () =>
 	{
 		if ( category )
 		{
-			getProductsByFilter( { page: 1, page_size: 4, category_id: category }, setProducts );
+			getData()
 		}
 	}, [ category ] );
+
+	const getData = async () =>
+	{
+		await getProductsByFilter( { page: 1, page_size: 4, category_id: category }, setProducts );
+		setLoading( false );
+	}
 
 	return (
 		<div className={ `related-product-area ${ spaceBottomClass ? spaceBottomClass : "" }` }>
@@ -49,14 +56,14 @@ const RelatedProductSlider = ( { spaceBottomClass, category } ) =>
 					spaceClass="mb-50"
 				/>
 				<div className="row">
-					{
-						products && <Swiper { ...settings }>
-							<ProductGrid
-								products={ products }
-								sliderClassName="swiper-slide"
-							/>
-						</Swiper>
-					}
+					
+					<Swiper { ...settings }>
+						<ProductGrid
+							products={ products }
+							loading={ loading }
+							sliderClassName="swiper-slide"
+						/>
+					</Swiper>
 				</div>
 			</div>
 		</div>

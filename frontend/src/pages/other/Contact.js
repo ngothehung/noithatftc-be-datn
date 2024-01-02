@@ -56,7 +56,7 @@ const Contact = ({ location }) => {
     return (
         <Fragment>
             <MetaTags>
-                <title>Website bán hoa quả</title>
+                <title>[Cửa hàng Nội thất] Liên hệ</title>
                 <meta
                     name="description"
                     content="Contact of flone react minimalist eCommerce template."
@@ -79,8 +79,8 @@ const Contact = ({ location }) => {
                                             <i className="fa fa-phone" />
                                         </div>
                                         <div className="contact-info-dec">
-                                            <p>+012 345 678 102</p>
-                                            <p>+012 345 678 102</p>
+                                            <p>+84 964898718</p>
+                                            <p>+84 964898718</p>
                                         </div>
                                     </div>
                                     <div className="single-contact-info">
@@ -89,8 +89,8 @@ const Contact = ({ location }) => {
                                         </div>
                                         <div className="contact-info-dec">
                                             <p>
-                                                <a href="mailto:yourname@email.com">
-                                                    yourname@email.com
+                                                <a href="noithatftc@gmail.com">
+                                                noithatftc@gmail.com
                                                 </a>
                                             </p>
                                             <p>
@@ -150,7 +150,7 @@ const Contact = ({ location }) => {
                                         <div className="row">
                                             <div className="col-lg-6">
                                                 <input name="name" required 
-												placeholder="Name*" type="text" 
+												placeholder="Họ Tên*" type="text" 
 												onChange={(event) => setName(event.target.value)} />
                                             </div>
                                             <div className="col-lg-6">
@@ -161,7 +161,7 @@ const Contact = ({ location }) => {
                                                 <input
                                                     required
                                                     name="title"
-                                                    placeholder="Title*"
+                                                    placeholder="Tiêu Đề*"
                                                     type="text"
 													
                                                     onChange={(event) => setTitle(event.target.value)}
@@ -171,7 +171,7 @@ const Contact = ({ location }) => {
                                                     <textarea
                                                         required
                                                         name="message"
-                                                        placeholder="Your Message*"
+                                                        placeholder="Lời nhắn của bạn*"
 														maxLength={300}
                                                         defaultValue={""}
                                                         onChange={(event) => setContent(event.target.value)}

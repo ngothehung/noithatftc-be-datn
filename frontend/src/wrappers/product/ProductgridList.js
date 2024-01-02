@@ -6,6 +6,7 @@ import { addToWishlist, deleteFromWishlist } from "../../redux/actions/wishlistA
 import { addToCompare } from "../../redux/actions/compareActions";
 import ProductGridListSingle from "../../components/product/ProductGridListSingle";
 import { getItem } from "../../services";
+import { LoadingList } from "../../components/loading/LoadingList";
 
 const ProductGrid = ( {
 	products,
@@ -20,12 +21,19 @@ const ProductGrid = ( {
 	spaceBottomClass,
 	removeWishList,
 	deleteFromWishlist,
+	loading
 } ) =>
 {
 	const userId = getItem( 'id' )
 	return (
 		<Fragment>
-			{ products.map( product =>
+			{ (loading == true || products?.length <= 0 || !products)  &&
+				<LoadingList
+					total={ 4 }
+					className={ `col-lg-3 col-sm-4 ${ sliderClassName ? sliderClassName : ""}` }
+					height={ 350 } />
+			}
+			{ !loading  && products && products.map( product =>
 			{
 				return (
 					<ProductGridListSingle
@@ -34,10 +42,11 @@ const ProductGrid = ( {
 						product={ product }
 						currency={ currency }
 						addToCart={ addToCart }
+						cartItems={cartItems}
 						removeWishList={ removeWishList }
 						addToWishlist={ addToWishlist }
 						addToCompare={ addToCompare }
-						deleteFromWishlist={deleteFromWishlist}
+						deleteFromWishlist={ deleteFromWishlist }
 						cartItem={
 							cartItems.filter( cartItem => cartItem.id === product.id )[ 0 ]
 						}

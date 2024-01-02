@@ -13,26 +13,29 @@ import { OrderModule } from './order/order.module';
 import { ContactModule } from './contact/contact.module';
 import { StatisticModule } from './statistic/statistic.module';
 import { DiscountModule } from './discount/discount.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
     imports: [
-        UserModule, 
-        SlideModule, 
-        ProductImageModule, 
-        CategoryModule,  
-        VoteModule, 
-        ArticleModule, 
+        UserModule,
+        SlideModule,
+        ProductImageModule,
+        CategoryModule,
+        VoteModule,
+        ArticleModule,
         MenuModule,
         ProductModule,
 		JwtModule,
 		OrderModule,
 		ContactModule,
 		StatisticModule,
-		DiscountModule
+		DiscountModule,
+		BlogModule
     ],
     providers: [],
     controllers: []
 })
+
 export class AdminModule implements NestModule{
 	configure(consumer: MiddlewareConsumer) {
         consumer.apply(MiddlewareMiddleware)

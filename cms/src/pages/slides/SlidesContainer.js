@@ -28,6 +28,7 @@ export const SlidesContainer = () =>
 
 	const getDatasByFilter = async ( filter ) =>
 	{
+		dispatch( toggleShowLoading( true ) );
 		const rs = await getDataByFilter( filter, dispatch );
 		await timeDelay( 1000 );
 
@@ -54,7 +55,7 @@ export const SlidesContainer = () =>
 		try {
 			const response = await SlideService.delete(id);
 			if(response?.status === 'success') {
-				message.success('Delete successfully');
+				message.success('Xóa thành công');
 				await getDatasByFilter({...paging, ...params});
 			} else {
 				message.error(response?.message);

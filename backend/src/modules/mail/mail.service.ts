@@ -36,10 +36,10 @@ export class MailService {
 	async sendUserConfirmation(data: any) {
 		try {
 			const result = await this.transporter.sendMail({
-				from: `[Cửa hàng nội thất] noreply@gmail.com`,
+				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: data.email,
-				bcc: ['ngothehung2110@gmail.com'],
-				subject: `[Cửa hàng nội thất] Chào mừng bạn đến với trang web`,
+				bcc: ['letxhe140798@fpt.edu.vn'],
+				subject: `[Cửa hàng Nội thất] Chào mừng bạn đến với trang web`,
 				html: `
 			  <div style="background-color: #003375; margin: 0 auto; max-width: 600px; ">
 			  <div style="padding: 10px; background-color: white;">
@@ -48,11 +48,11 @@ export class MailService {
 				  
 
 				  <p>Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu bổ sung nào, 
-				  xin hãy liên hệ với chúng tôi qua số Hotline <b>0987654321</b> 
-				  hoặc gửi email về địa chỉ noithat@gmail.com. Chúng tôi luôn sẵn lòng giúp đỡ bạn.</p>
+				  xin hãy liên hệ với chúng tôi qua số Hotline <b>0964898718</b> 
+				  hoặc gửi email về địa chỉ noithatftc@gmail.com. Chúng tôi luôn sẵn lòng giúp đỡ bạn.</p>
 				  
 				  <p>Trân trọng,</p>
-				  <p><b>Cửa hàng nội thất</b></p>
+				  <p><b>Cửa hàng Nội thất</b></p>
 			  </div>
 		  </div>
 					  `,
@@ -63,12 +63,12 @@ export class MailService {
 
 	async sendOrderData(data: any) {
 		try {
-			console.log(moment(data?.created_at));
+			console.log("gửi mail-------> ", moment(data?.created_at));
 			const result = await this.transporter.sendMail({
-				from: `[Cửa hàng nội thất] noreply@gmail.com`,
+				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: data.email || data.receiver_email,
-				cc: ['ngothehung2110@gmail.com'],
-				subject: `[Cửa hàng nội thất] Đặt hàng thành công : mã đơn hàng ${data.code}` ,
+				cc: ['letxhe140798@fpt.edu.vn'],
+				subject: `[Cửa hàng Nội thất] Đặt hàng thành công ${data?.code ? '#'+ data?.code : ''}`,
 				html: `
                 <div style='margin-left: 20px; font-size: 14px; overflow: auto; height: 400px; display: block;'>
                     <div style='color:#000;'>Bạn đã đặt thành công đơn hàng</div>
@@ -83,8 +83,8 @@ export class MailService {
 					}</a></div>
                     <div style=' color:#000;'>Phone: ${data.receiver_phone}</div>
                     <br>
-					<div style=' color:#000;'>Hình thức thanh toán: ${data.payment_type == 1 ? 'Online(qrcode)' : 'Tiền mặt'}</div>
-					<div style=' color:#000;'>Trạng thái: ${data.payment_status == 1 && 'đang xử lí đơn hàng'}</div>
+					<div style=' color:#000;'>Hình thức thanh toán: ${data.payment_type == 1 ? 'Online(VNPay' : 'Tiền mặt'}</div>
+					<div style=' color:#000;'>Trạng thái: ${data.payment_status == 1 && 'Đã thanh toán' || 'Chưa thanh toán'}</div>
                     <div style='font-weight: 700; color:#000;'>Sản phẩm</div>
                     <div style=' color:#000;'>${this.genTemplateWSOrder(
 						data.transactions
@@ -117,10 +117,10 @@ export class MailService {
 	async sendEmailContact(data: CreateContactDto) {
 		try {
 			const result = await this.transporter.sendMail({
-				from: `[Cửa hàng nội thất] noreply@gmail.com`,
+				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: [this.config.get('MAIL_TO')],
-				bcc: ['ngothehung2110@gmail.com'],
-				subject: `[Cửa hàng nội thất - liên hệ] ${data.title} `,
+				bcc: ['letxhe140798@fpt.edu.vn'],
+				subject: `[Cửa hàng Nội thất - liên hệ] ${data.title} `,
 				html: `
 			  <div style="background-color: #003375; margin: 0 auto;">
 			  <div style="padding: 10px; background-color: white;">
@@ -141,10 +141,10 @@ export class MailService {
 	async resetPassword(data: any) {
 		try {
 			const result = await this.transporter.sendMail({
-				from: `[Cửa hàng nội thất] noreply@gmail.com`,
+				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: [data.email],
-				bcc: ['ngothehung2110@gmail.com'],
-				subject: `[Cửa hàng nội thất] Thay đổi mật khẩu `,
+				bcc: ['letxhe140798@fpt.edu.vn'],
+				subject: `[Cửa hàng Nội thất] Thay đổi mật khẩu `,
 				html: `
 				<div style="background-color: #003375; margin: 0 auto; max-width: 600px; ">
 				<div style="padding: 10px; background-color: white;">
@@ -157,7 +157,7 @@ export class MailService {
 					<p>Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu bổ sung nào, xin hãy liên hệ với chúng tôi qua số Hotline <b>0865.405.630</b> hoặc gửi email về địa chỉ admin@gmail.com. Chúng tôi luôn sẵn lòng giúp đỡ bạn.</p>
 					
 					<p>Trân trọng,</p>
-					<p><b>Cửa hàng nội thất</b></p>
+					<p><b>Cửa hàng Nội thất</b></p>
 				</div>
 			</div>
 					  `,

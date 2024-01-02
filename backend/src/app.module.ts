@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import * as Joi from '@hapi/joi';
 import { UploadModule } from './modules/upload/upload.module';
 import { MailModule } from './modules/mail/mail.module';
+import { CloudinaryModule } from './modules/cloudinary/cloudinary.module';
 
 @Module({
 	imports: [
@@ -37,7 +38,8 @@ import { MailModule } from './modules/mail/mail.module';
 		DatabaseModule,
 		AuthModule,
 		MailModule,
-		UploadModule
+		UploadModule,
+		CloudinaryModule
 	],
 	providers: [
 		{

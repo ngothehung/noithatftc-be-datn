@@ -15,7 +15,7 @@ export class PermissionController {
 	) {
 	}
 	@Get('')
-	@UseGuards(RoleGuard)
+	// // @UseGuards(RoleGuard)
 	@ApiResponse({ status: 200, description: 'success' })
 	async getListsPermissions(
 		@Req() request: any

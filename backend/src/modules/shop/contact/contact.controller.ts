@@ -15,7 +15,7 @@ export class ContactController {
 	constructor(private readonly contactService: ContactService) { }
 
 	@Post('store')
-	// @UseGuards(RoleGuard)
+	// // @UseGuards(RoleGuard)
 	async create(@Request() req: any, @Body() createOrderDto: CreateContactDto) {
 		try {
 			if(_.isEmpty(createOrderDto)) {
@@ -32,7 +32,7 @@ export class ContactController {
 	}
 
 	@Get('')
-	//@UseGuards(RoleGuard)
+	//// @UseGuards(RoleGuard)
 	async findAll(@Request() req: any) {
 		try {
 			let paging: IPaging = {
@@ -52,7 +52,7 @@ export class ContactController {
 	}
 
 	@Get('show/:id')
-	//@UseGuards(RoleGuard)
+	//// @UseGuards(RoleGuard)
 	async findOne(@Param('id') id: string) {
 		try {
 			
@@ -64,7 +64,7 @@ export class ContactController {
 	}
 
 	@Put('update/:id')
-	//@UseGuards(RoleGuard)
+	//// @UseGuards(RoleGuard)
 	async update(@Param('id') id: string, @Body() updateOrderDto: CreateContactDto) {
 		try {
 			let order = await this.contactService.findOne(Number(id));
@@ -79,7 +79,7 @@ export class ContactController {
 	}
 	
 	@Delete('delete/:id')
-	//@UseGuards(RoleGuard)
+	//// @UseGuards(RoleGuard)
 	remove(@Param('id') id: string) {
 		return this.contactService.remove(+id);
 	}

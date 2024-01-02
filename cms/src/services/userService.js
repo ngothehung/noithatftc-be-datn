@@ -27,7 +27,7 @@ export const USER_SERVICE = {
 			return null;
 		}
 	},
-	async showData ( id, dispatch )
+	async showData ( id, dispatch ) 
 	{
 		try
 		{
@@ -67,7 +67,7 @@ export const submitFormUser = async ( id = null, files, e, dispatch, history ) =
 	{
 		dispatch( toggleShowLoading( true ) );
 		let avatar = await uploadApi.uploadFile(files);
-
+		
 		await timeDelay( 500 );
 		let formValue = { ...e };
 		delete formValue.image;

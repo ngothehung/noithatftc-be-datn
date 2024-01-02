@@ -58,7 +58,7 @@ export const LoginForm = ( props ) =>
 						<Form.Item name="password"
 							rules={ [ { required: true } ] }
 							className=' d-block '>
-							<Input.Password type="password" className='mb-0' placeholder='Enter password' />
+							<Input.Password type="password" className='mb-0' placeholder='Nhập mật khẩu' />
 						</Form.Item>
 
 					</div>

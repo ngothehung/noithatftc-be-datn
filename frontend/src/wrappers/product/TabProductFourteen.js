@@ -12,6 +12,7 @@ const TabProductFourteen = ( {
 	category,
 	containerClass,
 	extraClass,
+	loading,
 	...props
 } ) =>
 {
@@ -55,6 +56,7 @@ const TabProductFourteen = ( {
 							<div className="row mt-5">
 								<ProductGridTwo
 									category={ category }
+									loading={loading}
 									products={ props.products }
 									type="new"
 									spaceBottomClass="mb-25"

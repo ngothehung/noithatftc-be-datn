@@ -4,11 +4,16 @@ import { Observable } from 'rxjs';
 import { BadRequestException } from 'src/helpers/response/badRequest';
 import * as _ from 'lodash';
 import { PERMISSION_ROUTE } from 'src/helpers/helper';
+import { PermissionService } from 'src/modules/admin/user/services/permission.service';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
-	constructor() {
+	constructor(
+		// private permissionService: PermissionService
+
+	) {
 	}
+
 	canActivate(
 		context: ExecutionContext,
 	): boolean | Promise<boolean> | Observable<boolean> {
@@ -18,31 +23,41 @@ export class RoleGuard implements CanActivate {
 		if(_.isEmpty(userInfo) || (userInfo?.type !== 1 && userInfo?.status !== 1)) {
 			throw new BadRequestException({ code: 'LG0401' });
 		}
-		return true;
+		// return true;
 		// if(_.isEmpty(userInfo.roles)) {
 		// 	throw new BadRequestException({ code: 'LG0403' });
 		// }
-		let roles = userInfo.roles.map((item: any) => item.guard_name);
-		if(roles.includes('SUPER_ADMIN')) {
-			return true;
-		}
+		let roles = userInfo.roles;
+		const path = request.path.replace("/api/v1/admin/", "");
+		// if(!checkRole) {
+		// 	throw new BadRequestException({ code: 'LG0403' });
+		// }
 
-
-		let url = request.url.replace(/\?.*/, '').split('/');
-		let moduleUrl = `${url[url.length - 2]}/${url[url.length - 1]}`;
-		const path = request.path;
-		// let 
-
-		let permissionRoute = PERMISSION_ROUTE.find(item => item.route.includes(moduleUrl));
+		// if ( roles?.length > 0 )
+		// {
+		// 	for ( let i = 0; i < roles.length; i++ )
+		// 	{
+		// 		let permissions = roles[ i ].permissions;
+		// 		// console.log( '=========> ROLE  <=============', roles[ i ].name );
+		// 		for ( let j = 0; j < permissions.length; j++ )
+		// 		{
+		// 			let permissionDB = await permissionService.findOne( { id: permissions[ i ] } )
+		// 			if ( permissionDB )
+		// 			{
+		// 				let checkPath = permissionDB.path;
+		// 				if ( path.includes( checkPath ) )
+		// 				{
+		// 					// console.log( '============= PERMISSION PATH: ', checkPath );
+		// 					// console.log( '============= PERMISSION pathUrlRoute: ', pathUrlRoute );
+		// 					return true;
+		// 				}
+		// 			}
+		// 		}
+		// 	}
+		// 	console.log( '=========> KHÔNG CÓ QUYỀN TRUY CẬP <=============' );
+		// }
 		
-		if(!permissionRoute) return true;
-
-		let checkRole = roles.some((item: any) => item.guard_name === checkRole.permission);
-		if(!checkRole) {
-			throw new BadRequestException({ code: 'LG0403' });
-		}
 		return true;
-		
 
 		// const user = request.user;
 		// if (_.isEmpty(this.role)) {

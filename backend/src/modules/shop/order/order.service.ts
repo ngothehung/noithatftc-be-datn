@@ -39,20 +39,40 @@ export class OrderService {
 		createOrderDto.payment_status = 0;
 		createOrderDto.created_at = new Date();
 		createOrderDto.updated_at = new Date();
-
+		console.log("dât-------> ", createOrderDto);
 		const newOrder: any = this.orderRepo.create({...createOrderDto, code: makeId(10)});
 		await this.orderRepo.save(newOrder);
-		await this.storeTransaction(transactionOrder, newOrder.id, user?.id);
+		console.log("newOrder-------> ", newOrder);
+		await this.storeTransaction(transactionOrder, newOrder.id, user?.id || 0);
 		const newData = await this.findOne(newOrder.id);
+
+		await this.updateProductNumber(products);
+		
 		this.mailService.sendOrderData(newData)
 		return newOrder;
+	}
+
+	async updateProductNumber(products) {
+		for (let item of products) {
+			let quantity = item.quantity;
+			let product: any = await this.productRepo.findOne({
+				where: {
+					id: Number(item?.product_id || 0)
+				}
+			});
+			console.log("product-------> ", product, quantity);
+			if(product) {
+				await this.productRepo.update(product.id, {number: product.number - quantity, updated_at: new Date()})
+			}
+
+		}
 	}
 
 	async countProduct(products: any) {
 		let totalDiscount = 0;
 		let totalPrice = 0;
 		if (_.isEmpty(products)) {
-			throw new BadRequestException({ code: 'OR0001', message: 'products not empty' });
+			throw new BadRequestException({ code: 'OR0001', message: 'Không tìm thấy sản phẩm' });
 		}
 		for (let item of products) {
 			let product: any = await this.productRepo.findOne({
@@ -62,10 +82,10 @@ export class OrderService {
 				}
 			});
 			if (_.isEmpty(product)) {
-				throw new BadRequestException({ code: 'OR0001', message: `Product id ${item.id} not found` });
+				throw new BadRequestException({ code: 'OR0001', message: `Không tìm thấy sản phẩm #id ${item.id}` });
 			}
 			if (Number(item.quantity) > Number(product.number)) {
-				throw new BadRequestException({ code: 'OR0001', message: `Quantity of product id ${item.id} too much` });
+				throw new BadRequestException({ code: 'OR0001', message: `Số lượng sản phẩm #id ${item.id} quá lớn ` });
 			}
 			item.avatar = product.avatar;
 			item.price = product.price;
@@ -78,6 +98,7 @@ export class OrderService {
 			item.total_price = (Number(product.price) * Number(item.quantity) - item.discount);
 			totalDiscount += item.discount;
 			totalPrice += item.total_price;
+
 		}
 		return { products, totalDiscount, totalPrice };
 
@@ -93,6 +114,7 @@ export class OrderService {
 					order_id: orderId,
 					user_id: userId
 				});
+				console.log("new trans------> ", newTrans);
 			await this.transRepo.save(newTrans);
 		}
 
@@ -137,34 +159,55 @@ export class OrderService {
 		});
 	}
 
-	update(id: number, updateOrderDto: UpdateOrderDto) {
-		return `This action updates a #${id} order`;
-	}
-
 	remove(id: number) {
 		return `This action removes a #${id} order`;
 	}
 
 	async webhook(req: any, res: any) {
-		let id = req.query.vnp_TxnRef;
+		let id = req?.query?.vnp_TxnRef;
 		console.log("order id------> ", id);
-		if (req.query.vnp_ResponseCode == "00") {
-			// req.query.vnp_ResponseCode === "00" thanh toán thành công
+		if (req?.query?.vnp_ResponseCode == "00") { 
+			// req.query.vnp_ResponseCode === "00" thanh toán thành csadông
 			const order = await this.findOne(id);
 			console.log("order=======> ", order);
 			// order.status = 2 ;
 			order.payment_status = 1;// Đã thanh toán;
-			order.payment_type = 1;// Đã thanh toán;
-			this.orderRepo.update(order.id, {payment_status: 1, updated_at: new Date(),payment_type: 1});
+			await this.orderRepo.update(order.id, {payment_status: 1, updated_at: new Date()});
 			if (order) {
 				this.mailService.sendOrderData(order)
 			}
-
+			
 
 			return res.redirect(process.env.URL_REDIRECT_FE + '/payment/success');
 		}
 
 		return res.redirect(process.env.URL_REDIRECT_FE + '/payment/error');
 		// return res.status(200).json({ data: req.query, status: 200 });
+	}
+
+	async update(id: number, updateOrderDto: any) {
+		
+		let order = await this.findOne(id);
+		if(!order) {
+			throw new BadRequestException({code: 'OR0003', message: 'Không tìm thấy đơn hàng tương ứng'});
+		}
+		let code = makeId(10);
+		let data: any = {...updateOrderDto};
+		if(!order.code) {
+			data.code = code;
+		}
+		if(updateOrderDto?.status == 4) {
+			let transactions = order?.transactions || [];
+			if(transactions?.length > 0) {
+				transactions.forEach(async (item) => {
+					let product = await this.productRepo.findOne({where: {id: item.product_id}});
+					if(product) {
+						await this.productRepo.update(product.id, {number: product.number + item.quantity})
+					}
+				})
+			}
+		}
+		await this.orderRepo.update(id, data);
+		return await this.findOne(id);
 	}
 }

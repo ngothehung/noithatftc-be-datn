@@ -19,7 +19,7 @@ export class ValidateService {
 		let errorData: any = {};
 
 		let message = null;
-
+		
 		if (isCreated) {
 			// if (!userDto.username || userDto.username?.trim() == '') {
 			// 	errorData.username = newArrayError(errorData.email, 'User name is required');
@@ -35,9 +35,9 @@ export class ValidateService {
 			// 		errorData.username = newArrayError(errorData.username, 'User name is existed');
 			// 	}
 			// }
-			if (!regexPass.test(userDto.password)) {
-				errorData.password = newArrayError(errorData.password, 'Password không đúng định dạng!, bao gồm cả số và chữ');
-				message = 'Password không đúng định dạng!, bao gồm cả số và chữ';
+			if (!userDto.password.match(regexPass)) {
+				errorData.password = newArrayError(errorData.password, 'Password không đúng định dạng!');
+				message = 'Password không đúng định dạng!';
 			}
 			if(userDto.password_cf && userDto.password_cf.trim() != '') {
 				if(userDto.password.trim() !== userDto.password_cf.trim()) {
@@ -66,7 +66,7 @@ export class ValidateService {
 		}
 
 		if (userDto.phone) {
-			if (!regexPhone.test(userDto.phone)) {
+			if (!userDto.phone.match(regexPhone)) {
 				errorData.phone = newArrayError(errorData.phone, 'Phone is invalid');
 				message = 'Số điện thoại không đúng định dạng!';
 			} else if(isCreated || user_id){

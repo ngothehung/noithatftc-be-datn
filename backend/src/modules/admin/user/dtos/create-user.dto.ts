@@ -12,10 +12,10 @@ export default class CreateUserDto {
 	@IsNotEmpty()
 	email: string;
 
-	@ApiProperty()
-	@IsString()
-	@IsNotEmpty()
-	username: string;
+	// @ApiProperty()
+	// @IsOptional();
+	// @IsString()
+	username: string = "";
 
 	@ApiProperty()
 	@IsString()

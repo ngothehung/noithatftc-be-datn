@@ -32,7 +32,23 @@ export const Routers = [
 	},
 
 	{
-		path: '/blog-standard',
+		path: '/menu',
+		exact: true,
+		title: 'BlogStandard',
+		redirectFrom: '/', 
+		component: lazy( () => import( "../pages/blog/BlogStandard" ) )
+	},
+
+	{
+		path: '/menu/:slug',
+		exact: true,
+		title: 'BlogStandard',
+		redirectFrom: '/', 
+		component: lazy( () => import( "../pages/blog/BlogStandard" ) )
+	},
+
+	{
+		path: '/blog-standard/:slug',
 		exact: true,
 		title: 'BlogStandard',
 		redirectFrom: '/', 

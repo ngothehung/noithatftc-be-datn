@@ -15,12 +15,12 @@ export const SlideSearch = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 
 		setHot( [
 			{ value: 1, label: "Hot" },
-			{ value: 0, label: "Not hot" }
+			{ value: -1, label: "Not hot" }
 		] );
 	}, [] )
 
@@ -60,12 +60,12 @@ export const SlideSearch = ( props ) =>
 			<div className="row mb-1">
 				<div className="col-md-3 mb-2 form-group">
 					<Form.Item name="id" label="id" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter Id' />
+						<Input className='form-control' placeholder='Nhập Id' />
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2 form-group">
 					<Form.Item name="name" label="Tên" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Nhập dữ liệu' />
+						<Input className='form-control' placeholder='Nhập tên' />
 					</Form.Item>
 				</div>
 				{/* <div className="col-md-3 mb-2">

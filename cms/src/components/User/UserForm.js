@@ -20,6 +20,7 @@ export const UserForm = ( props ) =>
 	const [ form ] = useForm();
 	const [ status, setStatus ] = useState( [] );
 	const [ roles, setRoles ] = useState( [] );
+	const [ userType, setUserType ] = useState( [] );
 	const [ files, setFiles ] = useState( [] );
 	const [ data, setData ] = useState( null );
 	const dispatch = useDispatch();
@@ -31,7 +32,11 @@ export const UserForm = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
+		] );
+		setUserType( [
+			{ value: 1, label: "ADMIN" },
+			{ value: 2, label: "KHÁCH HÀNG" }
 		] );
 		// getListRoles();
 	}, [] );
@@ -58,14 +63,14 @@ export const UserForm = ( props ) =>
 				url: buildImage( data.avatar ),
 				default: true
 			} );
-			// let role = data.roles?.reduce( (role, item) =>
-			// {
-			// 	if ( item )
-			// 	{
-			// 		role.push(item.id);
-			// 	}
-			// 	return role;
-			// }, [] );
+			let role = data.roles?.reduce( ( role, item ) =>
+			{
+				if ( item )
+				{
+					role.push( item.id );
+				}
+				return role;
+			}, [] );
 			let formValue = {
 				name: data.name,
 				// username: data.username,
@@ -73,10 +78,11 @@ export const UserForm = ( props ) =>
 				address: data.address,
 				gender: data.gender,
 				status: data.status,
+				type: data.type,
 				phone: data.phone,
 				price: data.price,
 				birthDay: data.birthDay,
-				roles: [],
+				roles: role,
 				image: file
 			}
 			setFiles( file )
@@ -188,10 +194,10 @@ export const UserForm = ( props ) =>
 					>
 						<div className='mb-3'>
 
-							<Form.Item name="name" label="Full name"
+							<Form.Item name="name" label="Họ và tên"
 								rules={ [ { required: true } ] }
 								className=' d-block'>
-								<Input className='form-control' placeholder='Nhập dữ liệu' />
+								<Input className='form-control' placeholder='Nhập tên' readOnly={ data?.type === 2 } />
 							</Form.Item>
 
 							<div className='row'>
@@ -209,15 +215,15 @@ export const UserForm = ( props ) =>
 									</Form.Item>
 								</div>
 								{ !id && <div className='col-12 col-md-6'>
-									<Form.Item name="password" label="Password"
+									<Form.Item name="password" label="Mật khẩu"
 										className='required d-block'>
-										<Input.Password className='form-control' placeholder='Enter password' />
+										<Input.Password className='form-control' placeholder='Nhập mật khẩu' />
 									</Form.Item>
 								</div> }
 								<div className='col-12 col-md-6'>
-									<Form.Item name="phone" label="Phone"
+									<Form.Item name="phone" label="SĐT"
 										className='required d-block'>
-										<Input className='form-control' placeholder='Nhập số điện thoại' />
+										<Input className='form-control' readOnly={ data?.type === 2 } placeholder='Nhập số điện thoại' />
 									</Form.Item>
 								</div>
 
@@ -230,6 +236,7 @@ export const UserForm = ( props ) =>
 										className='d-block'
 										valuePropName="fileList"
 										fileList={ files }
+										readOnly={ data?.type === 2 }
 										getValueFromEvent={ normFile }
 									>
 										<Upload action="/upload" listType="picture-card">
@@ -242,12 +249,13 @@ export const UserForm = ( props ) =>
 								</div>
 							</div>
 							<div className='row'>
-								<div className='col-12 col-md-4'>
-									<Form.Item name="gender" label="Gender"
+								<div className='col-12 col-md-3'>
+									<Form.Item name="gender" label="Giới tính"
 										rules={ [ { required: true } ] } className='d-block'>
 										<Select
-											placeholder="Select gender"
+											placeholder="Chọn giới tính"
 											style={ { width: '100%' } }
+											disabled={ data?.type === 2 }
 											options={ [
 												{
 													value: 'MALE',
@@ -265,7 +273,7 @@ export const UserForm = ( props ) =>
 										/>
 									</Form.Item>
 								</div>
-								<div className='col-12 col-md-4'>
+								<div className='col-12 col-md-3'>
 									<Form.Item name="status" label="Trạng thái"
 										rules={ [ { required: true } ] } className='d-block'>
 										<Select
@@ -275,29 +283,48 @@ export const UserForm = ( props ) =>
 										/>
 									</Form.Item>
 								</div>
-								{/* <div className='col-12 col-md-4'>
-								<Form.Item name="birthDay" label="Birthday" className='d-block'>
-									<Input type='date' className='form-control' />
-								</Form.Item>
-							</div> */}
+								<div className='col-12 col-md-3'>
+									<Form.Item name="birthDay" readOnly={ data?.type === 2 } label="Ngày sinh" className='d-block'>
+										<Input type='date' className='form-control' />
+									</Form.Item>
+								</div>
+								{/* <div className='col-12 col-md-3'>
+									<Form.Item name="type" label="Birthday" className='d-block'>
+										<Input className='form-control' />
+									</Form.Item>
+								</div> */}
+
+								<div className='col-12 col-md-3'>
+									<Form.Item name="type" label="Loại tài khoản"
+										rules={ [ { required: true } ] } className='d-block'>
+										<Select
+											placeholder="Chọn loại tài khoản"
+											style={ { width: '100%' } }
+											options={ userType }
+										/>
+									</Form.Item>
+								</div>
 							</div>
-							<Form.Item name="address" label="User address"
+							<Form.Item name="address" label="Địa chỉ"
 								className=' d-block'>
-								<Input className='form-control' placeholder='Nhập địa chỉ' />
+								<Input className='form-control' readOnly={ data?.type === 2 } placeholder='Nhập địa chỉ' />
 							</Form.Item>
 
-							{/* <Form.Item name="roles" label="Role"
-							rules={ [ { required: true } ] } className='d-block'>
-							<Select
-								placeholder="Select role"
-								showSearch
-								mode="multiple"
-								filterOption={ ( input, option ) => ( option?.label?.toLowerCase() ).includes( input?.toLowerCase() ) }
+							{/* {
+								data?.type !== 2 && <Form.Item name="roles" label="Role"
+									rules={ [ { required: true } ] } className='d-block'>
+									<Select
+										placeholder="Chọn vai trò"
+										showSearch
+										mode="multiple"
+										filterOption={ ( input, option ) => ( option?.label?.toLowerCase() ).includes( input?.toLowerCase() ) }
 
-								style={ { width: '100%' } }
-								options={ roles }
-							/>
-						</Form.Item> */}
+										style={ { width: '100%' } }
+										options={ roles }
+									/>
+								</Form.Item>
+							} */}
+
 						</div>
 
 						<div className='d-flex justify-content-center'>
@@ -312,6 +339,6 @@ export const UserForm = ( props ) =>
 					</Form>
 				</Widget >
 			</div>
-		</> 
+		</>
 	)
 }

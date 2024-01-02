@@ -1,4 +1,4 @@
-import { buildFilter, getMethod, postMethod } from '../index';
+import { buildFilter, getMethod, postMethod, putMethod } from '../index';
 
 export const ORDER_SERVICE = {
 	create: async (data) => {
@@ -16,5 +16,9 @@ export const ORDER_SERVICE = {
 
 	show: async (id) => {
 		return await getMethod('order/show/' + id);
+	},
+
+	update: async (id, data) => {
+		return await putMethod('order/update/' + id, data);
 	}
 }

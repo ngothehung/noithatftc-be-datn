@@ -31,7 +31,8 @@ export class ProductController {
 				category_id: req.query.category_id || null,
 				is_hot: req.query.is_hot || null,
 				is_sale: req.query.is_sale || null,
-				order: req?.query?.order || null
+				order_by: req?.query?.order_by || null,
+				order_value: req?.query?.order_value || null,
 			};
 			return BaseResponse(HTTP_STATUS.success, await this.adminProdService.getProducts(paging, filters),'', 'successfully!');
 		} catch (error) {

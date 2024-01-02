@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { ORDER_SERVICE, buildImage, onErrorImage } from "../../services";
+import { ORDER_SERVICE, buildImage, onErrorImage, validateMessages } from "../../services";
 import { Accordion, Card, Table } from "react-bootstrap";
 import { customNumber } from "../../helpers/func";
-import { Input, Pagination } from "antd";
+import { Button, Form, Input, Modal, Pagination, message } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { useDispatch } from "react-redux";
 import { toggleShowLoading } from "../../redux/actions/common";
+import { INIT_PAGING } from "../../helpers/constant";
+import { useForm } from "antd/es/form/Form";
 
 const Order = ( props ) =>
 {
 
 	const dispatch = useDispatch();
 	const [ orders, setOrders ] = useState( [] );
-	const [ code, setCode ] = useState(null );
+	const [ code, setCode ] = useState( null );
+	const [ open, setOpen ] = useState( false );
+	const [ form ] = useForm();
+
+	const { confirm } = Modal;
 	const [ paging, setPaging ] = useState( {
 		page: 1,
 		page_size: 10,
@@ -32,12 +38,14 @@ const Order = ( props ) =>
 		let eventKey = 0;
 		dispatch( toggleShowLoading( true ) );
 		let response;
-		if(user_id) {	
-			response = await ORDER_SERVICE.getList( {...params, code: code} );
-		} else {
-			response = await ORDER_SERVICE.getListByCode( {...params, code: code} );
+		if ( user_id )
+		{
+			response = await ORDER_SERVICE.getList( { ...params, code: code } );
+		} else
+		{
+			response = await ORDER_SERVICE.getListByCode( { ...params, code: code } );
 		}
-		
+
 		if ( response?.status == 'success' && response?.data )
 		{
 			response.data.orders.map( item =>
@@ -49,6 +57,7 @@ const Order = ( props ) =>
 			setPaging( response?.data?.meta );
 			dispatch( toggleShowLoading( false ) );
 		}
+		dispatch( toggleShowLoading( false ) );
 	};
 
 	const genStatus = ( status ) =>
@@ -76,26 +85,54 @@ const Order = ( props ) =>
 	{
 		if ( status === 1 ) return <span style={ { fontWeight: 600, fontSize: 18 } } className="text-warning">Chờ giao hàng</span>;
 		else if ( status === 2 ) return <span style={ { fontWeight: 600, fontSize: 18 } } className="text-primary">Đang giao</span>;
+		else if ( status === 4 ) return <span style={ { fontWeight: 600, fontSize: 18 } } className="text-success">Đã nhận hàng</span>;
 		else return <span style={ { fontWeight: 600, fontSize: 18 } } className="text-success">Đã giao</span>;
 	}
 
+	const destroyAll = () =>
+	{
+		Modal.destroyAll();
+	};
+
+	const cancelOrder = ( item ) =>
+	{
+		console.log( item );
+		updateStatus( item.id, { status: 4, note: item.note } );
+	}
+
+
+
+	const updateStatus = async ( id, data ) =>
+	{
+		dispatch( toggleShowLoading( true ) );
+		const response = await ORDER_SERVICE.update( id, data );
+		if ( response?.status === "success" )
+		{
+			message.success( "Cập nhật đơn hàng thành công" );
+			setOpen( false );
+			form.resetFields();
+			await getOrders( INIT_PAGING );
+		} else
+		{
+			message.error( "Cập nhật đơn hàng thất bại" );
+			dispatch( toggleShowLoading( false ) );
+		}
+	}
+
 	return (
-		<div className="myaccount-area pb-80 pt-100">
+		<div className="myaccount-area pb-80 pt-50">
 			<div className="container">
 				<div className="row">
 					<div className="ml-auto mr-auto col-lg-9">
 						<div className="myaccount-wrapper">
-							{
-								!user_id &&
-								<div className=" w-50 mx-auto mb-2 d-flex">
-									<Input type="text" placeholder="Nhập mã đơn hàng" onChange={e => setCode(e?.target?.value)} />
-									<button className="btn ml-2 text-nowrap btn-xl btn-success"
-										onClick={ e =>
-										{
-											getOrders({page: 1, page_size: 20, code: code})
-										} }>Tìm kiếm</button>
-								</div>
-							}
+							<div className=" w-50 mx-auto mb-2 d-flex mb-5">
+								<Input type="text" placeholder="Nhập mã đơn hàng" onChange={ e => setCode( e?.target?.value ) } />
+								<button className="btn ml-2 text-nowrap btn-xl btn-success"
+									onClick={ e =>
+									{
+										getOrders( { page: 1, page_size: 20, code: code } )
+									} }>Tìm kiếm</button>
+							</div>
 							<Accordion>
 								{ orders.length > 0 ?
 									orders.map( ( item, key1 ) => (
@@ -121,10 +158,28 @@ const Order = ( props ) =>
 												<Accordion.Collapse eventKey={ String( item.eventKey ) }>
 													<Card.Body>
 														<div className="myaccount-info-wrapper">
-															<div className="mb-5">
-																<h4>Tên người nhận: { item.receiver_name } - { item.receiver_phone }</h4>
-																<p><span style={ { fontWeight: 600 } }>Địa chỉ: </span>{ item.receiver_address }</p>
-																<p><span style={ { fontWeight: 600 } }>Email: </span>{ item.receiver_email }</p>
+															<div className="mb-5 d-flex justify-content-between align-items-start">
+																<div>
+																	<h4>Tên người nhận: { item.receiver_name } - { item.receiver_phone }</h4>
+																	<p><span style={ { fontWeight: 600 } }>Địa chỉ: </span>{ item.receiver_address }</p>
+																	<p><span style={ { fontWeight: 600 } }>Email: </span>{ item.receiver_email }</p>
+																</div>
+																{
+																	item?.status === 1 && <button className="btn btn-danger" onClick={ () =>
+																	{
+																		form.setFieldValue( 'id', item?.id );
+																		form.setFieldValue( 'note', null );
+																		setOpen( true );
+																	} }>Hủy đơn hàng</button>
+																}
+
+
+																{
+																	item?.shipping_status === 3 && <button className="btn btn-success" onClick={ () =>
+																	{
+																		updateStatus( item?.id, { shipping_status: 4 } )
+																	} }>Xác nhận đơn hàng</button>
+																}
 															</div>
 															<div className="text-center">
 																<h4>Sản phẩm</h4>
@@ -140,7 +195,7 @@ const Order = ( props ) =>
 																	</tr>
 																</thead>
 																<tbody>
-																	{ item.transactions.length > 0 &&
+																	{ item.transactions?.length > 0 &&
 																		item.transactions.map( ( product, key2 ) => (
 																			<tr key={ key2 }>
 																				<td>
@@ -148,7 +203,10 @@ const Order = ( props ) =>
 																				</td>
 																				<td className="d-flex align-items-center">
 																					<img alt={ product.name }
-																						src={ buildImage( product.avatar ) } onError={ onErrorImage } width={ 90 } height={ 90 } className="mr-1" />
+																						src={ buildImage( product.avatar ) }
+																						onError={ onErrorImage } style={ { width: '90px', height: '90px' } }
+																						width={ 90 } height={ 90 }
+																						className="mr-1" />
 																					{ product.name }
 																				</td>
 																				<td>{ product.quantity }</td>
@@ -229,6 +287,40 @@ const Order = ( props ) =>
 						/>
 					</div>
 				}
+
+				<Modal
+					open={ open }
+					centered={ true }
+					footer={ null }
+					closable={ false }
+				>
+					<Form
+						className='p-3'
+						name='form'
+						form={ form }
+						onFinish={ cancelOrder }
+						validateMessages={ validateMessages }
+					>
+						<Form.Item name="id"
+							className='mb-0 d-none h-0'>
+							<Input className='d-none mb-0' placeholder='Nhập lý do hủy' />
+						</Form.Item>
+						<Form.Item name="note" label="Lý do hủy"
+							rules={ [ { required: true, } ] }
+							className=' d-block'>
+							<Input.TextArea rows={ 5 } maxLength={ 300 } className=' mb-0' placeholder='Nhập lý do hủy' />
+						</Form.Item>
+						<div className="d-flex justify-content-end">
+							<button type="button" className="btn btn-secondary mr-2"
+								onClick={ () =>
+								{
+									form.resetFields();
+									setOpen( false );
+								} }>Hủy</button>
+							<button type="submit" className="btn btn-danger">Xác nhận</button>
+						</div>
+					</Form>
+				</Modal>
 			</div>
 		</div>
 	);

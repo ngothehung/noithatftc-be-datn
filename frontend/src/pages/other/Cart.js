@@ -6,20 +6,19 @@ import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
-import
-{
-	addToCart,
-	decreaseQuantity,
-	deleteFromCart,
-	cartItemStock,
-	deleteAllFromCart
+import {
+addToCart,
+decreaseQuantity,
+deleteFromCart,
+cartItemStock,
+deleteAllFromCart
 } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { checkTimeNow, customNumber } from "../../helpers/func";
 import { buildImage, onErrorImage } from "../../services";
 
-const Cart = ( {
+const Cart = ({
 	location,
 	cartItems,
 	currency,
@@ -27,33 +26,33 @@ const Cart = ( {
 	addToCart,
 	deleteFromCart,
 	deleteAllFromCart
-} ) =>
-{
-	const [ quantityCount ] = useState( 1 );
+}) => {
+	const [quantityCount] = useState(1);
 	const { addToast } = useToasts();
 	const { pathname } = location;
 	let cartTotalPrice = 0;
+
 	return (
 		<Fragment>
 			<MetaTags>
-				<title>[Cửa hàng nội thất] | Giỏ hàng</title>
+				<title>[Cửa hàng Nội thất] | Giỏ hàng</title>
 				<meta
 					name="description"
 					content="Cart page of flone react minimalist eCommerce template."
 				/>
 			</MetaTags>
 
-			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/" }>Trang chủ</BreadcrumbsItem>
-			<BreadcrumbsItem to={ process.env.PUBLIC_URL + pathname }>
+			<BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Trang chủ</BreadcrumbsItem>
+			<BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
 				Giỏ hàng
 			</BreadcrumbsItem>
 
 			<LayoutOne headerTop="visible">
-				{/* breadcrumb */ }
+				{/* breadcrumb */}
 				<Breadcrumb />
 				<div className="cart-main-area pt-90 pb-100">
 					<div className="container">
-						{ cartItems && cartItems.length >= 1 ? (
+						{cartItems && cartItems.length >= 1 ? (
 							<Fragment>
 								<h3 className="cart-page-title">Giỏ hàng của bạn</h3>
 								<div className="row">
@@ -72,30 +71,30 @@ const Cart = ( {
 													</tr>
 												</thead>
 												<tbody>
-													{ cartItems.map( ( cartItem, key ) =>
-													{
+													{cartItems.map((cartItem, key) => {
 
 
-														const discountedPrice = ( checkTimeNow( cartItem?.sale_to ) && cartItem.sale ) ? Number( getDiscountPrice(
+														const discountedPrice = (checkTimeNow(cartItem?.sale_to) && cartItem.sale) ? Number(getDiscountPrice(
 															cartItem.price,
 															cartItem.sale
-														) ) : null;
+														)) : null;
 
 														const finalProductPrice = (
 															cartItem.price * currency.currencyRate
-														).toFixed( 2 );
+														).toFixed(2);
+
 														const finalDiscountedPrice = (
 															discountedPrice * currency.currencyRate
-														).toFixed( 2 );
-
-														discountedPrice !== null
-															? ( cartTotalPrice +=
-																finalDiscountedPrice * cartItem.quantity )
-															: ( cartTotalPrice +=
-																finalProductPrice * cartItem.quantity );
-														console.log( cartItem.id, discountedPrice, cartItem.slug );
+														).toFixed(2);
+														let discount = 0;
+														if (discountedPrice !== null) {
+															cartTotalPrice += Number(finalDiscountedPrice || 0) * cartItem.quantity;
+															discount = Number(finalProductPrice) - Number(finalDiscountedPrice || 0);
+														} else {
+															cartTotalPrice += Number(finalProductPrice) * cartItem.quantity;
+														}
 														return (
-															<tr key={ key }>
+															<tr key={key}>
 																<td className="product-thumbnail">
 																	<Link
 																		to={
@@ -104,9 +103,9 @@ const Cart = ( {
 																	>
 																		<img
 																			className="img-fluid"
-																			src={ buildImage( cartItem.avatar ) }
-																			alt={ buildImage( cartItem.avatar ) }
-																			onError={ onErrorImage }
+																			src={buildImage(cartItem.avatar)}
+																			alt={buildImage(cartItem.avatar)}
+																			onError={onErrorImage}
 																		/>
 																	</Link>
 																</td>
@@ -118,45 +117,45 @@ const Cart = ( {
 																			"/product/" + cartItem.slug + '-' + cartItem.id
 																		}
 																	>
-																		{ cartItem.name }
+																		{cartItem.name}
 																	</Link>
 																</td>
 
 
 																<td className="product-price-cart">
-																	{ discountedPrice !== null ? (
+																	{discountedPrice !== null ? (
 																		<Fragment>
 																			<span className="amount old">
 																				{
-																					customNumber( finalProductPrice, 'đ' ) }
+																					customNumber(finalProductPrice, 'đ')}
 																			</span>
 																			<span className="amount">
 																				{
-																					customNumber( finalDiscountedPrice, 'đ' ) }
+																					customNumber(finalDiscountedPrice, 'đ')}
 																			</span>
 																		</Fragment>
 																	) : (
 																		<span className="amount">
 																			{
-																				customNumber( finalProductPrice, 'đ' ) }
+																				customNumber(finalProductPrice, 'đ')}
 																		</span>
-																	) }
+																	)}
 																</td>
 
 																<td>
-																	{ discountedPrice !== null ?
+																	{discountedPrice !== null ?
 																		<span className="amount">
-																			{ customNumber( finalProductPrice - finalDiscountedPrice ), 'đ' }
+																			{customNumber(discount, 'đ')}
 																		</span>
-																		: "0" }
+																		: "0"}
 																</td>
 
 																<td className="product-quantity">
 																	<div className="cart-plus-minus">
 																		<button
 																			className="dec qtybutton"
-																			onClick={ () =>
-																				decreaseQuantity( cartItem, addToast )
+																			onClick={() =>
+																				decreaseQuantity(cartItem, addToast)
 																			}
 																		>
 																			-
@@ -164,43 +163,34 @@ const Cart = ( {
 																		<input
 																			className="cart-plus-minus-box"
 																			type="text"
-																			value={ cartItem.quantity }
+																			value={cartItem.quantity}
 																			readOnly
 																		/>
 																		<button
 																			className="inc qtybutton"
-																			onClick={ () =>
-																				addToCart(
-																					cartItem,
-																					addToast,
-																					quantityCount
-																				)
-																			}
-																			disabled={
-																				cartItem !== undefined &&
-																				cartItem.quantity &&
-																				cartItem.quantity >=
-																				cartItemStock(
-																					cartItem,
-																					cartItem.selectedProductColor,
-																					cartItem.selectedProductSize
-																				)
-																			}
+																			disabled={cartItem?.quantity >= 6}
+																			onClick={() => {
+																				if (cartItem?.quantity >= 5) {
+																					addToast("bạn chỉ có thể thêm tối da 5 sản phẩm", { appearance: 'warning',  autoDismiss: true  });
+																				} else {
+																					addToCart(cartItem, addToast, quantityCount);
+																				}
+																			}}
 																		>
 																			+
 																		</button>
 																	</div>
 																</td>
 																<td className="product-subtotal">
-																	{ discountedPrice !== null
-																		? customNumber( ( finalDiscountedPrice * cartItem.quantity ).toFixed( 2 ), 'đ' )
-																		: customNumber( ( finalProductPrice * cartItem.quantity ).toFixed( 2 ), 'đ' ) }
+																	{discountedPrice !== null
+																		? customNumber((finalDiscountedPrice * cartItem.quantity).toFixed(2), 'đ')
+																		: customNumber((finalProductPrice * cartItem.quantity).toFixed(2), 'đ')}
 																</td>
 
 																<td className="product-remove">
 																	<button
-																		onClick={ () =>
-																			deleteFromCart( cartItem, addToast )
+																		onClick={() =>
+																			deleteFromCart(cartItem, addToast)
 																		}
 																	>
 																		<i className="fa fa-times"></i>
@@ -208,7 +198,7 @@ const Cart = ( {
 																</td>
 															</tr>
 														);
-													} ) }
+													})}
 												</tbody>
 											</table>
 										</div>
@@ -219,13 +209,13 @@ const Cart = ( {
 										<div className="cart-shiping-update-wrapper">
 											<div className="cart-shiping-update">
 												<Link
-													to={ "/shop" }
+													to={"/shop"}
 												>
 													Tiếp tục mua hàng
 												</Link>
 											</div>
 											<div className="cart-clear">
-												<button onClick={ () => deleteAllFromCart( addToast ) }>
+												<button onClick={() => deleteAllFromCart(addToast)}>
 													Xóa giỏ hàng
 												</button>
 											</div>
@@ -243,24 +233,24 @@ const Cart = ( {
 												</h4>
 											</div>
 											<h5>
-												Tổng giá trị sản phẩm{ " " }
+												Tổng giá trị sản phẩm{" "}
 												<span>
-													{ customNumber( cartTotalPrice.toFixed( 2 ), 'đ' ) }
+													{customNumber(cartTotalPrice.toFixed(2), 'đ')}
 												</span>
 											</h5>
 
 											<h4 className="grand-totall-title">
-												Tổng giá{ " " }
+												Tổng giá{" "}
 												<span>
-													{ customNumber( cartTotalPrice.toFixed( 2 ), 'đ' ) }
+													{customNumber(cartTotalPrice.toFixed(2), 'đ')}
 												</span>
 											</h4>
-											{/* <Link to={ localStorage.getItem( 'access_token' ) ? process.env.PUBLIC_URL + "/checkout" : process.env.PUBLIC_URL + "auth/login" }>
-												Mua
-											</Link> */}
-											<Link to={ process.env.PUBLIC_URL + "/checkout" }>
+											<Link to={localStorage.getItem('access_token') ? process.env.PUBLIC_URL + "/checkout" : process.env.PUBLIC_URL + "auth/login"}>
 												Mua
 											</Link>
+											{/* <Link to={ process.env.PUBLIC_URL + "/checkout" }>
+												Mua
+											</Link> */}
 										</div>
 									</div>
 								</div>
@@ -273,15 +263,15 @@ const Cart = ( {
 											<i className="pe-7s-cart"></i>
 										</div>
 										<div className="item-empty-area__text">
-											Không có sản phẩm trong giỏ hàng <br />{ " " }
-											<Link to={ process.env.PUBLIC_URL + "/shop" }>
+											Không có sản phẩm trong giỏ hàng <br />{" "}
+											<Link to={process.env.PUBLIC_URL + "/shop"}>
 												Cửa hàng
 											</Link>
 										</div>
 									</div>
 								</div>
 							</div>
-						) }
+						)}
 					</div>
 				</div>
 			</LayoutOne>
@@ -299,34 +289,28 @@ Cart.propTypes = {
 	deleteFromCart: PropTypes.func
 };
 
-const mapStateToProps = state =>
-{
+const mapStateToProps = state => {
 	return {
 		cartItems: state.cartData,
 		currency: state.currencyData
 	};
 };
 
-const mapDispatchToProps = dispatch =>
-{
+const mapDispatchToProps = dispatch => {
 	return {
-		addToCart: ( item, addToast, quantityCount ) =>
-		{
-			dispatch( addToCart( item, addToast, quantityCount ) );
+		addToCart: (item, addToast, quantityCount) => {
+			dispatch(addToCart(item, addToast, quantityCount));
 		},
-		decreaseQuantity: ( item, addToast ) =>
-		{
-			dispatch( decreaseQuantity( item, addToast ) );
+		decreaseQuantity: (item, addToast) => {
+			dispatch(decreaseQuantity(item, addToast));
 		},
-		deleteFromCart: ( item, addToast ) =>
-		{
-			dispatch( deleteFromCart( item, addToast ) );
+		deleteFromCart: (item, addToast) => {
+			dispatch(deleteFromCart(item, addToast));
 		},
-		deleteAllFromCart: addToast =>
-		{
-			dispatch( deleteAllFromCart( addToast ) );
+		deleteAllFromCart: addToast => {
+			dispatch(deleteAllFromCart(addToast));
 		}
 	};
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( Cart );
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

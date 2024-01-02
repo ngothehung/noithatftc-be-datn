@@ -27,6 +27,11 @@ export const Product = {
 		return await putMethod( `/admin/product/update/${ id }`, data );
 	},
 
+	async updateStatus ( id, data )
+	{
+		return await putMethod( `/admin/product/update/status/${ id }`, data );
+	},
+
 	async delete ( id )
 	{
 		return await deleteMethod( `/admin/product/delete/${ id }` );
@@ -90,7 +95,7 @@ export const submitFormProduct = async ( id = null, files, e, dispatch, history 
 		await timeDelay( 500 );
 		// return;
 		let formValue = { ...e };
-
+		
 		delete formValue.image;
 		formValue.avatar = avatar;
 		formValue.products_images = fileImg;
@@ -99,6 +104,7 @@ export const submitFormProduct = async ( id = null, files, e, dispatch, history 
 		formValue.price = Number( formValue.price );
 		formValue.number = Number( formValue.number );
 		let response;
+
 		if ( id )
 		{
 			response = await Product.update( id, formValue );

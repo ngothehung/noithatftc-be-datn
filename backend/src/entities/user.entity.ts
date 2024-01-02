@@ -79,11 +79,13 @@ export class User {
 
 	@OneToMany(() => Orders, o => o.user)
 	orders: Orders[];
-	@ManyToMany(type => Role)
+	
+
+	@ManyToMany(() => Role)
 	@JoinTable({
 		name: 'user_roles',
 		joinColumn: { name: 'user_id', referencedColumnName: 'id' },
 		inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
 	})
-	roles: Role[];
+	roles?: Role[];
 }

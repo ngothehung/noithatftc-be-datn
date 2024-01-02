@@ -42,7 +42,7 @@ export class CategoryController {
         try {
             const res = await this.cateService.getCategoryById(id);
             if (!res)
-                return BaseResponse(HTTP_STATUS.fail, {}, 'E0001', 'category does not exist');
+                return BaseResponse(HTTP_STATUS.fail, {}, 'E0001', 'Phân loại không tồn tại');
             else
                 return BaseResponse(HTTP_STATUS.success, res, '', 'Successful!');
         } catch (e) {
@@ -78,7 +78,7 @@ export class CategoryController {
     // async updateCategory(@Param('id') cateId: number, @Body() updateCate: UpdateCategoryDto) {
     //     try {
     //         const check = await this.cateService.getCategoryById(cateId);
-    //         if (!check) return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','category does not exist');
+    //         if (!check) return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','Phân loại không tồn tại');
     //         if (_.isEmpty(updateCate)) throw new BadRequestException({code: 'F0001'});
     //         else {
     //             updateCate.updated_at = new Date();
@@ -98,7 +98,7 @@ export class CategoryController {
     //         let category = await this.cateService.getCategoryById(cateId);
 
     //         if (!category) {
-    //             return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','category does not exist!');
+    //             return BaseResponse(HTTP_STATUS.fail, {}, 'E0001','Phân loại không tồn tại!');
     //         } else {
     //             await this.cateService.deleteCategory(cateId);
     //             return BaseResponse(HTTP_STATUS.success, {}, '','Deleted successfully!');

@@ -34,10 +34,6 @@ const PaymentStatus = ( { location } ) =>
 			setContent( 'Payment successfully' );
 		}
 	}, [ params.type ] );
-
-	// useEffect(() => {
-	// 	if(search != null && search)
-	// }, [search]);
 	return (
 		<Fragment>
 			<MetaTags>
@@ -59,7 +55,7 @@ const PaymentStatus = ( { location } ) =>
 						<div className="row justify-content-center">
 							<div className="col-xl-7 col-lg-8 text-center">
 								{
-									img && <img src={ img } width={80} height={80} alt='payment' className="d-block mx-auto" />
+									img && <img src={ img } style={{width: "100px"}} width={80} height={80} alt='payment' className="d-block mx-auto" />
 								}
 								{ content ? (
 									<div className="mx-auto">

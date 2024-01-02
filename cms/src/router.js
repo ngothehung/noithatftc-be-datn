@@ -12,11 +12,16 @@ import {PageVoting} from "./components/vote/voteList";
 import { CategoryContainer } from "./pages/category/CategoryContainer";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { DiscountContainer } from "./pages/discount/DiscountContainer";
+import ForbiddenPage from "./pages/error/403";
 import { OrderContainer } from "./pages/order/OrderContainer";
 import { ProductContainer } from "./pages/products/ProductContainer";
 import { ProfileContainer } from "./pages/profile/ProfileContainer";
 import { SlidesContainer } from "./pages/slides/SlidesContainer";
 import { UserContainer } from "./pages/user/UserContainer";
+import { BlogForm } from "./components/Blog/BlogForm";
+import { BlogContainer } from "./pages/blog/BlogContainer";
+import { MenuForm } from "./components/Menu/MenuForm";
+import { MenuContainer } from "./pages/menu/MenuContainer";
 
 export const ROUTERS = [
 	{
@@ -207,5 +212,57 @@ export const ROUTERS = [
 		redirectFrom: null, 
 		title: 'Update Discount',
 		component: DiscountForm,
+	},
+	{
+		path: '/403',
+		exact: true,
+		redirectFrom: null, 
+		title: 'Permission Denied',
+		component: ForbiddenPage,
+	},
+
+	{
+		path: '/menu/list',
+		exact: true,
+		redirectFrom: '/menu', 
+		title: 'Menus',
+		component: MenuContainer,
+	},
+	{
+		path: '/menu/create',
+		exact: true,
+		redirectFrom: null, 
+		title: 'Create Menu',
+		component: MenuForm,
+	},
+	{
+		path: '/menu/edit/:id',
+		exact: true,
+		redirectFrom: null, 
+		title: 'Update Menu',
+		component: MenuForm,
+	},
+
+
+	{
+		path: '/blog/list',
+		exact: true,
+		redirectFrom: '/blog', 
+		title: 'Menus',
+		component: BlogContainer,
+	},
+	{
+		path: '/blog/create',
+		exact: true,
+		redirectFrom: null, 
+		title: 'Create Menu',
+		component: BlogForm,
+	},
+	{
+		path: '/blog/edit/:id',
+		exact: true,
+		redirectFrom: null, 
+		title: 'Update Menu',
+		component: BlogForm,
 	},
 ]

@@ -39,7 +39,7 @@ export class SlideController {
 
     @Get('show/:id')
     @HttpCode(HttpStatus.OK)
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
     @ApiResponse({ status: 200, description: 'success' })
     async getSlideById(@Param('id') id: number) {
         try {

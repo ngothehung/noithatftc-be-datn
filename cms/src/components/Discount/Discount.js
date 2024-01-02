@@ -47,11 +47,11 @@ export const Discount = ( props ) =>
 						<thead>
 							<tr>
 								<th>#</th>
-								<th className="text-nowrap">Name</th>
+								<th className="text-nowrap">Tiêu đề</th>
 								<th className="text-nowrap">Code</th>
-								<th className="text-nowrap">Price</th>
-								<th className="text-nowrap">Status</th>
-								<th className="text-nowrap text-center">Action</th>
+								<th className="text-nowrap">Giá</th>
+								<th className="text-nowrap">Trạng thái</th>
+								<th className="text-nowrap text-center">Thao tác</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -74,17 +74,17 @@ export const Discount = ( props ) =>
 											<td className="text-gray-900">{ genStatus( item.status ) }</td>
 
 											<td>
-												<div className="d-flex justify-content-center">
+												<div className="d-flex justify-content-center align-items-center">
 													<Link to={ `/discount/edit/${ item.id }` } className="d-flex justify-content-center">
 														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 													</Link>
-													<DeleteOutlined
+													{/* <DeleteOutlined
 														className="ml-2 cursor-pointer"
 														onClick={ () =>
 														{
 															props.deleteById( item.id );
 														} }
-														style={ { fontSize: "16px", color: "red" } } />
+														style={ { fontSize: "16px", color: "red" } } /> */}
 												</div>
 
 											</td>
@@ -98,7 +98,7 @@ export const Discount = ( props ) =>
 								<tr>
 									<td colSpan={ 9 } style={ { textAlign: "center", backgroundColor: '#ffff' } }>
 										<img className="text-center" src={ EMPTY_IMG } style={ { width: "300px", height: "300px" } } />
-										<div style={ { color: "#9A9A9A" } }>Data empty</div>
+										<div style={ { color: "#9A9A9A" } }>Dữ liệu trống</div>
 									</td>
 								</tr>
 							}

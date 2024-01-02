@@ -12,13 +12,6 @@ const LayoutOne = ({
                    }) => {
     return (
         <Fragment>
-            <div className="topbar topbar_temp02" id="topbar" style={{ backgroundColor:"#16a637", color:"white"}}>
-                <div className="container-fluid">
-                    <div className="topbar-content text-center">
-                        <p style={{ padding: '4px 0',color: 'white', fontSize: '12px'}}>MIỄN PHÍ VẬN CHUYỂN TRONG NỘI THÀNH HÀ NỘI</p>
-                    </div>
-                </div>
-            </div>
             <HeaderOne
                 layout={headerContainerClass}
                 top={headerTop}

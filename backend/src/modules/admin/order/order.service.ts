@@ -7,7 +7,7 @@ import { ILike, In, Like, Repository } from 'typeorm';
 import { ProductService } from '../product/product.service';
 import * as _ from 'lodash';
 import { BadRequestException } from 'src/helpers/response/badRequest';
-import { IPaging, Paging, regexEmail, regexPhone } from 'src/helpers/helper';
+import { IPaging, Paging, makeId, regexEmail, regexPhone } from 'src/helpers/helper';
 import { Products } from 'src/entities/product.entity';
 
 @Injectable()
@@ -97,10 +97,17 @@ export class OrderService {
 	}
 
 	async update(id: number, updateOrderDto: UpdateOrderDto) {
-		// if(updateOrderDto. receiver_email&& !regexEmail.test(updateOrderDto.receiver_email.trim())) {
-		// 	throw new BadRequestException({code: 'OR0003', message: 'Email invalid'});
-		// }
-		await this.orderRepo.update(id, updateOrderDto);
+		
+		let order = await this.findOne(id);
+		if(!order) {
+			throw new BadRequestException({code: 'OR0003', message: 'Không tìm thấy đơn hàng tương ứng'});
+		}
+		let code = makeId(10);
+		let data: any = {...updateOrderDto};
+		if(!order.code) {
+			data.code = code;
+		}
+		await this.orderRepo.update(id, data);
 		return await this.findOne(id);
 	}
 

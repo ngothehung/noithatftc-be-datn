@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { OrderModule } from './order/order.module';
 import { ContactModule } from './contact/contact.module';
 import { DiscountModule } from './discount/discount.module';
+import { BlogModule } from './blog/blog.module';
 
 @Module({
     imports: [
@@ -24,7 +25,8 @@ import { DiscountModule } from './discount/discount.module';
 		JwtModule,
 		OrderModule,
 		ContactModule,
-		DiscountModule
+		DiscountModule,
+		BlogModule
     ],
     providers: [],
     controllers: []

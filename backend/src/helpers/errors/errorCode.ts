@@ -20,7 +20,8 @@ export class ErrorCode {
 		map.set('LG0401', 'Hết phiên đăng nhập! Vui lòng đăng nhập lại!');
 		map.set('LG0403', 'Không có quyền truy cập');
 		map.set('LG0401', 'Token không hợp lệ!');
-		map.set('LG0002', 'Username or password is error!');
+		map.set('LG0002', 'Email hoặc mật khẩu không đúng!');
+		// map.set('LG0002', 'Username or password is error!');
 
 
         return map;

@@ -93,6 +93,23 @@ export const SIDE_BARS = [
 		]
 	},
 	{
+		path: '/menu/list',
+		icon: 'eva eva-bookmark',
+		title: 'Phân loại blog',
+		children: [
+		],
+		key: -6
+	},
+	{
+		path: '/blog/list',
+		icon: 'eva eva-flag',
+		title: 'Blog',
+		children: [
+			
+		],
+		key: -7
+	},
+	{
 		path: '/order',
 		icon: 'eva eva-grid',
 		title: 'Đơn hàng',
@@ -123,10 +140,10 @@ export const SIDE_BARS = [
 		key: -2
 	},
 
-	// {
-	// 	path: '/contact',
-	// 	icon: 'eva eva-inbox',
-	// 	title: 'Liên hệ',
-	// 	key: -3
-	// },
+	{
+		path: '/contact',
+		icon: 'eva eva-inbox',
+		title: 'Liên hệ',
+		key: -3
+	},
 ]

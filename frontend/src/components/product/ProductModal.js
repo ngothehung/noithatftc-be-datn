@@ -267,12 +267,14 @@ function ProductModal(props) {
                       >
                         -
                       </button>
+                      
                       <input
                         className="cart-plus-minus-box"
                         type="text"
                         value={quantityCount}
                         readOnly
                       />
+                      
                       <button
                         onClick={() =>
                           setQuantityCount(

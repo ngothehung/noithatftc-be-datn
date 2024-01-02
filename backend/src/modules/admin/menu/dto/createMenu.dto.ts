@@ -9,25 +9,9 @@ export class CreateMenuDto {
 	name: string;
 
     @IsString()
-    @ApiProperty()
-	description: string;
-
-    @IsString()
-    @ApiProperty()
-	avatar: string;
-
-    @IsString()
     @IsNotEmpty()
     @ApiProperty()
 	slug: string;
-
-    @IsInt()
-    @ApiProperty()
-	status: number;
-
-    @IsInt()
-    @ApiProperty()
-	hot: number;
 
     created_at: Date = new Date();
     updated_at: Date = new Date();

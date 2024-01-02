@@ -45,13 +45,13 @@ export const SlidesPage = ( props ) =>
 						<thead>
 							<tr>
 								<th>#</th>
-								<th className="text-nowrap">Image</th>
-								<th className="text-nowrap">Name</th>
+								<th className="text-nowrap">Hình ảnh</th>
+								<th className="text-nowrap">Tiêu đề</th>
 								<th className="text-nowrap">Link</th>
 								{/* <th className="text-nowrap">Hot</th> */ }
-								<th className="text-nowrap">Status</th>
-								<th className="text-nowrap">Time</th>
-								<th className="text-nowrap text-center">Action</th>
+								<th className="text-nowrap">Trạng thái</th>
+								<th className="text-nowrap">Thời gian</th>
+								<th className="text-nowrap text-center">Thao tác</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -75,23 +75,23 @@ export const SlidesPage = ( props ) =>
 											</td>
 											{/* <td className="text-gray-900">
 												{ item.hot === 1 && <span className="text-danger">Hot</span> }
-									</td>*/}
+											</td>*/}
 											<td className="text-gray-900">{ genStatus( item.status ) }</td>
 											<td className="text-gray-900 text-nowrap">
 												{ customDate( item.created_at, 'DD/MM/yyyy' ) }
 											</td>
 											<td>
-												<div className="d-flex">
+												<div className="d-flex justify-content-center align-items-center">
 													<Link to={ `/slide/edit/${ item.id }` } className="d-flex justify-content-center">
 														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 													</Link>
-													<DeleteOutlined
+													{/* <DeleteOutlined
 														className="ml-2 cursor-pointer"
 														onClick={ () =>
 														{
 															props.deleteById( item.id );
 														} }
-														style={ { fontSize: "16px", color: "red" } } />
+														style={ { fontSize: "16px", color: "red" } } /> */}
 												</div>
 											</td>
 										</tr>

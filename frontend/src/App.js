@@ -105,12 +105,20 @@ const App = ( props ) =>
 								/>
 
 								{/* Blog pages */ }
+								{/* <Route
+									path={ process.env.PUBLIC_URL + "/menu" }
+									component={ BlogStandard }
+								/> */}
 								<Route
-									path={ process.env.PUBLIC_URL + "/blog-standard" }
+									path={ process.env.PUBLIC_URL + "/menu/:slug" }
 									component={ BlogStandard }
 								/>
 								<Route
-									path={ process.env.PUBLIC_URL + "/blog-details-standard" }
+									path={ process.env.PUBLIC_URL + "/menu" }
+									component={ BlogStandard }
+								/>
+								<Route
+									path={ process.env.PUBLIC_URL + "/blog-details/:slug" }
 									component={ BlogDetailsStandard }
 									// component={ BlogFeaturedSingle }
 								/>

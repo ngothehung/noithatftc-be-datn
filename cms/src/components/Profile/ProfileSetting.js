@@ -132,11 +132,11 @@ export const ProfileSetting = (props) => {
                             <div className='row'>
 
                                 <div className='col-md-6'>
-                                    <Form.Item name="name" label="Full name"
+                                    <Form.Item name="name" label="Họ và tên"
                                         rules={[{ required: true }]}
                                         className=' d-block'
                                     >
-                                        <Input className='form-control' placeholder='Nhập dữ liệu' />
+                                        <Input className='form-control' placeholder='Nhập tên' />
                                     </Form.Item>
                                 </div>
 
@@ -160,22 +160,22 @@ export const ProfileSetting = (props) => {
                                 </div>
 
                                 <div className='col-md-3'>
-                                    <Form.Item className='d-block' name="gender" label="Gender">
+                                    <Form.Item className='d-block' name="gender" label="Giới tính">
                                         <Select
-                                            placeholder="Select gender"
+                                            placeholder="Chọn giới tính"
                                             style={{ width: '100%' }}
                                             options={[
                                                 {
                                                     value: 'male',
-                                                    label: 'Male'
+                                                    label: 'Nam'
                                                 },
                                                 {
                                                     value: 'female',
-                                                    label: 'Female'
+                                                    label: 'Nữ'
                                                 },
                                                 {
                                                     value: 'other',
-                                                    label: 'Other'
+                                                    label: 'Khác'
                                                 }
                                             ]}
                                         />
@@ -183,7 +183,7 @@ export const ProfileSetting = (props) => {
                                 </div>
 
                                 <div className='col-md-3'>
-                                    <Form.Item name="birthDay" label="Birthday"
+                                    <Form.Item name="birthDay" label="Ngày sinh"
                                         className='d-block'>
                                         <Input type='date' className='form-control' />
                                     </Form.Item>
@@ -207,7 +207,7 @@ export const ProfileSetting = (props) => {
                                 <Upload action="/upload" listType="picture-card">
                                     {files.length < 1 && <div>
                                         <PlusOutlined />
-                                        <div style={{ marginTop: 8 }}>Upload</div>
+                                        <div style={{ marginTop: 8 }}>Tải</div>
                                     </div>}
                                 </Upload>
                             </Form.Item>
@@ -226,7 +226,7 @@ export const ProfileSetting = (props) => {
                         </div>
 
                         <div className='col-md-4'>
-                            <Form.Item name="phone" label="Phone"
+                            <Form.Item name="phone" label="SĐT"
                                 className='required d-block'>
                                 <Input className='form-control' placeholder='Nhập số điện thoại' />
                             </Form.Item>
@@ -238,11 +238,11 @@ export const ProfileSetting = (props) => {
 
                 <div className='d-flex justify-content-center'>
                     <button type="submit" className="btn btn-primary text-center" style={{ marginRight: 10, padding: '10px 10px' }}>
-                        Save
+                        Lưu
                     </button>
 
                     <button type="button" className="btn btn-secondary text-center" style={{ marginLeft: 10, padding: '10px 10px' }} onClick={resetForm}>
-                        Reset
+                        Làm mới
                     </button>
                 </div>
             </Form>

@@ -12,7 +12,7 @@ const MyOrder = ({ location }) => {
     return (
 		<Fragment>
 		<MetaTags>
-			<title>[Cửa hàng nội thất] | Order</title>
+			<title>[Cửa hàng Nội thất] | Order</title>
 			<meta
 				name="description"  
 				content="Checkout page of shop react minimalist eCommerce template."

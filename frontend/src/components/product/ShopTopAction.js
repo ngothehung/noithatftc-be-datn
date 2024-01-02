@@ -4,10 +4,10 @@ import { setActiveLayout } from "../../helpers/product";
 import { Select } from "antd";
 
 const ORDER_BY = [
-	{ value: 0, label: 'Sắp xếp theo' },
-	{ value: 1, label: 'Giá cao đến thấp' },
-	{ value: 2, label: 'Giá thấp đến cao' },
-	{ value: 3, label: 'Mới nhất' }
+	{ value: null, label: 'Sắp xếp theo' },
+	{ value: 1, label: 'Giá cao đến thấp', order_by: "price", order_value: "DESC" },
+	{ value: 2, label: 'Giá thấp đến cao', order_by: "price", order_value: "ASC" },
+	{ value: 3, label: 'Mới nhất', order_by: "created_at", order_value: "DESC" }
 ]
 const ShopTopAction = ( props ) =>
 {
@@ -17,14 +17,21 @@ const ShopTopAction = ( props ) =>
 				<div className="shop-select">
 					<Select
 						options={ ORDER_BY }
-						
+
 						style={ { width: '200px' } }
 						placeholder="Sắp xếp theo"
-						onChange={e => {
-							let params = {...props.params};
-							params.order = e;
-							props.setParams(params)
-						}}
+						onChange={ e =>
+						{
+							let params = { ...props.params };
+							let item = ORDER_BY.find( v => v.value === e );
+							if ( item?.value )
+							{
+								params.order_by = item?.order_by;
+								params.order_value = item?.order_value;
+								props.setParams( params )
+							}
+
+						} }
 					>
 					</Select>
 				</div>

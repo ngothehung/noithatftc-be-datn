@@ -155,7 +155,7 @@ const FooterOne = ({
 			{/* <a
 				className={`scroll-top messenger cursor-pointer ${scroll > top ? "show" : ""}`}
 				onClick={() => {
-					window.open("https://www.facebook.com/messages/t/100048092331028", "_blank")
+					console.log("mes");
 				}}
 			>
 				<img src={MESSENGER} className="w-100" />
@@ -163,7 +163,7 @@ const FooterOne = ({
 			<a
 				className={`scroll-top zalo cursor-pointer ${scroll > top ? "show" : ""}`}
 				onClick={() => {
-					window.open("https://chat.zalo.me/?phone=0865405630", "_blank")
+					console.log("zalo");
 				}}
 			>
 				<img src={ZALO} className="w-100" />

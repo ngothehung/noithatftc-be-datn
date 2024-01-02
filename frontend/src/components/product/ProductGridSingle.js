@@ -18,8 +18,9 @@ const ProductGridSingle = ( {
 	cartItem,
 	wishlistItem,
 	compareItem,
+	cartItems,
 	sliderClassName,
-	spaceBottomClass
+	spaceBottomClass,
 } ) =>
 {
 	const [ modalShow, setModalShow ] = useState( false );
@@ -76,22 +77,22 @@ const ProductGridSingle = ( {
 						) }
 
 						<div className="product-action">
-							{/* {
+							{
 								userId != null && <div className="pro-same-action pro-wishlist">
 								<button
 									className={ wishlistItem !== undefined ? "active" : "" }
 									disabled={ wishlistItem !== undefined }
 									title={
 										wishlistItem !== undefined
-											? "Added to wishlist"
-											: "Add to wishlist"
+											? "Đã thêm vào yêu thích"
+											: "Yêu thích"
 									}
 									onClick={ () => addToWishlist( {...product, user_like: userId}, addToast ) }
 								>
 									<i className="pe-7s-like" />
 								</button>
 							</div>
-							} */}
+							}
 							<div className="pro-same-action pro-cart">
 								{ product.affiliateLink ? (
 									<a
@@ -110,19 +111,19 @@ const ProductGridSingle = ( {
 									<button
 										onClick={ () => addToCart( product, addToast ) }
 										className={
-											cartItem !== undefined && cartItem.quantity > 0
+											cartItem?.quantity >= 5
 												? "active"
 												: ""
 										}
-										disabled={ cartItem !== undefined && cartItem.quantity > 0 }
+										disabled={ cartItem?.quantity >= 5 }
 										title={
-											cartItem !== undefined ? "Added to cart" : "Thêm giỏ hàng"
+											cartItem?.quantity >= 5 ? "Quá số lượng giỏ hàng" : "Thêm giỏ hàng"
 										}
 									>
 										{ " " }
 										<i className="pe-7s-cart"></i>{ " " }
-										{ cartItem !== undefined && cartItem.quantity > 0
-											? "Added"
+										{ cartItem?.quantity >= 5
+											? "Quá số lượng giỏ hàng"
 											: "Thêm giỏ hàng" }
 									</button>
 								) : (
@@ -141,7 +142,7 @@ const ProductGridSingle = ( {
 					<div className="product-content text-center">
 						<h3>
 							<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
-								{ product.name }
+								{ product?.name }
 							</Link>
 						</h3>
 						{ product.rating && product.rating > 0 ? (

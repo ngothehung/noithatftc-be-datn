@@ -15,6 +15,7 @@ import { PermissionSearch } from "./PermissionsSearch.js";
 import { useDispatch } from "react-redux";
 import { getGroup, getPermissions } from "../../../services/rolePermissionService.js";
 import { toggleShowLoading } from "../../../redux/actions/common.js";
+import Breadcrumbs from "../../Breadbrumbs/Breadcrumbs.js";
 export const Permissions = ( props ) =>
 {
 	const [ listData, setListData ] = useState( [] );
@@ -23,7 +24,7 @@ export const Permissions = ( props ) =>
 		page_size: 20
 	} );
 	const [ params, setParams ] = useState( {} );
-	const [group, setGroup] = useState([]);
+	const [ group, setGroup ] = useState( [] );
 	const dispatch = useDispatch();
 
 	useEffect( () =>
@@ -34,7 +35,7 @@ export const Permissions = ( props ) =>
 
 	const getListData = async ( filter ) =>
 	{
-		dispatch(toggleShowLoading(true));
+		dispatch( toggleShowLoading( true ) );
 		const response = await getPermissions( filter );
 		if ( response )
 		{
@@ -43,17 +44,17 @@ export const Permissions = ( props ) =>
 		} else
 		{
 			setListData( [] );
-			setPaging({
+			setPaging( {
 				page: 1,
 				page_size: 20
-			})
+			} )
 		}
-		dispatch(toggleShowLoading(false));
+		dispatch( toggleShowLoading( false ) );
 	}
 
-	const getConfigGroup = async (  ) =>
+	const getConfigGroup = async () =>
 	{
-		const response = await getGroup( );
+		const response = await getGroup();
 		if ( response )
 		{
 			setGroup( response );
@@ -62,8 +63,20 @@ export const Permissions = ( props ) =>
 			setGroup( [] )
 		}
 	}
+
+	const routes = [
+		{
+			name: 'Permission',
+			route: '/setting/permission/list'
+		},
+		{
+			name: 'Danh sách',
+			route: ''
+		}
+	];
 	return (
 		<>
+			<Breadcrumbs routes={ routes } title={ "Permission" } />
 			<Widget>
 				<div className="p-5">
 					<PermissionSearch
@@ -74,7 +87,7 @@ export const Permissions = ( props ) =>
 						setParams={ setParams }
 						setPaging={ setPaging }
 						setListData={ setListData }
-						group={group}
+						group={ group }
 					/>
 				</div>
 			</Widget >
@@ -87,11 +100,11 @@ export const Permissions = ( props ) =>
 						<thead>
 							<tr>
 								<th>#</th>
-								<th className="text-nowrap">Name</th>
+								<th className="text-nowrap">Tên</th>
 								<th className="text-nowrap">Guard name</th>
-								<th className="text-nowrap">Description</th>
-								<th className="text-nowrap">Group</th>
-								<th className="text-nowrap">Time</th>
+								<th className="text-nowrap">Mô tả</th>
+								<th className="text-nowrap">Nhóm</th>
+								<th className="text-nowrap">Thời gian tạo</th>
 							</tr>
 						</thead>
 						<tbody>

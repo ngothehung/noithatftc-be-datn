@@ -2,6 +2,7 @@ import React from "react";
 import Swiper from "react-id-swiper";
 import sliderData from "../../data/hero-sliders/hero-slider-twenty-two.json";
 import HeroSliderTwentyTwoSingle from "../../components/hero-slider/HeroSliderTwentyTwoSingle.js";
+import {Container} from "react-bootstrap";
 
 const HeroSliderTwentyTwo = (props) => {
     const params = {
@@ -30,22 +31,28 @@ const HeroSliderTwentyTwo = (props) => {
         )
     };
     return (
-        <div className="slider-area">
-            <div className="slider-active nav-style-1">
-                <Swiper {...params}>
-                    {props.slides &&
-                        props.slides.map((single, key) => {
-                            return (
-                                <HeroSliderTwentyTwoSingle
-                                    data={single}
-                                    key={key}
-                                    sliderClass="swiper-slide"
-                                />
-                            );
-                        })}
-                </Swiper>
+        <Container>
+            <div className="row">
+                <div className="col-12">
+                    <div className="slider-area">
+                        <div className="slider-active nav-style-1" style={{ height: "300px"}}>
+                            <Swiper {...params}>
+                                {props.slides &&
+                                    props.slides.map((single, key) => {
+                                        return (
+                                            <HeroSliderTwentyTwoSingle
+                                                data={single}
+                                                key={key}
+                                                sliderClass="swiper-slide"
+                                            />
+                                        );
+                                    })}
+                            </Swiper>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </Container>
     );
 };
 

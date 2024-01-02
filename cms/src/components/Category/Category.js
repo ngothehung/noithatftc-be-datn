@@ -81,17 +81,17 @@ export const Categories = ( props ) =>
 												{ customDate( item.created_at, 'DD/MM/yyyy' ) }
 											</td>
 											<td>
-												<div className="d-flex">
+												<div className="d-flex align-items-center align-content-center">
 													<Link to={ `/category/edit/${ item.id }` } className="d-flex justify-content-center">
 														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 													</Link>
-													<DeleteOutlined
+													{/* <DeleteOutlined
 														className="ml-2 cursor-pointer"
 														onClick={ () =>
 														{
 															props.deleteById( item.id );
 														} }
-														style={ { fontSize: "16px", color: "red" } } />
+														style={ { fontSize: "16px", color: "red" } } /> */}
 												</div>
 											</td>
 										</tr>

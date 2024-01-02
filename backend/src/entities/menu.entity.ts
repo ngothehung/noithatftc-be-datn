@@ -1,10 +1,12 @@
 import {
 	Column,
 	Entity,
+	JoinColumn,
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Article } from './article.entity';
+import { Blog } from './blog.entity';
 
 @Entity('menus', { schema: 'public' })
 export class Menu {
@@ -14,20 +16,8 @@ export class Menu {
 	@Column({ name: 'name', length: 255 })
 	name: string | null;
 
-	@Column({ name: 'description', length: 255, nullable: true })
-	description: string | null;
-
-	@Column({ name: 'avatar', nullable: true })
-	avatar: string | null;
-
 	@Column({ name: 'slug', nullable: false })
 	slug: string | null;
-
-	@Column('smallint', { name: 'status', nullable: false, default: 0 })
-	status: number | -1;
-
-	@Column('smallint', { name: 'hot', nullable: false, default: 0 })
-	hot: number | -1;
 
 	@Column('timestamp', {
 		name: 'created_at',
@@ -42,6 +32,7 @@ export class Menu {
 	})
 	updated_at: Date;
 
-	// @OneToMany(() => Article, article => article.menu)
-	// article: Article[];
+	@OneToMany(() => Blog, (blog) => blog.menu)
+	@JoinColumn([{ name: "id", referencedColumnName: "menu_id" }])
+    blogs: Blog[];
 } 

@@ -263,8 +263,8 @@
                     display: block;
                     visibility: hidden;
 
-                    width: 700px;
-                    padding: 40px;
+                    width: 300px;
+                    padding: 20px;
 
                     transition: all 0.5s ease 0s;
                     transform: rotateX(90deg);
@@ -280,9 +280,9 @@
 
                     >li {
                         display: inline-block;
-                        float: left;
+                        // float: left;
 
-                        width: 33.33%;
+                        // width: 33.33%;
                         margin-left: 0;
                         padding: 0;
 
@@ -378,7 +378,7 @@
                     }
 
                     &.mega-menu-padding {
-                        padding: 40px 40px 36px 40px;
+                        padding: 20px;
 
                         @media #{$lg-layout} {
                             left: 0;

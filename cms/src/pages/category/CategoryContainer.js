@@ -26,6 +26,7 @@ export const CategoryContainer = () =>
 
 	const getDatasByFilter = async ( filter ) =>
 	{
+		dispatch( toggleShowLoading( true ) );
 		const rs = await getCategoriesByFilter( filter, dispatch );
 		await timeDelay( 1500 );
 
@@ -52,7 +53,7 @@ export const CategoryContainer = () =>
 		try {
 			const response = await Category.delete(id);
 			if(response?.status === 'success') {
-				message.success('Delete successfully');
+				message.success('Xóa thành công');
 				await getDatasByFilter({...paging, ...params});
 			} else {
 				message.error(response?.message);

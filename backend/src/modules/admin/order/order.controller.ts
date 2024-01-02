@@ -16,7 +16,7 @@ export class OrderController {
 	constructor(private readonly orderService: OrderService) { }
 
 	@Post('store')
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
 	async create(@Request() req: any, @Body() createOrderDto: CreateOrderDto) {
 		try {
 			if(_.isEmpty(createOrderDto)) {
@@ -33,7 +33,7 @@ export class OrderController {
 	}
 
 	@Get('')
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
 	async findAll(@Request() req: any) {
 		
 
@@ -59,7 +59,7 @@ export class OrderController {
 	}
 
 	@Get('show/:id')
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
 	async findOne(@Param('id') id: string) {
 		try {
 			
@@ -71,12 +71,12 @@ export class OrderController {
 	}
 
 	@Put('update/:id')
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
 	async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
 		try {
 			let order = await this.orderService.findOne(Number(id));
 			if(_.isEmpty(order)) {
-				throw new BadRequestException({code: 'OR0002', message:'Not found order by Id'});
+				throw new BadRequestException({code: 'OR0002', message:'Không tìm thấy đơn hàng tương ứng'});
 			}
 			return BaseResponse(HTTP_STATUS.success, await this.orderService.update(Number(id), updateOrderDto),'', 'successfully');
 		} catch (error) {
@@ -86,7 +86,7 @@ export class OrderController {
 	}
 	
 	@Delete('delete/:id')
-	@UseGuards(RoleGuard)
+	// @UseGuards(RoleGuard)
 	remove(@Param('id') id: string) {
 		return this.orderService.remove(+id);
 	}

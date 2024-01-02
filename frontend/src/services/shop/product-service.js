@@ -17,9 +17,9 @@ export const showProductDetail = async ( productId, setProductData, dispatch ) =
 {
 	try
 	{
-		if(dispatch) {
-			dispatch(toggleShowLoading(true));
-		}
+		// if(dispatch) {
+		// 	dispatch(toggleShowLoading(true));
+		// }
 		const response = await showProduct( productId );
 		if ( response?.status == 'success' )
 		{

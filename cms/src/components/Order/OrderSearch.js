@@ -24,6 +24,7 @@ export const OrderSearch = ( props ) =>
 			{ value: 1, label: "Chờ lấy hàng" },
 			{ value: 2, label: "Đang giao" },
 			{ value: 3, label: "Đã giao" },
+			{ value: 4, label: 'Đã nhận hàng' },
 		] );
 	}, [] )
 
@@ -64,18 +65,18 @@ export const OrderSearch = ( props ) =>
 				
 				<div className="col-md-3 mb-2 form-group">
 					<Form.Item name="product_name" label="Tên sản phẩm" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter product name' />
+						<Input className='form-control' placeholder='Nhập tên sản phẩm' />
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2 form-group">
-					<Form.Item name="receiver_name" label="Receiver name" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter receiver name' />
+					<Form.Item name="receiver_name" label="Tên người nhận" className='mb-0 d-block'>
+						<Input className='form-control' placeholder='Nhập tên người nhận' />
 					</Form.Item>
 				</div>
 				
 				<div className="col-md-3 mb-2 form-group">
-					<Form.Item name="receiver_phone" label="Receiver phone" className='mb-0 d-block'>
-						<Input className='form-control' placeholder='Enter receiver phone' />
+					<Form.Item name="receiver_phone" label="SĐT người nhận" className='mb-0 d-block'>
+						<Input className='form-control' placeholder='Nhập SĐT người nhận' />
 					</Form.Item>
 				</div>
 				<div className="col-md-3 mb-2">

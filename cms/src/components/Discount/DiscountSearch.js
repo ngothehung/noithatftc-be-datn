@@ -15,12 +15,12 @@ export const DiscountSearch = ( props ) =>
 	{
 		setStatus( [
 			{ value: 1, label: "Active" },
-			{ value: 0, label: "Inactive" }
+			{ value: -1, label: "Inactive" }
 		] );
 
 		setHot( [
 			{ value: 1, label: "Hot" },
-			{ value: 0, label: "Not hot" }
+			{ value: -1, label: "Not hot" }
 		] );
 	}, [] )
 
