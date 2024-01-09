@@ -19,8 +19,8 @@ export const UserSearch = ( props ) =>
 		] );
 
 		setType( [
-			{ value: 1, label: "ADM" },
-			{ value: 2, label: "CUSTOMER" }
+			{ value: 1, label: "Admin" },
+			{ value: 2, label: "Khách hàng" }
 		] );
 	}, [] )
 

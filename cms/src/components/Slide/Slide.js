@@ -47,7 +47,7 @@ export const SlidesPage = ( props ) =>
 								<th>#</th>
 								<th className="text-nowrap">Hình ảnh</th>
 								<th className="text-nowrap">Tiêu đề</th>
-								<th className="text-nowrap">Link</th>
+								{/* <th className="text-nowrap">Link</th> */}
 								{/* <th className="text-nowrap">Hot</th> */ }
 								<th className="text-nowrap">Trạng thái</th>
 								<th className="text-nowrap">Thời gian</th>
@@ -70,9 +70,9 @@ export const SlidesPage = ( props ) =>
 											<td className="text-gray-900">
 												<span className="text-break" style={ { minWidth: '100px' } }>{ item.name }</span>
 											</td>
-											<td className="text-gray-900">
+											{/* <td className="text-gray-900">
 												<a href={ item.link || '#' } target="_blank" className="text-break" style={ { minWidth: '100px' } }>{ item.link }</a>
-											</td>
+											</td> */}
 											{/* <td className="text-gray-900">
 												{ item.hot === 1 && <span className="text-danger">Hot</span> }
 											</td>*/}
@@ -85,13 +85,13 @@ export const SlidesPage = ( props ) =>
 													<Link to={ `/slide/edit/${ item.id }` } className="d-flex justify-content-center">
 														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 													</Link>
-													{/* <DeleteOutlined
+													<DeleteOutlined
 														className="ml-2 cursor-pointer"
 														onClick={ () =>
 														{
 															props.deleteById( item.id );
 														} }
-														style={ { fontSize: "16px", color: "red" } } /> */}
+														style={ { fontSize: "16px", color: "red" } } />
 												</div>
 											</td>
 										</tr>

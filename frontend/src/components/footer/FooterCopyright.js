@@ -11,8 +11,8 @@ const FooterCopyright = ({ footerLogo, spaceBottomClass, colorClass }) => {
             <div className="footer-logo me-2">
                 <Link to={process.env.PUBLIC_URL + "/"}>
                     <h2 className="font-weight-bold text-break">
-						{/* <img className={'w-100'} src="/assets/logo.png" alt="logo"/> */}
-						Cửa hàng nội thất
+						<img className={'w-100'} src="/assets/logo2.png" alt="logo"/>
+						{/* Cửa hàng nội thất */}
                     </h2>
                 </Link>
             </div>

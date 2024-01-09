@@ -59,7 +59,7 @@ const NavMenu = ( { strings, menuWhiteClass, sidebarMenu } ) =>
 					</li>
 					<li>
 						<Link to="/menu">
-							{ "Blog" }
+							{ "Bài viết" }
 							{ sidebarMenu ? (
 								<span>
 									<i className="fa fa-angle-right"></i>

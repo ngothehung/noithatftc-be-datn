@@ -183,7 +183,7 @@ export const BlogForm = ( props ) =>
 	}
 	const routes = [
 		{
-			name: 'Blog',
+			name: 'Bài viết',
 			route: '/blog'
 		},
 		{
@@ -192,7 +192,7 @@ export const BlogForm = ( props ) =>
 		}
 	];
 	return <>
-		<Breadcrumbs routes={ routes } title={ "Blog" } />
+		<Breadcrumbs routes={ routes } title={ "Bài viết" } />
 
 		<div className="w-75 mx-auto">
 			<Widget>

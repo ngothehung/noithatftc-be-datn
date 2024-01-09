@@ -30,9 +30,9 @@ export const Orders = ( props ) =>
 
 	const genStatus = ( status ) =>
 	{
-		if ( status === 1 ) return <div className="badge bg-warning">Chờ duyệt</div>;
-		else if ( status === 2 ) return <div className="badge bg-primary">Đã duyệt</div>;
-		else if ( status === 3 ) return <div className="badge bg-success">Hoàn thành</div>;
+		if ( status === 1 ) return <div className="badge bg-warning">Đặt hàng thành công</div>;
+		// else if ( status === 2 ) return <div className="badge bg-primary">Đã duyệt</div>;
+		else if ( status === 3 ) return <div className="badge bg-success">Đã nhận được hàng</div>;
 		else return <div className="badge bg-danger">Hủy bỏ</div>;
 	}
 
@@ -55,7 +55,8 @@ export const Orders = ( props ) =>
 		if ( status === 1 ) return <div className="badge bg-warning">Chờ lấy hàng</div>;
 		else if ( status === 2 ) return <div className="badge bg-primary">Đang giao</div>;
 		else if ( status === 4 ) return <div className="badge bg-success">Đã nhận hàng</div>;
-
+		else if ( status === 5 ) return <div className="badge bg-success">Đã duyệt</div>;
+		else if ( status === 6 ) return <div className="badge bg-success">giao hàng thành công</div>;
 		else return <div className="badge bg-success">Đã giao</div>;
 	}
 

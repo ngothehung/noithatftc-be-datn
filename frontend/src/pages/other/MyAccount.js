@@ -16,18 +16,17 @@ import { useDispatch } from "react-redux";
 import { toggleShowLoading } from "../../redux/actions/common";
 import { DEFAULT_IMG, timeDelay } from "../../helpers/constant";
 
-const MyAccount = ( { location } ) =>
-{
+const MyAccount = ({ location }) => {
 	const { pathname } = location;
 
-	const [ files, setFiles ] = useState( [] );
-	const [ form ] = useForm();
-	const [ formPassword ] = useForm();
-	const [ error, setError ] = useState( false );
+	const [files, setFiles] = useState([]);
+	const [form] = useForm();
+	const [formPassword] = useForm();
+	const [error, setError] = useState(false);
 	const dispatch = useDispatch();
-	const [ user, setUser ] = useState( null );
+	const [user, setUser] = useState(null);
 
-	const [ genderConfig, setGenderConfig ] = useState( [
+	const [genderConfig, setGenderConfig] = useState([
 		{
 			value: 'male',
 			label: 'Nam'
@@ -40,111 +39,95 @@ const MyAccount = ( { location } ) =>
 			value: 'other',
 			label: 'Khác'
 		}
-	] );
+	]);
 
-	useEffect( () =>
-	{
+	useEffect(() => {
 
 		profile();
-		formPassword.setFieldValue( {
+		formPassword.setFieldValue({
 			password: null,
 			retypeNewPassword: null
-		} )
-	}, [] );
+		})
+	}, []);
 
-	const profile = async () =>
-	{
-		dispatch( toggleShowLoading( true ) );
+	const profile = async () => {
+		dispatch(toggleShowLoading(true));
 		const response = await Auth_Service.profile();
 
-		if ( response?.status == 'success' )
-		{
+		if (response?.status == 'success') {
 			let file = [];
-			file.push( {
+			file.push({
 				uid: file.length,
 				name: response?.data.avatar,
 				status: 'done',
 				url: buildImage(response?.data?.avatar, true),
 				default: true
-			} );
-			form.setFieldsValue( {
+			});
+			form.setFieldsValue({
 				name: response?.data?.name,
 				email: response?.data?.email,
 				phone: response?.data?.phone,
 				gender: response?.data?.gender,
 				birthDay: response?.data?.birthDay,
 				image: file,
-			} );
-			setFiles( file );
-			setUser( response?.data )
+			});
+			setFiles(file);
+			setUser(response?.data)
 
-		} else
-		{
-			message.error( response.message || 'error' );
+		} else {
+			message.error(response.message || 'error');
 		}
-		dispatch( toggleShowLoading( false ) );
+		dispatch(toggleShowLoading(false));
 	}
 
-	const submitForm = async ( e ) =>
-	{
+	const submitForm = async (e) => {
 		let avatar = user.avatar;
-		if ( !files[ 0 ].default )
-		{
-			avatar = await uploadFile( files[ 0 ] );
+		if (!files[0].default) {
+			avatar = await uploadFile(files[0]);
 		}
-		let formData = {...e, avatar: avatar};
+		let formData = { ...e, avatar: avatar };
 		delete formData.image;
-		dispatch( toggleShowLoading( true ) );
-		const response = await Auth_Service.updateProfile( formData );
-		if ( response?.status == 'success' )
-		{
-			message.success( 'Cập nhật thành công!' );
-			setItem('name',formData.name);
+		dispatch(toggleShowLoading(true));
+		const response = await Auth_Service.updateProfile(formData);
+		if (response?.status == 'success') {
+			message.success('Cập nhật thành công!');
+			setItem('name', formData.name);
 			setItem('email', formData.email);
 			setItem('phone', formData.phone);
 			setItem('gender', formData.gender);
 			setItem('avatar', formData.avatar);
 
-		} else
-		{
-			message.error( response?.message || 'Error update profile' );
+		} else {
+			message.error(response?.message || 'Error update profile');
 		}
-		dispatch( toggleShowLoading( false ) );
+		dispatch(toggleShowLoading(false));
 	}
 
-	const checkPassword = ( newPass, retypePass ) =>
-	{
+	const checkPassword = (newPass, retypePass) => {
 		return newPass === retypePass;
 	}
 
-	const submitPassword = async ( e ) =>
-	{
+	const submitPassword = async (e) => {
 		dispatch(toggleShowLoading(true));
-		if ( checkPassword( e.password, e.retypeNewPassword ) )
-		{
-			const response = await Auth_Service.changePassword( { password: e.password } );
-			if ( response?.status == 'success' )
-			{
-				message.success( 'Đổi mật khẩu thành công!' );
-			} else
-			{
-				message.error( response.message || 'error' );
+		if (checkPassword(e.password, e.retypeNewPassword)) {
+			const response = await Auth_Service.changePassword({ password: e.password });
+			if (response?.status == 'success') {
+				message.success('Đổi mật khẩu thành công!');
+			} else {
+				message.error(response.message || 'error');
 			}
-		} else
-		{
-			setError( true );
-			message.error( 'Mật khẩu không phù hợp' );
+		} else {
+			setError(true);
+			message.error('Mật khẩu không phù hợp');
 		}
 		dispatch(toggleShowLoading(false));
 
 	}
 
-	const normFile = ( e ) =>
-	{
-		if ( e?.fileList )
-		{
-			let fileChoose = e?.fileList.map( item => item.originFileObj );
-			setFiles( fileChoose );
+	const normFile = (e) => {
+		if (e?.fileList) {
+			let fileChoose = e?.fileList.map(item => item.originFileObj);
+			setFiles(fileChoose);
 		}
 		return e?.fileList;
 	}
@@ -158,12 +141,12 @@ const MyAccount = ( { location } ) =>
 					content="Compare page of flone react minimalist eCommerce template."
 				/>
 			</MetaTags>
-			<BreadcrumbsItem to={ process.env.PUBLIC_URL + "/" }>Home</BreadcrumbsItem>
-			<BreadcrumbsItem to={ process.env.PUBLIC_URL + pathname }>
+			<BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+			<BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
 				Thông tin cá nhân
 			</BreadcrumbsItem>
 			<LayoutOne headerTop="visible">
-				{/* breadcrumb */ }
+				{/* breadcrumb */}
 				<Breadcrumb />
 				<div className="myaccount-area pb-80 pt-100">
 					<div className="container">
@@ -175,34 +158,36 @@ const MyAccount = ( { location } ) =>
 											<Card.Header className="panel-heading">
 												<Accordion.Toggle variant="link" eventKey="0">
 													<h3 className="panel-title">
-														<span>1 .</span> Xem và cập nhật thông tin{ " " }
+														<span>1 .</span> Xem và cập nhật thông tin{" "}
 													</h3>
 												</Accordion.Toggle>
 											</Card.Header>
 											<Accordion.Collapse eventKey="0">
 												<Card.Body>
 													<div className="myaccount-info-wrapper">
-														<Form form={ form }
-															onFinish={ submitForm }
-															onFieldsChange={ ( e ) => onFieldsChange( e, form ) }
-															validateMessages={ validateMessages }
+														<Form form={form}
+															onFinish={submitForm}
+															onFieldsChange={(e) => onFieldsChange(e, form)}
+															validateMessages={validateMessages}
 														>
 															<div className="row mb-3">
 																<div className="col-md-9">
 																	<Form.Item name="name"
-																		rules={ [ { required: true } ] }
+																		rules={[{ required: true }]}
 																		className=' d-block'
 																		label='Tên'
 																	>
 																		<Input className='form-control mb-0' placeholder='Nhập Tên' />
 																	</Form.Item>
 
-																	<Form.Item name="email"
-																		rules={ [ { required: true } ] }
-																		className=' d-block'
-																		label='Email'
+																	<Form.Item
+																		name="email"
+																		rules={[
+																			{ required: true, type: 'email', message: 'Email không đúng định dạng!' },
+																		]}
+																		label="Email"
 																	>
-																		<Input className='form-control mb-0' placeholder='Nhập email' />
+																		<Input className="form-control mb-0" placeholder="Nhập email" />
 																	</Form.Item>
 																</div>
 																<div className="col-md-3 h-100">
@@ -212,39 +197,41 @@ const MyAccount = ( { location } ) =>
 																		accept="images/**"
 																		className='d-block'
 																		valuePropName="fileList"
-																		fileList={ files }
-																		getValueFromEvent={ normFile }
+																		fileList={files}
+																		getValueFromEvent={normFile}
 																	>
 																		<Upload action="/upload" className="w-100" listType="picture-card">
-																			{ files.length < 1 && <div>
+																			{files.length < 1 && <div>
 																				<PlusOutlined />
-																				<div style={ { marginTop: 8 } }>Upload</div>
-																			</div> }
+																				<div style={{ marginTop: 8 }}>Upload</div>
+																			</div>}
 																		</Upload>
 																	</Form.Item>
 																</div>
 															</div>
 															<div className="row mb-3">
 																<div className="col-6">
-																	<Form.Item name="phone"
-																		rules={ [ { required: true } ] }
-																		className=' d-block'
-																		label='Phone'
+																	<Form.Item
+																		name="phone"
+																		rules={[
+																			{ required: true, pattern: /^(\+\d{1,4})?\d{10,}$/i, message: 'Số điện thoại không đúng định dạng!' },
+																		]}
+																		label="Phone"
 																	>
-																		<Input className='form-control mb-0' placeholder='Nhập số điện thoại' />
+																		<Input className="form-control mb-0" placeholder="Nhập số điện thoại" />
 																	</Form.Item>
 																</div>
 																<div className="col-3">
 																	<Form.Item
 																		name="gender"
 																		label="Giới tính"
-																		rules={ [ { required: true } ] }
+																		rules={[{ required: true }]}
 																		className='d-block'
 																	>
 																		<Select
 																			placeholder="Chọn giới tính"
-																			style={ { width: '100%' } }
-																			options={ genderConfig }
+																			style={{ width: '100%' }}
+																			options={genderConfig}
 																		/>
 																	</Form.Item>
 																</div>
@@ -278,15 +265,15 @@ const MyAccount = ( { location } ) =>
 												<Card.Body>
 													<div className="myaccount-info-wrapper">
 														<Form
-															form={ formPassword }
-															onFinish={ submitPassword }
-															onFieldsChange={ ( e ) => onFieldsChange( e, formPassword ) }
-															validateMessages={ validateMessages }
+															form={formPassword}
+															onFinish={submitPassword}
+															onFieldsChange={(e) => onFieldsChange(e, formPassword)}
+															validateMessages={validateMessages}
 														>
 															<div className="row">
 																<div className="col-6">
 																	<Form.Item name="password"
-																		rules={ [ { required: true } ] }
+																		rules={[{ required: true }]}
 																		className=' d-block'
 																		label="Mật khẩu"
 																	>
@@ -295,11 +282,11 @@ const MyAccount = ( { location } ) =>
 																</div>
 																<div className="col-6">
 																	<Form.Item name="retypeNewPassword"
-																		rules={ [ { required: true } ] }
+																		rules={[{ required: true }]}
 																		className="d-block"
 																		label="Các sản phẩm,mới xuất hiện"
 																	>
-																		<Input type="password" className={ `form-control mb-0 ${ error == true ? "borderError" : "" }` } placeholder='Re-enter new password' onChange={ () => setError( false ) } />
+																		<Input type="password" className={`form-control mb-0 ${error == true ? "borderError" : ""}`} placeholder='Re-enter new password' onChange={() => setError(false)} />
 																	</Form.Item>
 																</div>
 															</div>

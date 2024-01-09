@@ -79,7 +79,7 @@ const Sidebar = ( props ) =>
 	return (
 		<nav className={ cn( s.root, { [ s.sidebarOpen ]: burgerSidebarOpen } ) } >
 			<header className={ s.logo }>
-				 <img src={'/logo.png'} style={{ width:"150px"}} />
+				 <img src={'/logo2.png'} style={{ width:"150px"}} />
 			</header>
 			<ul className={ s.nav }>
 				{

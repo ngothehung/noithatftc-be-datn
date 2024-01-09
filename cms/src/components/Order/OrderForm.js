@@ -33,17 +33,19 @@ export const OrderForm = ( props ) =>
 	useEffect( () =>
 	{
 		setStatus( [
-			{ value: 1, label: 'Chờ duyệt' },
-			{ value: 2, label: 'Đã duyệt' },
+			{ value: 1, label: 'đặt hàng thành công' },
 			{ value: 4, label: 'Hủy bỏ' },
 		] );
 
 		setShippingStatus( [
-			{ value: 1, label: 'Chờ giao hàng' },
-			{ value: 2, label: 'Đang giao' },
-			{ value: 3, label: 'Đã giao' },
-			{ value: 4, label: 'Đã nhận hàng' },
-			{ value: 3, label: 'Hoàn thành' },
+			{ value: 1, label: 'Chờ duyệt' },
+			{ value: 2, label: 'Đã duyệt' },
+			{ value: 3, label: 'Chờ giao hàng' },
+			{ value: 4, label: 'Đang giao' },
+			{ value: 5, label: 'Đã giao' },
+			{ value: 6, label: 'Đã nhận hàng' },
+			
+			
 		] )
 	}, [] );
 

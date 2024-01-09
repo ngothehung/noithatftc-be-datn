@@ -64,16 +64,16 @@ export const MenuContainer = () =>
 	}
 	const routes = [
 		{
-			name: 'Danh mục blog',
+			name: 'Danh mục bài viết',
 			route: '/menu'
 		},
 		{
 			name: 'Danh sách',
 			route: '/menu/list'
 		}
-	];
+	];	
 	return <>
-		<Breadcrumbs routes={ routes } title={ "Danh mục blog" } />
+		<Breadcrumbs routes={ routes } title={ "Danh mục bài viết" } />
 		<MenuCpn
 			dataList={ dataList }
 			paging={ paging }

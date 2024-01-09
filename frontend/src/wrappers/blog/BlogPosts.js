@@ -2,14 +2,15 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { buildImage } from "../../services";
 import { customDate, customNumber } from "../../helpers/func";
+
 const BlogPosts = ( props ) =>
 {
 	return (
 		<>
 			{ props.data?.length > 0 && props.data.map( ( item, key ) =>
 			{
-				return <div className="col-lg-6 col-md-6 col-sm-12" key={key}>
-					<div className="blog-wrap-2 mb-30">
+				return <div className="col-lg-6 col-md-6 col-sm-12 mb-30" key={key}>
+					<div className="blog-wrap-2 h-100 d-flex flex-column justify-content-between">
 						<div className="blog-img-2">
 							<Link to={ `/blog-details/${item.slug}-${item.id}`  }>
 								<img

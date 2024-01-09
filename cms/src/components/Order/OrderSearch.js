@@ -15,7 +15,7 @@ export const OrderSearch = ( props ) =>
 	useEffect( () =>
 	{
 		setStatus( [
-			{ value: 1, label: "Chờ duyệt" },
+			{ value: 1, label: "Đặt hàng thành công" },
 			{ value: 2, label: "Đã duyệt" },
 			{ value: 3, label: "Hoàn thành" },
 			{ value: 4, label: "Hủy bỏ" }
@@ -25,6 +25,8 @@ export const OrderSearch = ( props ) =>
 			{ value: 2, label: "Đang giao" },
 			{ value: 3, label: "Đã giao" },
 			{ value: 4, label: 'Đã nhận hàng' },
+			{ value: 5, label: 'chờ duyệt' },
+			{ value: 6, label: 'Đã duyệt' },
 		] );
 	}, [] )
 

@@ -6,8 +6,8 @@ export const INIT_PAGING  = {
 };
 
 export const PAYMENT_TYPE = [
-	{ value: 1, label: "Thanh toán Online ( VNPay)" },
-	{ value: 2, label: "Tiền mặt" },
+	{ value: 1, label: "Thanh toán Online ( QR code )" },
+	{ value: 2, label: "THANH TOÁN TIỀN MẶT" },
 ]
 
 export const PAYMENT_STATUS = [

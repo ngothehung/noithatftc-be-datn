@@ -51,7 +51,7 @@ const RelatedProductSlider = ( { spaceBottomClass, category } ) =>
 		<div className={ `related-product-area ${ spaceBottomClass ? spaceBottomClass : "" }` }>
 			<div className="container">
 				<SectionTitle
-					titleText="Related Products"
+					titleText="Những sản phẩm tương tự"
 					positionClass="text-center"
 					spaceClass="mb-50"
 				/>

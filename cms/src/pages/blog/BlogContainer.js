@@ -66,7 +66,7 @@ export const BlogContainer = () =>
 
 	const routes = [
 		{
-			name: 'Blog',
+			name: 'Bài viết',
 			route: '/blog'
 		},
 		{
@@ -75,7 +75,7 @@ export const BlogContainer = () =>
 		}
 	];
 	return <>
-		<Breadcrumbs routes={ routes } title={ "Blog" } />
+		<Breadcrumbs routes={ routes } title={ "Bài viết" } />
 		<Blog
 			dataList={ dataList }
 			paging={ paging }

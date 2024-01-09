@@ -30,7 +30,7 @@ const ProductGridTwo = ( {
 		<Fragment>
 			{ loading == true && (!products || products?.length <= 0) &&
 				<LoadingList
-					total={ 3 }
+					total={ 4 }
 					className={ 'col-xl-3 col-md-6 col-lg-4 col-sm-6' }
 					height={ 370 } />
 			}

@@ -73,10 +73,10 @@ const ProductDescriptionTab = ( props ) =>
                 </Nav.Link>
               </Nav.Item> */}
 							<Nav.Item>
-								<Nav.Link eventKey="productDescription">Description</Nav.Link>
+								<Nav.Link eventKey="productDescription">Chi tiết sản phẩm</Nav.Link>
 							</Nav.Item>
 							<Nav.Item>
-								<Nav.Link eventKey="productReviews">Reviews { props?.paging?.total ? `(${ props?.paging?.total })` : '' }</Nav.Link>
+								<Nav.Link eventKey="productReviews">Đánh giá { props?.paging?.total ? `(${ props?.paging?.total })` : '' }</Nav.Link>
 							</Nav.Item>
 						</Nav>
 						<Tab.Content className="description-review-bottom">

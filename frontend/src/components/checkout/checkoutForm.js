@@ -130,7 +130,7 @@ export const CheckoutForm = ( props ) =>
 			onFieldsChange={ ( e ) => onFieldsChange( e, form ) }
 			validateMessages={ validateMessages }
 		>
-			<Form.Item name="receiver_name" label="Full Name"
+			<Form.Item name="receiver_name" label="Họ và tên"
 				rules={ [ { required: true, } ] }
 				className=' d-block'>
 				<Input className=' mb-0' placeholder='Enter full name' />
@@ -142,19 +142,19 @@ export const CheckoutForm = ( props ) =>
 				<Input type="email" className=' mb-0' placeholder='Enter email' />
 			</Form.Item>
 
-			<Form.Item name="receiver_phone" label="Phone"
+			<Form.Item name="receiver_phone" label="Số điện thoại"
 				rules={ [ { required: true, pattern: REGEX_PHONE } ] }
 				className=' d-block'>
 				<Input className=' mb-0' placeholder='Enter phone' />
 			</Form.Item>
 
-			<Form.Item name="receiver_address" label="Address"
+			<Form.Item name="receiver_address" label="Địa chỉ"
 				rules={ [ { required: true } ] }
 				className=' d-block'>
 				<Input className=' mb-0' placeholder='Enter address' />
 			</Form.Item>
 
-			<Form.Item name="note" label="Note"
+			<Form.Item name="note" label="ghi chú"
 				className=' d-block'>
 				<TextArea rows={ 5 } className=' mb-0' placeholder='Enter note' />
 			</Form.Item>

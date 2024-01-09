@@ -118,7 +118,7 @@ export const MenuForm = ( props ) =>
 	}
 	const routes = [
 		{
-			name: 'Danh mục blog',
+			name: 'Danh mục bài viêt',
 			route: '/menu'
 		},
 		{
@@ -127,7 +127,7 @@ export const MenuForm = ( props ) =>
 		}
 	];
 	return <>
-		<Breadcrumbs routes={ routes } title={ "Danh mục blog" } />
+		<Breadcrumbs routes={ routes } title={ "Danh mục bài viêt" } />
 		<div className="w-75 mx-auto">
 			<Widget>
 				<Form

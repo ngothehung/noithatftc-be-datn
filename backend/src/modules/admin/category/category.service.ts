@@ -40,6 +40,7 @@ export class CategoryService {
     }
 
     async updateCategory(cateId: number, data: UpdateCategoryDto) {
+
         await this.cateRepo.update(cateId, data);
         return this.cateRepo.findOneBy({ id: cateId });
     }

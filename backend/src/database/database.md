@@ -25,6 +25,7 @@ CREATE TABLE `contacts` (
   `content` text,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  PRIMARY KEY (`id`) USING BTREE
 )
 
 CREATE TABLE `menus` (
@@ -33,6 +34,7 @@ CREATE TABLE `menus` (
   `slug` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  PRIMARY KEY (`id`) USING BTREE
 )
 
 CREATE TABLE `blogs` (
@@ -49,4 +51,5 @@ CREATE TABLE `blogs` (
   `author_email` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  PRIMARY KEY (`id`) USING BTREE
 )

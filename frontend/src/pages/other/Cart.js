@@ -168,10 +168,10 @@ const Cart = ({
 																		/>
 																		<button
 																			className="inc qtybutton"
-																			disabled={cartItem?.quantity >= 6}
+																			disabled={cartItem?.quantity >= cartItem}
 																			onClick={() => {
-																				if (cartItem?.quantity >= 5) {
-																					addToast("bạn chỉ có thể thêm tối da 5 sản phẩm", { appearance: 'warning',  autoDismiss: true  });
+																				if (cartItem?.quantity >= cartItem) {
+																					addToast("quá số lượng trong kho", { appearance: 'warning',  autoDismiss: true  });
 																				} else {
 																					addToCart(cartItem, addToast, quantityCount);
 																				}

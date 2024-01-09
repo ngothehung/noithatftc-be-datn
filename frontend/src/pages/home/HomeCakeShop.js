@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Fragment, useEffect, useState } from "react";
 import MetaTags from "react-meta-tags";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -11,6 +10,7 @@ import HeroSliderTwentyTwo from "../../wrappers/hero-slider/HeroSliderTwentyTwo"
 import { getSlidesByFilters } from "../../services/shop/slider-service";
 import { getCategories, getProductsByFilter } from "../../services";
 import BannerPage from "../../components/banner/Banner";
+import BlogService from "../../services/shop/BlogService";
 
 const HomeCakeShop = () =>
 {
@@ -19,6 +19,8 @@ const HomeCakeShop = () =>
 	const [ productsHot, setProductsHot ] = useState( null );
 	const [ products, setProducts ] = useState( null );
 	const [ categories, setCategories ] = useState( null );
+	const [ blogs, setBlogs ] = useState( [] );
+	const [ loadingBlogs, setLoadingBlogs ] = useState( true );
 	const [ loadingSlideStatus, setLoadingSlideStatus ] = useState( true );
 	const [ loadingCategoryStatus, setLoadingCategoryStatus ] = useState( true );
 	const [ loadingProductStatus, setLoadingProductStatus ] = useState( true );
@@ -33,27 +35,44 @@ const HomeCakeShop = () =>
 	const getData = async () => {
 		await getSlidesByFilters( { page: 1, page_size: 20, status: 1 }, setSlides );
 		await getCategories( { page: 1, page_size: 6, status: 1 }, setCategories );
+		await getBlogs({page: 1, page_size: 3, status: 1});
+		await productList();
 		setLoadingSlideStatus(false);
 		setLoadingCategoryStatus(false);
 	}
 
 	useState( () =>
 	{
-		getData()
+		getData();
 	}, [] );
 
 	
 
 	useEffect( () =>
-	{
-		productList()
-	}, [ params ] );
+	{	
+		if(products?.length > 0 && productsHot?.length> 0) {
+			setLoadingProductStatus(false);
+		}
+	}, [ products, productsHot ] );
 
 	const productList = async () => {
 		await getProductsByFilter( {...params, order_by: 'created_at', order_value: 'DESC'}, setProducts );
 		await getProductsByFilter( {...params, is_hot: 1}, setProductsHot );
+		
+	}
 
-		setLoadingProductStatus(false);
+	const getBlogs = async ( filters ) =>
+	{
+		const response = await BlogService.getList( filters );
+		if ( response )
+		{
+			setBlogs( response?.blogs );
+			setLoadingBlogs(false);
+		} else
+		{
+			setBlogs( [] );
+		}
+
 	}
 
 	return (
@@ -92,9 +111,11 @@ const HomeCakeShop = () =>
 					title={ 'Sản phẩm mới' }
 				/>
 				{/* blog featured */ }
+				<BlogFeaturedThree blogs={blogs} loading={loadingBlogs} spaceTopClass="pt-70" spaceBottomClass="pb-70" />
 			</LayoutOne>
 		</Fragment>
 	);
 };
+
 
 export default HomeCakeShop;

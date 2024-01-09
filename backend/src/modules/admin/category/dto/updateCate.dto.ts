@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty } from 'class-validator'
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator'
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt } from 'class-validator';
 
@@ -13,7 +13,7 @@ export class UpdateCategoryDto {
     @ApiProperty()
 	description: string;
 
-    @IsString()
+    @IsOptional()
     @ApiProperty()
 	avatar: string;
 

@@ -29,6 +29,7 @@ const ProductDescriptionInfo = ({
 	addToWishlist,
 	addToCompare
 }) => {
+	
 	const [selectedProductColor, setSelectedProductColor] = useState(
 		product?.variation ? product.variation[0].color : ""
 	);
@@ -117,6 +118,11 @@ const ProductDescriptionInfo = ({
 					<p>{product?.description}</p>
 				</div>
 			}
+			{loading === false && product &&
+				<div className="pro-details-list">
+					<p>số lượng còn trong kho : {product?.number}</p>
+				</div>
+			}
 			{loading == true &&
 				<LoadingList
 					total={1}
@@ -144,10 +150,10 @@ const ProductDescriptionInfo = ({
 							<button
 								onClick={() => {
 									setQuantityCount((prevCount) => {
-										const newCount = Math.min(prevCount + 1, 5, product.number - productCartQty);
+										const newCount = Math.min(prevCount + 1, product?.number, product.number - productCartQty);
 
-										if (newCount === 5) {
-											addToast("Bạn chỉ có thể thêm tối đa 5 sản phẩm", { appearance: 'warning', autoDismiss: true });
+										if (newCount === product?.number) {
+											addToast("Quá số lượng trong kho", { appearance: 'warning' });
 										}
 
 										return newCount;
@@ -170,13 +176,12 @@ const ProductDescriptionInfo = ({
 											selectedProductSize
 										)
 									}
-									disabled={(productCartQty >= product.number || productCartQty >= 5)}
 								>
 									{" "}
 									Thêm giỏ hàng{" "}
 								</button>
 							) : (
-								<button disabled>Out of stock</button>
+								<button disabled>Hết hàng</button>
 							)}
 						</div>
 						{

@@ -369,12 +369,12 @@ export const ProductForm = ( props ) =>
 										<Input className='form-control' type='number' max={ 100 } placeholder='(%)' />
 									</Form.Item>
 								</div>
-								<div className='col-md-4'>
+								{/* <div className='col-md-4'>
 									<Form.Item name="sale_to" label="Giảm đến ngày"
 										className=' d-block'>
 										<Input type='date' className='form-control' />
 									</Form.Item>
-								</div>
+								</div> */}
 
 								<div className='col-md-4'>
 									<Form.Item name="status" label="Trạng thái"

@@ -56,7 +56,7 @@ export const SlideForm = ( props ) =>
 			let formValue = {
 				name: data.name,
 				status: data.status,
-				link: data.link,
+				// link: data.link,
 				image: file
 			}
 			setFiles(file)
@@ -80,11 +80,15 @@ export const SlideForm = ( props ) =>
 			range: '${label} trong khoảng ${min} - ${max}',
 		},
 	};
+	
 
 	const submitForm = async ( e ) =>
+	
+	
 	{
 		await submitForms( id, files, e, dispatch, history );
 	}
+	
 
 	const resetForm = () =>
 	{
@@ -148,11 +152,11 @@ export const SlideForm = ( props ) =>
 							<Input className='form-control' placeholder='Nhập tên' />
 						</Form.Item>
 
-						<Form.Item name="link" label="Link"
+						{/* <Form.Item name="link" label="Link"
 							rules={ [ { required: true } ] }
 							className=' d-block'>
 							<Input className='form-control' placeholder='Nhập link' />
-						</Form.Item>
+						</Form.Item> */}
 						<Form.Item
 							label="Avatar"
 							name="image"

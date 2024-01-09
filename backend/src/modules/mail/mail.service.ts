@@ -38,7 +38,7 @@ export class MailService {
 			const result = await this.transporter.sendMail({
 				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: data.email,
-				bcc: ['letxhe140798@fpt.edu.vn'],
+				bcc: ['hungntph21684@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất] Chào mừng bạn đến với trang web`,
 				html: `
 			  <div style="background-color: #003375; margin: 0 auto; max-width: 600px; ">
@@ -67,7 +67,7 @@ export class MailService {
 			const result = await this.transporter.sendMail({
 				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: data.email || data.receiver_email,
-				cc: ['letxhe140798@fpt.edu.vn'],
+				cc: ['hungntph21684@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất] Đặt hàng thành công ${data?.code ? '#'+ data?.code : ''}`,
 				html: `
                 <div style='margin-left: 20px; font-size: 14px; overflow: auto; height: 400px; display: block;'>
@@ -83,7 +83,7 @@ export class MailService {
 					}</a></div>
                     <div style=' color:#000;'>Phone: ${data.receiver_phone}</div>
                     <br>
-					<div style=' color:#000;'>Hình thức thanh toán: ${data.payment_type == 1 ? 'Online(VNPay' : 'Tiền mặt'}</div>
+					<div style=' color:#000;'>Hình thức thanh toán: ${data.payment_type == 1 ? 'Online(VNPay' : 'THANH TOÁN COD'}</div>
 					<div style=' color:#000;'>Trạng thái: ${data.payment_status == 1 && 'Đã thanh toán' || 'Chưa thanh toán'}</div>
                     <div style='font-weight: 700; color:#000;'>Sản phẩm</div>
                     <div style=' color:#000;'>${this.genTemplateWSOrder(
@@ -119,7 +119,7 @@ export class MailService {
 			const result = await this.transporter.sendMail({
 				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: [this.config.get('MAIL_TO')],
-				bcc: ['letxhe140798@fpt.edu.vn'],
+				bcc: ['hungntph21684@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất - liên hệ] ${data.title} `,
 				html: `
 			  <div style="background-color: #003375; margin: 0 auto;">
@@ -143,7 +143,7 @@ export class MailService {
 			const result = await this.transporter.sendMail({
 				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: [data.email],
-				bcc: ['letxhe140798@fpt.edu.vn'],
+				bcc: ['hungntph21684@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất] Thay đổi mật khẩu `,
 				html: `
 				<div style="background-color: #003375; margin: 0 auto; max-width: 600px; ">

@@ -17,7 +17,7 @@ export const addToCart = (
 		{
 			if ( addToast )
 			{
-				addToast( "bạn chỉ có thể thêm tối da 5 sản phẩm", { appearance: "error", autoDismiss: true } );
+				addToast( "quá số lượng trong kho", { appearance: "error", autoDismiss: true } );
 			}
 		} else
 		{
