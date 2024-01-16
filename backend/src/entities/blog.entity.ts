@@ -19,8 +19,6 @@ export class Blog {
 	@Column({ name: 'slug', nullable: false })
 	slug: string | null;
 
-	@Column({ name: 'tags', nullable: true })
-	tags: string | null;
 
 	@Column({ name: 'description', nullable: true })
 	description: string | null;

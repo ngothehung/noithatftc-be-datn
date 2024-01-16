@@ -11,7 +11,7 @@ import { customDate, customNumber } from "../../helpers/common/common.js";
 import { Pagination } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
 import { DEFAUT_IMG, EMPTY_IMG } from "../../helpers/constant/image.js";
-import { buildImage, onErrorImage } from "../../services/common.js";
+import {  onErrorImage } from "../../services/common.js";
 import { DeleteOutlined } from '@ant-design/icons'
 import { DiscountSearch } from "./DiscountSearch.js";
 export const Discount = ( props ) =>

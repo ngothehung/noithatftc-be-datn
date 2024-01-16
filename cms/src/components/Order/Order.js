@@ -40,6 +40,7 @@ export const Orders = ( props ) =>
 	{
 
 		if ( status === 1 ) return <div className="badge bg-success">Đã thanh toán</div>;
+		if ( status === 2 ) return <div className="badge bg-success">chưa thanh toan</div>;
 		return <div className="badge bg-primary">Chưa thanh toán</div>;
 	}
 

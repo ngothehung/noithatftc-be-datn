@@ -17,15 +17,15 @@ export class RegisterDto {
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsString()
-	@MaxLength(20, {message: 'Password max length is 20 characters'})
-	@MinLength(6, {message: 'Password min length is 6 characters'})
+	@MaxLength(20, {message: 'Độ dài tối đa của mật khẩu là 20 ký tự'})
+	@MinLength(6, {message: 'Độ dài mật khẩu tối thiểu là 6 ký tự'})
 	password: string;
 
 	@ApiProperty()
 	@IsNotEmpty()
 	@IsString()
-	@MaxLength(20, {message: 'Password max length is 20 characters'})
-	@MinLength(6, {message: 'Password min length is 6 characters'})
+	@MaxLength(20, {message: 'Độ dài tối đa của mật khẩu tối đa là 20 ký tự'})
+	@MinLength(6, {message: 'Độ dài mật khẩu tối thiểu là 6 ký tự'})
 	password_cf: string;
 
 	@ApiProperty()

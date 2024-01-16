@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import { getDiscountPrice } from "../../../helpers/product";
 import { customNumber } from "../../../helpers/func";
-import { buildImage, onErrorImage } from "../../../services";
+import { onErrorImage } from "../../../services";
 
 const MenuCart = ({ cartData, currency, deleteFromCart, activeCart }) => {
     let cartTotalPrice = 0;
@@ -32,7 +32,7 @@ const MenuCart = ({ cartData, currency, deleteFromCart, activeCart }) => {
                                         <Link to={process.env.PUBLIC_URL + "/product/" + single.slug + '-' +single.id}>
                                             <img
                                                 alt={single.avatar}
-                                                src={buildImage(single.avatar)}
+                                                src={single.avatar}
 												onError={onErrorImage}
                                                 className="img-fluid"
                                             />

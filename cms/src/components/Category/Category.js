@@ -12,7 +12,7 @@ import { CategorySearch } from "./CategorySearch.js";
 import { Pagination } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
 import { DEFAUT_IMG, EMPTY_IMG } from "../../helpers/constant/image.js";
-import { buildImage, onErrorImage } from "../../services/common.js";
+import {  onErrorImage } from "../../services/common.js";
 import { DeleteOutlined } from "@ant-design/icons";
 export const Categories = ( props ) =>
 {
@@ -65,7 +65,7 @@ export const Categories = ( props ) =>
 												<img width="70" height="70"
 													id={ key }
 													style={ { border: "0.5px solid gray", borderRadius: '5px' } }
-													src={ buildImage( item.avatar ) } alt={ item.name } onError={ onErrorImage } />
+													src={ item.avatar} alt={ item.name } onError={ onErrorImage } />
 											</td>
 											<td className="text-gray-900">
 												<span className="text-break" style={ { minWidth: '100px' } }>{ item.name }</span>
@@ -116,7 +116,7 @@ export const Categories = ( props ) =>
 						<div className="mx-auto d-flex justify-content-center my-4">
 							<Pagination
 								onChange={ e =>
-									props.getList( { ...props.paging, page: e, ...props.params } )
+									props.getDatasByFilter( { ...props.paging, page: e, ...props.params } )
 								}
 								pageSize={ props.paging.page_size }
 								defaultCurrent={ props.paging.page }

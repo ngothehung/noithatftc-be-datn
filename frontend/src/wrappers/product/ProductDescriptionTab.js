@@ -115,7 +115,7 @@ const ProductDescriptionTab = ( props ) =>
 														<div className="single-review" key={ index }>
 															<div className="review-img">
 																<img width={ 80 } height={ 80 }
-																	src={ buildImage( item?.user?.avatar, true ) }
+																	src={( item?.user?.avatar, true )}
 																	alt={ item?.user?.avatar }
 																/>
 															</div>

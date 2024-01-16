@@ -103,8 +103,8 @@ const Cart = ({
 																	>
 																		<img
 																			className="img-fluid"
-																			src={buildImage(cartItem.avatar)}
-																			alt={buildImage(cartItem.avatar)}
+																			src={cartItem.avatar}
+																			alt={cartItem.avatar}
 																			onError={onErrorImage}
 																		/>
 																	</Link>

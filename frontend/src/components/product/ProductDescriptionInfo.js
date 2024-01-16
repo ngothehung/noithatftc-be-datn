@@ -13,6 +13,7 @@ import { StarIcons } from "../common/star";
 import { getItem } from "../../services";
 import { ProductOptions } from "../../wrappers/product/ProductOptions";
 import { LoadingList } from "../loading/LoadingList";
+import { DiscountService } from "../../services/shop/discount-service";
 
 const ProductDescriptionInfo = ({
 	product,
@@ -29,7 +30,7 @@ const ProductDescriptionInfo = ({
 	addToWishlist,
 	addToCompare
 }) => {
-	
+
 	const [selectedProductColor, setSelectedProductColor] = useState(
 		product?.variation ? product.variation[0].color : ""
 	);
@@ -184,8 +185,7 @@ const ProductDescriptionInfo = ({
 								<button disabled>Hết hàng</button>
 							)}
 						</div>
-						{
-							userId != null &&
+						{userId != null && (
 							<div className="pro-details-wishlist btn-hover">
 								<button
 									className={wishlistItem !== undefined ? "active" : ""}
@@ -200,7 +200,23 @@ const ProductDescriptionInfo = ({
 									<i className="pe-7s-like" />
 								</button>
 							</div>
-						}
+						)}
+						{userId == null && (
+							<div className="pro-details-wishlist btn-hover">
+								<button
+									className={wishlistItem !== undefined ? "active" : ""}
+									disabled={wishlistItem !== undefined}
+									title={
+										wishlistItem !== undefined
+											? "Yêu thích"
+											: "Yêu thích"
+									}
+									onClick={() => addToWishlist({ ...product, user_like: userId }, addToast)}
+								>
+									<i className="pe-7s-like" />
+								</button>
+							</div>
+						)}
 
 					</div>
 				</>

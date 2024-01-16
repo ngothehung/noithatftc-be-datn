@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ORDER_SERVICE, buildImage, onErrorImage, validateMessages } from "../../services";
+import { ORDER_SERVICE,  onErrorImage, validateMessages } from "../../services";
 import { Accordion, Card, Table } from "react-bootstrap";
 import { customNumber } from "../../helpers/func";
 import { Button, Form, Input, Modal, Pagination, message } from "antd";
@@ -62,7 +62,8 @@ const Order = (props) => {
 	}
 
 	const genPaymentStatus = (status) => {
-		if (status === 1) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã thanh toán</span>;
+		if (status === 0) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đang sử lí</span>;
+		else if (status === 2) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã thanh toán</span>;
 		return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-primary">Chưa thanh toán</span>;
 	}
 
@@ -119,11 +120,11 @@ const Order = (props) => {
 					<div className="ml-auto mr-auto col-lg-9">
 						<div className="myaccount-wrapper">
 							<div className=" w-50 mx-auto mb-2 d-flex mb-5">
-								<Input type="text" placeholder="Nhập mã đơn hàng" onChange={e => setCode(e?.target?.value)} />
-								<button className="btn ml-2 text-nowrap btn-xl btn-success"
+								{/* <Input type="text" placeholder="Nhập mã đơn hàng" onChange={e => setCode(e?.target?.value)} /> */}
+								{/* <button className="btn ml-2 text-nowrap btn-xl btn-success"
 									onClick={e => {
 										getOrders({ page: 1, page_size: 20, code: code })
-									}}>Tìm kiếm</button>
+									}}>Tìm kiếm</button> */}
 							</div>
 							<Accordion>
 								{orders.length > 0 ?
@@ -203,7 +204,7 @@ const Order = (props) => {
 																				</td>
 																				<td className="d-flex align-items-center">
 																					<img alt={product.name}
-																						src={buildImage(product.avatar)}
+																						src={product.avatar}
 																						onError={onErrorImage} style={{ width: '90px', height: '90px' }}
 																						width={90} height={90}
 																						className="mr-1" />

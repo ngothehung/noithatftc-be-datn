@@ -11,6 +11,8 @@ export const PAYMENT_TYPE = [
 ]
 
 export const PAYMENT_STATUS = [
-	{ value: 0, label: "Chưa thanh toán" },
-	{ value: 1, label: "Đã thanh toán" },
+	{ value: 0, label: "Đang sử lí" },
+	{ value: 1, label: "Chưa thanh toán" },
+	{ value: 2, label: "Đã thanh toán" },
+
 ]

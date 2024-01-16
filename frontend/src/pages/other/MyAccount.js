@@ -10,7 +10,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { useForm } from "antd/es/form/Form";
 import { Auth_Service } from "../../services/shop/auth-service";
 import { Form, Input, Select, Upload, message } from "antd";
-import { buildImage, onFieldsChange, setItem, uploadFile, validateMessages } from "../../services";
+import {  onFieldsChange, setItem, uploadFile, validateMessages } from "../../services";
 import { PlusOutlined } from '@ant-design/icons';
 import { useDispatch } from "react-redux";
 import { toggleShowLoading } from "../../redux/actions/common";
@@ -60,8 +60,8 @@ const MyAccount = ({ location }) => {
 				uid: file.length,
 				name: response?.data.avatar,
 				status: 'done',
-				url: buildImage(response?.data?.avatar, true),
-				default: true
+				url: response?.data?.avatar,
+
 			});
 			form.setFieldsValue({
 				name: response?.data?.name,

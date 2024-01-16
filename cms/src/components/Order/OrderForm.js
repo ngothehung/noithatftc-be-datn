@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { getOrderById, updateOrder } from '../../services/orderService';
 import { Table } from 'reactstrap';
 import { toggleShowLoading } from '../../redux/actions/common';
-import { buildImage, onErrorImage } from '../../services/common';
+import {  onErrorImage } from '../../services/common';
 import { PAYMENT_STATUS, PAYMENT_TYPE } from '../../helpers/constant/value';
 import Breadcrumbs from '../Breadbrumbs/Breadcrumbs';
 
@@ -231,7 +231,7 @@ export const OrderForm = ( props ) =>
 													<tr key={ index }>
 														<td className='text-center'>{ index + 1 }</td>
 														<td>{
-															<img style={ { border: "1px solid", borderRadius: "10px" } } src={ buildImage( item.avatar ) }
+															<img style={ { border: "1px solid", borderRadius: "10px" } } src={  item.avatar  }
 																alt={ item.avatar } width={ 100 }
 																height={ 100 } onError={ onErrorImage } />
 														}</td>

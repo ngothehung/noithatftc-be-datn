@@ -9,7 +9,7 @@ const HeroSliderTwentyTwoSingle = ({ data, sliderClass }) => {
             className={`single-slider-2 slider-height-2 d-flex align-items-center bg-img ${
                 sliderClass ? sliderClass : ""
             }`}
-            style={{ backgroundImage: `url(${buildImage(data.avatar)})`, height: '300px' }}
+            style={{ backgroundImage: `url(${data.avatar})`, height: '300px' }}
         >
             <div className="container">
                 <div className="row">
@@ -17,12 +17,6 @@ const HeroSliderTwentyTwoSingle = ({ data, sliderClass }) => {
                         <div className="slider-content-2 slider-content-2--style2 slider-content-2--style2--white slider-animated-1">
                             <h3 className="animated no-style">{data.name}</h3>
                             <div className="slider-btn btn-hover">
-                                <Link
-                                    className="animated rounden-btn"
-                                    to={process.env.PUBLIC_URL + '/shop'}
-                                >
-									Xem chi tiết
-                                </Link>
                             </div>
                         </div>
                     </div>

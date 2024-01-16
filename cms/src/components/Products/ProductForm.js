@@ -11,7 +11,7 @@ import { getCategoriesByFilter } from '../../services/categoryService';
 import { DeleteOutlined, PlusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { showProductDetail, submitFormProduct } from '../../services/productService';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
-import { buildImage, timeDelay } from '../../services/common';
+import {  timeDelay } from '../../services/common';
 import { toggleShowLoading } from '../../redux/actions/common';
 import moment from 'moment';
 import Breadcrumbs from '../Breadbrumbs/Breadcrumbs';
@@ -68,7 +68,7 @@ export const ProductForm = ( props ) =>
 				name: product?.avatar,
 				status: 'done',
 				path: product?.avatar,
-				url: buildImage( product.avatar ),
+				url:  product.avatar ,
 				default: true
 			} );
 
@@ -83,7 +83,7 @@ export const ProductForm = ( props ) =>
 							name: item.name,
 							status: 'done',
 							path: item.path,
-							url: buildImage( item.path ),
+							url:  item.path ,
 							default: true
 						} );
 					}

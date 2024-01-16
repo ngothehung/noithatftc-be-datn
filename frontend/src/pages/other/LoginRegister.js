@@ -39,24 +39,7 @@ const LoginRegister = ( { location } ) =>
 							<div className={type === 'login' ? 'col-lg-7 ml-auto mr-auto': 'col-md-12 ml-auto mr-auto'}>
 								<div className="login-register-wrapper">
 								{ type === 'login' ? <LoginForm /> : <RegisterForm/> }
-									{/* <Tab.Container defaultActiveKey={ type ? type : 'login' }>
-										<Nav variant="pills" className="login-register-tab-list">
-											<Nav.Item>
-												<Nav.Link eventKey="login" className={ type === 'login' ? 'active' : '' }>
-													<Link to="/auth/login"><h4>Login</h4></Link>
-												</Nav.Link>
-											</Nav.Item>
-											<Nav.Item>
-												<Nav.Link eventKey="register" className={ type === 'register' ? 'active' : '' }>
-													<Link to="/auth/register"><h4>Register</h4></Link>
-												</Nav.Link>
-											</Nav.Item>
-										</Nav>
-										<Tab.Content>
-											
-
-										</Tab.Content>
-									</Tab.Container> */}
+									
 								</div>
 							</div>
 						</div>

@@ -21,7 +21,7 @@ const ShopTopFilter = (props) => {
           {/* Product Filter */}
           <div className="col-md-12 col-sm-6 col-xs-12 mb-30">
             <div className="product-filter">
-              <h5>Categories</h5>
+              <h5>Danh mục</h5>
               {uniqueCategories ? (
                 <ul className="row">
 					<li className="col-2">

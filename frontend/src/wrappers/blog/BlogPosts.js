@@ -14,7 +14,7 @@ const BlogPosts = ( props ) =>
 						<div className="blog-img-2">
 							<Link to={ `/blog-details/${item.slug}-${item.id}`  }>
 								<img
-									src={buildImage(item.avatar) }
+									src={item.avatar }
 									alt={item.id}
 								/>
 							</Link>

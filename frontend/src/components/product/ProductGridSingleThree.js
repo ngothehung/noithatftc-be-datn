@@ -42,14 +42,14 @@ const ProductGridSingleThree = ( {
 						<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 							<img
 								className="default-img"
-								src={ buildImage( product.avatar ) }
+								src={ product.avatar  }
 								alt=""
 							/>
 							{ product?.product_images?.length > 0 ? (
 								<img
 									className="hover-img"
-									src={buildImage(product.product_images[ 0 ].path)}
-									alt={buildImage(product.product_images[ 0 ].path)}
+									src={product.product_images[ 0 ].path}
+									alt={product.product_images[ 0 ].path}
 									onError={ onErrorImage}
 								/>
 							) : (

@@ -7,7 +7,7 @@ import { useForm } from 'antd/lib/form/Form';
 import { PlusOutlined } from '@ant-design/icons';
 import { AUTH_SERVICE } from '../../services/authService';
 import uploadApi from '../../services/upload';
-import { buildImage, setItem } from '../../services/common';
+import {  setItem } from '../../services/common';
 
 export const ProfileSetting = (props) => {
     const [form] = useForm();
@@ -35,7 +35,7 @@ export const ProfileSetting = (props) => {
                 uid: file.length,
                 name: props.profileData.avatar,
                 status: 'done',
-                url: buildImage(props.profileData.avatar),
+                url: props.profileData.avatar,
                 default: true
             });
             let formValue = {

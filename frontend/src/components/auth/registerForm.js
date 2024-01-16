@@ -31,7 +31,7 @@ export const RegisterForm = ( props ) =>
 	{
 		if ( e.password?.trim() !== e.password_cf?.trim() )
 		{
-			message.error( 'Password does not match' );
+			message.error( 'Mật khẩu và xác nhận mật khẩu không khớp' );
 		}
 		dispatch( toggleShowLoading( true ) );
 		e.username = e.email;

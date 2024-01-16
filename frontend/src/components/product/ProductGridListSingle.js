@@ -58,16 +58,16 @@ const ProductGridListSingle = ( {
 						<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 							<img
 								className="default-img"
-								src={ buildImage( product.avatar ) }
-								alt={ buildImage( product.avatar ) }
+								src={ product.avatar  }
+								alt={  product.avatar  }
 								style={ { width: "100%", height: "270px", objectFit: "cover" } }
 								onError={ onErrorImage }
 							/>
 							{ product?.product_images?.length > 0 ? (
 								<img
 									className="hover-img"
-									src={buildImage(product.product_images[ 0 ].path)}
-									alt={buildImage(product.product_images[ 0 ].path)}
+									src={product.product_images[ 0 ].path}
+									alt={product.product_images[ 0 ].path}
 									onError={ onErrorImage }
 								/>
 							) : (
@@ -84,7 +84,7 @@ const ProductGridListSingle = ( {
 
 						<div className="product-action">
 							{
-								userId != null && <div className="pro-same-action pro-wishlist">
+								<div className="pro-same-action pro-wishlist">
 									<button
 										className={ wishlistItem !== undefined ? "active" : "" }
 										disabled={ wishlistItem !== undefined && !removeWishList }
@@ -181,15 +181,15 @@ const ProductGridListSingle = ( {
 									<Link to={ process.env.PUBLIC_URL + "/product/" + product.slug + '-' +product.id }>
 										<img
 											className="default-img"
-											src={ buildImage( product.avatar ) }
-											alt={ buildImage( product.avatar ) }
+											src={ product.avatar  }
+											alt={ product.avatar  }
 											onError={ onErrorImage }
 										/>
 										{ product?.product_images?.length > 0 ? (
 											<img
 												className="hover-img"
-												src={buildImage(product.product_images[ 0 ].path)}
-												alt={buildImage(product.product_images[ 0 ].path)}
+												src={product.product_images[ 0 ].path}
+												alt={product.product_images[ 0 ].path}
 												onError={ onErrorImage }
 											/>
 										) : (

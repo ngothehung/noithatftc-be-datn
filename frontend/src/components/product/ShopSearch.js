@@ -15,7 +15,7 @@ const ShopSearch = ( props
 					<input type="text" value={ name }
 						className="form-control"
 						onChange={ ( e ) => setName( e.target.value ) }
-						placeholder="Search product name..." />
+						placeholder="Tìm kiếm ..." />
 						<button type="submit" onClick={ () => props.setParams( { ...props.params, name: name } ) }>
 						<i className="pe-7s-search" />
 					</button>

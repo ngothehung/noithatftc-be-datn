@@ -65,7 +65,7 @@ export const SlidesPage = ( props ) =>
 												<img width="70" height="70"
 													id={ key }
 													style={ { border: "0.5px solid gray", borderRadius: '5px' } }
-													src={ buildImage( item.avatar ) } alt={ item.name } onError={ onErrorImage } />
+													src={  item.avatar  } alt={ item.name } onError={ onErrorImage } />
 											</td>
 											<td className="text-gray-900">
 												<span className="text-break" style={ { minWidth: '100px' } }>{ item.name }</span>

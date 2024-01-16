@@ -8,9 +8,6 @@ export class CreateSlidesDto {
 	@IsOptional()
 	avatar?: string;
 
-    @IsString()
-    @ApiProperty()
-	link: string;
 
     @IsString()
     @ApiProperty()

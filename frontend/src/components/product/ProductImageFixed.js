@@ -20,9 +20,9 @@ const ProductImageFixed = ({ product }) => {
       )}
 
       <div className="product-fixed-image">
-        {buildImage(product.avatar) ? (
+        {product.avatar ? (
           <img
-            src={buildImage(product.avatar)}
+            src={product.avatar}
             alt=""
             className="img-fluid"
           />

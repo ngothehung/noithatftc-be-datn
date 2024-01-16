@@ -17,9 +17,9 @@ const BannerPage = ( { categories, loading } ) =>
 	return (
 		<Container>
 			<div className="row pt-100 product-area">
-				{ loading == true && 
+				{ loading == true && 		
 					<LoadingList 
-					total={6} 
+					total={6} 				
 					className={'col-12 col-md-2 my-3'} 
 					height={60}/>
 				}
@@ -30,7 +30,7 @@ const BannerPage = ( { categories, loading } ) =>
 							<Link to={ { pathname: '/shop', search: `?category_id=${ item.id }` } } qu>
 								<div className="icon-banner text-center d-flex
 						justify-content-center align-items-center">
-									<img src={ buildImage( item.avatar ) } width={ 40 } height={ 40 } onError={ onErrorImage } />
+									<img src={  item.avatar  } width={ 40 } height={ 40 } onError={ onErrorImage } />
 								</div>
 								<div className="banner-content text-center">
 									<h4>

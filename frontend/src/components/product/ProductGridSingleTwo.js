@@ -55,15 +55,15 @@ const ProductGridSingleTwo = ( {
 							<img
 								className="default-img"
 								style={ { width: "100%", height: "270px", objectFit: "cover" } }
-								src={ buildImage( product.avatar ) }
+								src={ product.avatar  }
 								onError={ onErrorImage }
 								alt=""
 							/>
 							{ product?.product_images?.length > 0 ? (
 								<img
 									className="hover-img"
-									src={buildImage(product.product_images[ 0 ].path)}
-									alt={buildImage(product.product_images[ 0 ].path)}
+									src={product.product_images[ 0 ].path}
+									alt={product.product_images[ 0 ].path}
 									onError={ onErrorImage }
 								/>
 							) : (

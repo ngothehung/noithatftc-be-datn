@@ -176,7 +176,7 @@ const Checkout = ({ location, cartItems, currency }) => {
 												setSubmit(true);
 												setPaymentType(2);
 											}}>
-												Tiền mặt
+												Thanh toán khi nhận hàng
 											</button>
 										</div>
 										<div>

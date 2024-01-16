@@ -13,28 +13,6 @@ const HeaderTop = ({
   borderStyle
 }) => {
 	return null;
-//   return (
-//     <div
-//       className={`header-top-wap ${
-//         borderStyle === "fluid-border" ? "border-bottom" : ""
-//       }`}
-//     >
-//       <LanguageCurrencyChanger
-//         currency={currency}
-//         setCurrency={setCurrency}
-//         currentLanguageCode={currentLanguageCode}
-//         dispatch={dispatch}
-//       />
-//       <div className="header-offer">
-//         <p>
-//           Free delivery on order over{" "}
-//           <span>
-//             {currency.currencySymbol + (200 * currency.currencyRate).toFixed(2)}
-//           </span>
-//         </p>
-//       </div>
-//     </div>
-//   );
 };
 
 HeaderTop.propTypes = {

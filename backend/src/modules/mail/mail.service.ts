@@ -36,23 +36,23 @@ export class MailService {
 	async sendUserConfirmation(data: any) {
 		try {
 			const result = await this.transporter.sendMail({
-				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
+				from: `[Cửa hàng Nội thất] noithatftc@gmail.com`,
 				to: data.email,
-				bcc: ['hungntph21684@fpt.edu.vn'],
+				// bcc: ['duynvph1501@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất] Chào mừng bạn đến với trang web`,
 				html: `
 			  <div style="background-color: #003375; margin: 0 auto; max-width: 600px; ">
 			  <div style="padding: 10px; background-color: white;">
 				  <h4 style="color: #0d6efd">Xin chào, ${data.email}</h4>
-				  <p style="color: black">Chào mừng bạn đến với trang web của chúng tôi</p>
+				  <p style="color: black">Chào mừng bạn đến với trang web của chúng tôi ! Nhận ngay mã giảm giá ${data.code} cho đơn hàng tiếp theo của bạn!</p>
 				  
 
 				  <p>Nếu bạn có bất kỳ câu hỏi hoặc yêu cầu bổ sung nào, 
 				  xin hãy liên hệ với chúng tôi qua số Hotline <b>0964898718</b> 
 				  hoặc gửi email về địa chỉ noithatftc@gmail.com. Chúng tôi luôn sẵn lòng giúp đỡ bạn.</p>
-				  
 				  <p>Trân trọng,</p>
 				  <p><b>Cửa hàng Nội thất</b></p>
+				  
 			  </div>
 		  </div>
 					  `,
@@ -65,9 +65,9 @@ export class MailService {
 		try {
 			console.log("gửi mail-------> ", moment(data?.created_at));
 			const result = await this.transporter.sendMail({
-				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
+				from: `[Cửa hàng Nội thất] noithatftc@gmail.com`,
 				to: data.email || data.receiver_email,
-				cc: ['hungntph21684@fpt.edu.vn'],
+				// cc: ['duynvph1501@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất] Đặt hàng thành công ${data?.code ? '#'+ data?.code : ''}`,
 				html: `
                 <div style='margin-left: 20px; font-size: 14px; overflow: auto; height: 400px; display: block;'>
@@ -83,14 +83,13 @@ export class MailService {
 					}</a></div>
                     <div style=' color:#000;'>Phone: ${data.receiver_phone}</div>
                     <br>
-					<div style=' color:#000;'>Hình thức thanh toán: ${data.payment_type == 1 ? 'Online(VNPay' : 'THANH TOÁN COD'}</div>
-					<div style=' color:#000;'>Trạng thái: ${data.payment_status == 1 && 'Đã thanh toán' || 'Chưa thanh toán'}</div>
+					<div style=' color:#000;'>Hình thức thanh toán: ${data.payment_type == 1 ? 'Online( QRcode)' : 'THANH TOÁN COD'}</div>
                     <div style='font-weight: 700; color:#000;'>Sản phẩm</div>
                     <div style=' color:#000;'>${this.genTemplateWSOrder(
 						data.transactions
 					)}</div>
                     <br>
-                    <div style='color:#000;'>Total: ${data.total_price}</div>
+                    <div style='color:#000;'>Tổng tiền: ${data.total_price}</div>
                 </div>
                 
 					  `,
@@ -119,7 +118,7 @@ export class MailService {
 			const result = await this.transporter.sendMail({
 				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
 				to: [this.config.get('MAIL_TO')],
-				bcc: ['hungntph21684@fpt.edu.vn'],
+				// bcc: ['duynvph1501@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất - liên hệ] ${data.title} `,
 				html: `
 			  <div style="background-color: #003375; margin: 0 auto;">
@@ -141,9 +140,9 @@ export class MailService {
 	async resetPassword(data: any) {
 		try {
 			const result = await this.transporter.sendMail({
-				from: `[Cửa hàng Nội thất] noreply@gmail.com`,
+				from: `[Cửa hàng Nội thất] noithatftc@gmail.com`,
 				to: [data.email],
-				bcc: ['hungntph21684@fpt.edu.vn'],
+				// bcc: ['duynvph1501@fpt.edu.vn'],
 				subject: `[Cửa hàng Nội thất] Thay đổi mật khẩu `,
 				html: `
 				<div style="background-color: #003375; margin: 0 auto; max-width: 600px; ">

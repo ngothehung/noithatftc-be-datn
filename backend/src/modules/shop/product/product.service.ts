@@ -129,22 +129,22 @@ export class ProductService {
 		let errorData: any = {};
 
 		if (!formProduct.name || (formProduct.name && formProduct.name.trim() == '')) {
-			errorData.name = ['Name is required'];
+			errorData.name = ['Tên là bắt buộc'];
 		}
 
 		if (!formProduct.avatar || (formProduct.avatar && formProduct.avatar.trim() == '')) {
-			errorData.avatar = ['Avatar is required'];
+			errorData.avatar = ['Hình đại diện là bắt buộc'];
 		}
 
 		if (!formProduct.slug || (formProduct.slug && formProduct.slug.trim() == '')) {
-			errorData.slug = ['Slug is required'];
+			errorData.slug = ['Slug là bắt buộc'];
 		}
 
 		if (![-1, 1].includes(Number(formProduct.status))) {
-			errorData.status = ['Status is invalid'];
+			errorData.status = ['Trạng thái không hợp lệ'];
 		}
 		if (![-1, 1].includes(Number(formProduct.hot))) {
-			errorData.hot = ['Hot is required'];
+			errorData.hot = ['Hot là cần thiết'];
 		}
 		if (!_.isEmpty(errorData)) {
 			throw new BadRequestException({ code: 'F0002', message: null, data: errorData });

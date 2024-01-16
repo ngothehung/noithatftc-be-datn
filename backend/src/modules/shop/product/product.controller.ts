@@ -34,7 +34,7 @@ export class ProductController {
 				order_by: req?.query?.order_by || null,
 				order_value: req?.query?.order_value || null,
 			};
-			return BaseResponse(HTTP_STATUS.success, await this.adminProdService.getProducts(paging, filters),'', 'successfully!');
+			return BaseResponse(HTTP_STATUS.success, await this.adminProdService.getProducts(paging, filters),'', 'thành công !');
 		} catch (error) {
 			console.log('-----e@getProducts---> ', error);
 			return BaseResponse(error.status, error.response, error.code || 'E0001', error.message);

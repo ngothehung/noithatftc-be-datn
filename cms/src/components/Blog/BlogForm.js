@@ -62,14 +62,14 @@ export const BlogForm = ( props ) =>
 				uid: file.length,
 				name: data.avatar,
 				status: 'done',
-				url: buildImage( data.avatar ),
+				url:  data.avatar ,
 				default: true
 			} );
 			let formValue = {
 				title: data.title,
 				content: data.content,
 				menu_id: data.menu_id,
-				tags: data.tags,
+		
 				title: data.title,
 				description: data.description,
 				status: data.status || 0,
@@ -271,10 +271,6 @@ export const BlogForm = ( props ) =>
 							</div>
 						</div>
 
-						<Form.Item name="tags" label="Tags"
-							className=' d-block'>
-							<Input className='form-control' placeholder='Nhập tags' />
-						</Form.Item>
 
 						<Form.Item name="description" label="Mô tả ngắn"
 							rules={ [ { required: true } ] }

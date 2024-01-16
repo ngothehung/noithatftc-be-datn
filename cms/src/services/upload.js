@@ -13,13 +13,13 @@ const uploadApi = {
 				{
 					const formData = new FormData();
 					formData.append( 'file', files[ 0 ].originFileObj );
-					const res = await axios.post( `${ process.env.REACT_APP_URL_UPLOAD }/upload/image`,
+					const res = await axios.post( `${ process.env.REACT_APP_URL_UPLOAD }/upload/image/v2`,
 						formData, { headers: { 'Accept': 'multipart/form-data' } } );
 					let data = res.data;
 					console.log(data);
 					if ( data?.status === 'success' )
 					{
-						avatar = data?.data?.filename;
+						avatar = data?.data?.url;
 					}
 				} else
 				{
@@ -50,21 +50,21 @@ const uploadApi = {
 						{
 							const formData = new FormData();
 							formData.append( 'file', item.originFileObj );
-							const res = await axios.post( `${ process.env.REACT_APP_URL_UPLOAD }/upload/image`,
+							const res = await axios.post( `${ process.env.REACT_APP_URL_UPLOAD }/upload/image/v2`,
 								formData, { headers: { 'Accept': 'multipart/form-data' } } );
 							let data = res.data;
 							console.log(data);
 							if ( data?.status === 'success' )
 							{
 								fileImg.push({
-									name: data?.data?.filename,
-									path: data?.data?.filename
+									name: data?.data?.url,
+									path: data?.data?.url
 								});
 							}
 						} else {
 							fileImg.push( {
 								name: item.name || item.url,
-								path: item.path
+								path: item.url
 							} );
 						}
 					}

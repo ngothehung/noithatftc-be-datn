@@ -47,15 +47,12 @@ const Wishlist = ( {
 			getProductList( paging )
 		}
 	}, [isReload] );
+
 	const getProductList = ( filter ) =>
 	{
 		console.log(userId);
 		console.log(wishlistItems);
-		if ( !userId || userId === undefined || userId === "undefined" )
-		{
-			setProducts( [] );
-			setPaging( { page: 1, page_size: 20, total: 0 } )
-		} else if ( wishlistItems?.length > 0 )
+		if ( wishlistItems?.length > 0 )
 		{
 			let data = wishlistItems.filter( ( item, index ) => item && index < ( paging.page * paging.page_size ) );
 			console.log(data);
@@ -117,9 +114,9 @@ const Wishlist = ( {
 														<i className="pe-7s-like"></i>
 													</div>
 													<div className="item-empty-area__text">
-														No items found in wishlist <br />{ " " }
+													Không tìm thấy mục nào trong danh sách yêu thích <br />{ " " }
 														<Link to={ process.env.PUBLIC_URL + "/shop" }>
-															Add Items
+														Thêm mục
 														</Link>
 													</div>
 												</div>
@@ -147,12 +144,7 @@ Wishlist.propTypes = {
 
 const mapStateToProps = state =>
 {
-	let userId = getItem( "id" ) || null;
-	let wishlistData = [];
-	if ( userId != null && state.wishlistData?.length > 0 )
-	{
-		wishlistData = state.wishlistData.filter( item => item.user_like === userId )
-	}
+	let wishlistData = state.wishlistData || [];
 	return {
 		cartItems: state.cartData,
 		wishlistItems: wishlistData,

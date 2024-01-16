@@ -13,7 +13,7 @@ const BlogFeaturedThreeSingle = ( { singlePost } ) =>
 				<div className="blog-img">
 					<Link to={ `/blog-details/${ singlePost?.slug }-${ singlePost?.id }` }>
 						<img
-							src={ buildImage( singlePost?.avatar ) }
+							src={ singlePost?.avatar  }
 							alt={ singlePost?.id }
 						/>
 					</Link>

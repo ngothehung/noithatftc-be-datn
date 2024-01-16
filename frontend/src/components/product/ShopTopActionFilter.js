@@ -40,7 +40,7 @@ const ShopTopActionFilter = ( props ) =>
 
 				<div className="filter-active">
 					<button onClick={ e => toggleShopTopFilter( e ) }>
-						<i className="fa fa-plus"></i> filter
+						<i className="fa fa-plus"></i> Danh mục
 					</button>
 				</div>
 			</div>

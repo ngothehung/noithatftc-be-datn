@@ -12,7 +12,7 @@ import { Pagination } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
 import { DEFAULT_USER, EMPTY_IMG } from "../../helpers/constant/image.js";
 import { UserSearch } from "./UserSearch.js";
-import { buildImage, onErrorImage, onErrorUser } from "../../services/common.js";
+import {  onErrorImage, onErrorUser } from "../../services/common.js";
 import { DeleteOutlined } from "@ant-design/icons";
 export const UserCpn = ( props ) =>
 {
@@ -82,7 +82,7 @@ export const UserCpn = ( props ) =>
 											<td className="d-flex align-items-center">
 												<img width="70" height="70"
 													style={ { border: "0.5px solid gray", borderRadius: '5px' } }
-													src={ buildImage( item.avatar ) } alt={ item.name } onError={ onErrorUser } />
+													src={  item.avatar  } alt={ item.name } onError={ onErrorUser } />
 											</td>
 											<td className="text-gray-900">
 												<div className="d-flex">

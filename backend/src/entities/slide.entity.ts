@@ -12,8 +12,7 @@ export class Slide {
 	@Column({ name: 'avatar', nullable: true })
 	avatar: string | null;
 
-	@Column({ name: 'link', nullable: true })
-	link: string | null;
+
 
 	@Column({ name: 'name', nullable: true })
 	name: string | null;

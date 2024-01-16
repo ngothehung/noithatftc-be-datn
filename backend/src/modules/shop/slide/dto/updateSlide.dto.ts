@@ -7,9 +7,6 @@ export class UpdateSlidesDto {
     @ApiProperty()
 	avatar: string;
 
-    @IsString()
-    @ApiProperty()
-	link: string;
 
     @IsString()
     @ApiProperty()

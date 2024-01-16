@@ -94,8 +94,8 @@ const ProductImageGallery = ( { product, images } ) =>
 									<div key={ key }>
 										<LightgalleryItem
 											group="any"
-											src={ buildImage( single ) }
-											alt={ buildImage( single ) }
+											src={ single  }
+											alt={ single  }
 											onError={ onErrorImage }
 										>
 											<button>
@@ -105,8 +105,8 @@ const ProductImageGallery = ( { product, images } ) =>
 										<div className="single-image">
 											<img
 												className="img-fluid"
-												src={ buildImage( single ) }
-												alt={ buildImage( single ) }
+												src={  single  }
+												alt={  single  }
 												onError={ onErrorImage }
 											/>
 										</div>
@@ -128,8 +128,8 @@ const ProductImageGallery = ( { product, images } ) =>
 									<div className="single-image">
 										<img
 											className="img-fluid"
-											src={ buildImage( single ) }
-											alt={ buildImage( single ) }
+											src={  single  }
+											alt={  single  }
 											onError={ onErrorImage }
 
 										/>

@@ -33,7 +33,7 @@ const BlogService = {
 
     async findBySlug(slug, params) {
 		try {
-			const url = `blog/show/${slug}`;
+			const url = `bai/show/${slug}`;
 			const response = await getMethod(url, {params: params})
 
 			if (response?.status === "success") {

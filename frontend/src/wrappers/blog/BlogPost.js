@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { buildImage } from "../../services";
 import { customDate } from "../../helpers/func";
 
 const BlogPost = ( props ) =>
@@ -12,7 +11,7 @@ const BlogPost = ( props ) =>
 					<div className="blog-details-img">
 						<img
 							alt={ props.data.title }
-							src={ buildImage( props.data.avatar ) }
+							src={  props.data.avatar  }
 						/>
 					</div>
 					<div className="blog-details-content w-100">

@@ -10,7 +10,6 @@ import { toSlug } from '../../helpers/common/common';
 import { PlusOutlined } from '@ant-design/icons';
 import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import { showData, submitForms } from '../../services/slideService';
-import { buildImage } from '../../services/common';
 import Breadcrumbs from '../Breadbrumbs/Breadcrumbs';
 export const SlideForm = ( props ) =>
 {
@@ -50,13 +49,12 @@ export const SlideForm = ( props ) =>
 				uid: file.length,
 				name: data.avatar,
 				status: 'done',
-				url:  buildImage(data.avatar),
+				url: data.avatar,
 				default: true
 			} );
 			let formValue = {
 				name: data.name,
 				status: data.status,
-				// link: data.link,
 				image: file
 			}
 			setFiles(file)
@@ -152,11 +150,7 @@ export const SlideForm = ( props ) =>
 							<Input className='form-control' placeholder='Nhập tên' />
 						</Form.Item>
 
-						{/* <Form.Item name="link" label="Link"
-							rules={ [ { required: true } ] }
-							className=' d-block'>
-							<Input className='form-control' placeholder='Nhập link' />
-						</Form.Item> */}
+						
 						<Form.Item
 							label="Avatar"
 							name="image"

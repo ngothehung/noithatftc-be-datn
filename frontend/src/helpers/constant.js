@@ -36,13 +36,15 @@ export const REGEX_PHONE = /^[0-9]+$/;
 
 
 export const PAYMENT_TYPE = [
-	{ value: 1, label: "Thanh toán Online ( VNPay)" },
+	{ value: 1, label: "Thanh toán Online ( QRcode)" },
 	{ value: 2, label: "Tiền mặt" },
 ]
 
 export const PAYMENT_STATUS = [
-	{ value: 0, label: "Chưa thanh toán" },
-	{ value: 1, label: "Đã thanh toán" },
+	{ value: 0, label: "Đang sử lí" },
+	{ value: 1, label: "Chưa thanh toán" },
+	{ value: 2, label: "Đã thanh toán" },
+
 ];
 
 export const INIT_PAGING = {

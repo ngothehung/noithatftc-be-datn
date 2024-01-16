@@ -66,7 +66,7 @@ export const ProfileInfo = (props) => {
                                 </li>
                             </div>
                             <div className="col-3 text-center pt-4">
-                                <img src={ buildImage(props.profileData?.avatar)} width="100%" height="100%" style={{ maxWidth: 140, maxHeight: 140 }} />
+                                <img src={ props.profileData?.avatar} width="100%" height="100%" style={{ maxWidth: 140, maxHeight: 140 }} />
                             </div>
                         </div>
                     </ul>

@@ -11,7 +11,7 @@ import { ProductSearch } from "./ProductSearch.js";
 import { Pagination } from "antd";
 import { Link } from "react-router-dom/cjs/react-router-dom.min.js";
 import { DEFAUT_IMG, EMPTY_IMG } from "../../helpers/constant/image.js";
-import { buildImage, onErrorImage } from "../../services/common.js";
+import {  onErrorImage } from "../../services/common.js";
 import { DeleteOutlined, LockOutlined, UnlockOutlined } from "@ant-design/icons";
 export const Products = (props) => {
 	const handleDelete = (productId) => {
@@ -74,7 +74,7 @@ export const Products = (props) => {
 												<td className="d-flex align-items-center">
 													<img width="70" height="70"
 														style={{ border: "0.5px solid gray", borderRadius: '5px' }}
-														src={buildImage(item.avatar)} alt={item.name} onError={onErrorImage} />
+														src={item.avatar} alt={item.name} onError={onErrorImage} />
 												</td>
 												<td className="text-gray-900">
 													<div className="d-flex">

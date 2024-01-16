@@ -61,8 +61,8 @@ const Login = ( props ) =>
 							<div className="d-flex align-items-center justify-content-between py-3">
 								<p className="auth-header mb-0">Login</p>
 								<div className="logo-block">
-									<SofiaLogo />
-									<p className="mb-0">[Cửa hàng Nội thất] CMS</p>
+									
+									<p className="mb-0">Cửa hàng Nội thất ftc</p>
 								</div>
 							</div>
 							<Form
