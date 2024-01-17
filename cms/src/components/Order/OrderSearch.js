@@ -19,12 +19,12 @@ export const OrderSearch = ( props ) =>
 			{ value: 4, label: 'Hủy bỏ' },
 		] );
 		setShippingStatus( [
-			{ value: 1, label: "Chờ lấy hàng" },
-			{ value: 2, label: "Đang giao" },
-			{ value: 3, label: "Đã giao" },
-			{ value: 4, label: 'Đã nhận hàng' },
-			{ value: 5, label: 'chờ duyệt' },
-			{ value: 6, label: 'Đã duyệt' },
+			{ value: 1, label: 'Chờ duyệt' },
+			{ value: 2, label: 'Đã duyệt' },
+			{ value: 3, label: 'Chờ lấy hàng' },
+			{ value: 4, label: 'Đang giao hàng' },
+			{ value: 5, label: 'Đã giao' },
+			{ value: 6, label: 'Đã nhận hàng' },
 		] );
 	}, [] )
 

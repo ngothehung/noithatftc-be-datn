@@ -73,13 +73,7 @@ export const MenuCpn = ( props ) =>
 													<Link to={ `/menu/edit/${ item.id }` } className="d-flex justify-content-center">
 														<i className="eva eva-edit" style={ { fontSize: "16px", border: "1px solid" } }></i>
 													</Link>
-													<DeleteOutlined
-														className="ml-2 cursor-pointer"
-														onClick={ () =>
-														{
-															props.deleteById( item.id );
-														} }
-														style={ { fontSize: "16px", color: "red" } } />
+						
 												</div>
 											</td>
 										</tr>

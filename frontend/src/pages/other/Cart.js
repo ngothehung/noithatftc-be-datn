@@ -7,11 +7,11 @@ import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
 import { getDiscountPrice } from "../../helpers/product";
 import {
-addToCart,
-decreaseQuantity,
-deleteFromCart,
-cartItemStock,
-deleteAllFromCart
+	addToCart,
+	decreaseQuantity,
+	deleteFromCart,
+	cartItemStock,
+	deleteAllFromCart
 } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
@@ -31,6 +31,11 @@ const Cart = ({
 	const { addToast } = useToasts();
 	const { pathname } = location;
 	let cartTotalPrice = 0;
+	
+	const loginPath = process.env.PUBLIC_URL + "/auth/login";
+	const isLoggedIn = localStorage.getItem('access_token');
+
+	const checkoutPath = process.env.PUBLIC_URL + "/checkout";
 
 	return (
 		<Fragment>
@@ -171,7 +176,7 @@ const Cart = ({
 																			disabled={cartItem?.quantity >= cartItem}
 																			onClick={() => {
 																				if (cartItem?.quantity >= cartItem) {
-																					addToast("quá số lượng trong kho", { appearance: 'warning',  autoDismiss: true  });
+																					addToast("quá số lượng trong kho", { appearance: 'warning', autoDismiss: true });
 																				} else {
 																					addToCart(cartItem, addToast, quantityCount);
 																				}
@@ -245,9 +250,10 @@ const Cart = ({
 													{customNumber(cartTotalPrice.toFixed(2), 'đ')}
 												</span>
 											</h4>
-											<Link to={localStorage.getItem('access_token') ? process.env.PUBLIC_URL + "/checkout" : process.env.PUBLIC_URL + "auth/login"}>
-												Mua
+											<Link to={isLoggedIn ? checkoutPath : loginPath}>
+												{isLoggedIn ? 'Mua' : 'Đăng nhập để mua'}
 											</Link>
+											
 											{/* <Link to={ process.env.PUBLIC_URL + "/checkout" }>
 												Mua
 											</Link> */}

@@ -183,7 +183,7 @@ const Checkout = ({ location, cartItems, currency }) => {
 											{showImage && (
 												<div className="place-order mt-25">
 													<img
-														src={`https://img.vietqr.io/image/vietinbank-113366668888-compact2.jpg?amount=${cartTotalPrice}&addInfo=Thanhtoánđơnhàng`}
+														src={`https://img.vietqr.io/image/vietcombank-1022193647-compact2.jpg?amount=${cartTotalPrice}&addInfo=Thanhtoánđơnhàng`}
 														alt="Payment QR Code"
 													/>
 												</div>

@@ -8,14 +8,14 @@ const chartsSettings = {
 	donut: {
 		data: [
 			{ name: "Đặt hàng thành công", key: 0, value: 0, color: '#FFC405' },
-			{ name: 'Đã duyệt', key: 1, value: 0, color: '#4D53E0' },
-			{ name: "Hoàn thành", key: 2, value: 0, color: '#43BC13' },
-			{ name: 'Hủy bỏ', key: 3, value: 0, color: '#FF5668' },
+			{ name: 'Hủy bỏ', key: 3, value: 0, color: '#FF5668'},
+
+		
 		],
 	}
 };
 
-const RechartsPieChart = ( props ) =>
+const RechartsPieChart = ( props ) =>	
 {
 
 	const [ data, setData ] = useState( chartsSettings.donut.data );

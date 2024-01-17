@@ -10,10 +10,8 @@ export default function PipeChartApex ( props )
 	useEffect( () =>
 	{
 		let newData = [
-			{ name: "Đặt hàng thành công", key: 1, value: 0, color: '#FFC405' },
-			// { name: 'Đã duyệt', key: 2, value: 0, color: '#4D53E0' },
-			{ name: "Hoàn thành", key: 3, value: 0, color: '#43BC13' },
-			// { name: 'Hủy bỏ', key: 4, value: 0, color: '#FF5668' },
+			{ name: "Đặt hàng thành công", key: 1, value: 0, color: '#44BB14' },
+			{ name: 'Hủy bỏ', key: 4, value: 0, color: '#FF5668' },
 		]
 		if ( props.data )
 		{
@@ -48,7 +46,9 @@ export default function PipeChartApex ( props )
 				},
 				legend: {
 					position: 'right',
-				}
+					
+				},
+				colors: data.map(item => item.color)
 			} )
 		}
 

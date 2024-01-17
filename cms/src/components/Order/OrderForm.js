@@ -40,8 +40,8 @@ export const OrderForm = ( props ) =>
 		setShippingStatus( [
 			{ value: 1, label: 'Chờ duyệt' },
 			{ value: 2, label: 'Đã duyệt' },
-			{ value: 3, label: 'Chờ giao hàng' },
-			{ value: 4, label: 'Đang giao' },
+			{ value: 3, label: 'Chờ lấy hàng' },
+			{ value: 4, label: 'Đang giao hàng' },
 			{ value: 5, label: 'Đã giao' },
 			{ value: 6, label: 'Đã nhận hàng' },
 			

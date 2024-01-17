@@ -49,7 +49,6 @@ export const Blog = ( props ) =>
 								<th className="text-nowrap">Tiêu đề</th>
 								<th className="text-nowrap">Slug</th>
 								<th className="text-nowrap">Tác giả</th>
-								<th className="text-nowrap">Tags</th>
 								<th className="text-nowrap">Trạng thái</th>
 								<th className="text-nowrap text-center">Thao tác</th>
 							</tr>

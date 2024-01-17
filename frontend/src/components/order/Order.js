@@ -56,8 +56,6 @@ const Order = (props) => {
 
 	const genStatus = (status) => {
 		if (status === 1) return <p className="text-warning mb-0 ">Đặt hàng thành công</p>;
-		else if (status === 2) return <p className="text-primary mb-0">Đã duyệt</p>;
-		else if (status === 3) return <p className="text-success mb-0">Hoàn thành</p>;
 		else return <p className="text-danger mb-0">Hủy bỏ</p>;
 	}
 
@@ -75,12 +73,11 @@ const Order = (props) => {
 
 	const genShippingStatus = (status) => {
 		if (status === 1) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">chờ duyệt</span>;
-		else if (status === 2) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-warning">Chờ giao hàng</span>;
-		else if (status === 3) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-primary">Đang giao</span>;
-		else if (status === 4) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã nhận hàng</span>;
-		
-		else if (status === 5) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã cuyệt</span>;
-		else return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã giao</span>;
+		else if (status === 2) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-warning">Đã duyệt</span>;
+		else if (status === 3) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-primary">Chờ lấy hàng</span>;
+		else if (status === 4) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã giao</span>;
+		else if (status === 5) return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã Giao hàng</span>;
+		else if (status === 6)  return <span style={{ fontWeight: 600, fontSize: 18 }} className="text-success">Đã nhận hàng</span>;
 	}
 
 	const destroyAll = () => {
@@ -159,7 +156,7 @@ const Order = (props) => {
 																	<p><span style={{ fontWeight: 600 }}>Email: </span>{item.receiver_email}</p>
 																</div>
 
-																{cancelButtonVisible && item?.status === 1 && item?.shipping_status !== 6 && (
+																{cancelButtonVisible && item?.status === 1 && item?.shipping_status !== 5 && (
 																	<button
 																		className="btn btn-danger"
 																		onClick={() => {
@@ -173,8 +170,8 @@ const Order = (props) => {
 																)}
 
 																{
-																	item?.shipping_status === 3 && <button className="btn btn-success" onClick={() => {
-																		updateStatus(item?.id, { shipping_status: 4 })
+																	item?.shipping_status === 5 && <button className="btn btn-success" onClick={() => {
+																		updateStatus(item?.id, { shipping_status: 6 })
 																	}}>Xác nhận đơn hàng</button>
 																}
 																{
